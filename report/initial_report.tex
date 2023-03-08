@@ -1,0 +1,151 @@
+\documentclass{article}
+
+\usepackage[a4paper]{geometry}
+\usepackage{graphicx}
+\usepackage[utf8]{inputenc}
+\usepackage{subcaption}
+\usepackage{hyperref}
+
+
+\graphicspath{{./images/}}
+
+\title{\textbf{WizardGame 2}}
+\author{
+    Dumitru Mițca\\
+    Grupa NNNNL}
+    \date{2023}
+
+    \begin{document}
+    \maketitle
+
+    \hypersetup{linkbordercolor=1 1 1}
+    \renewcommand*\contentsname{Cuprins}
+    \tableofcontents
+    \hypersetup{linkbordercolor=1 0 0}
+
+
+    \newpage
+
+    \section{Contextul jocului}
+    WizardGame 2 este un sequel la \href{https://github.com/RealKC/WizardGame}{WizardGame}
+    \footnote{Acesta a fost proiectul meu pentru POO, un sumar al povestii veti
+    regasi in \href{sec:anexa1}{Anexa 1}}.
+    Dupa evenimentele \emph{WizardGame}, Mircea decide sa se mute la casa lui de pe
+    Bulevardul Magheru din București, deoarece Brăila îi aduce amintiri triste.
+
+    Cristian, fratele lui Adrian și necromant\footnote{Un vrăjitor care deține puteri ce
+    îi permit să reînvie și să controleze morții.} renumit, care era plecat în Sicilia
+    pentru a învăța vrăji de la magicienii sicilieni este anunțat de moarte fratele său
+    și jură că îl va răzbuna. În următorii 2 ani, Cristian stabilizează clanul Isch'tauk,
+    care devenise haotic după moartea lui Adrian, fostul lider, și se pregătește pentru
+    răzbunare. Iar pe data 25 octombrie 1966 își pune în acțiune planurile.
+
+    în dimineața acestei zile Cristian își aduce armate de nemorți, în care sunt și Matei
+    și Adrian, reînviați de Cristian, și pe cei mai buni dintre discipolii lui \emph{Denis}
+    și \emph{Cezar, the Tatarasiborn Guardian} în București și astfel începe atacul asupra
+    lui Mircea.
+
+    \section{Gameplay}
+
+    \begin{figure}[h]
+        \includegraphics[scale=0.125]{gameplayloop}
+        \centering
+        \caption{WizardGame 2 Gameplay loop}
+    \end{figure}
+
+    După ce jucătorul își alege un personaj \ref{sec:pcs} și intră într-un nivel, dispune
+    doar de un singur atac: o vrajă specifică acelui personaj. Cât timp jucătorul se află
+    în nivel, acesta va omorî inamici, care vor lăsa la poziția lor \emph{experiență}.
+    Colectarea \emph{experienței} va duce eventual la creșterea nivelului jucătorului, lucru
+    care îi va permite să obțină arme sau vrăji noi, sau să își îmbunătățească caracteristicile
+    \ref{sec:stats}.
+
+    O posibilă extensie asupra acestui sistem ar reprezenta-o existența unui mod de a crește
+    abilitățile intrinsice în mod permanent. Acesta ar implica existența unui sistem de puncte
+    care pot fi folosite în acest scop. Momentan nu sunt sigur că acest lucru va fi prezent
+    în versiunea finală a jocului, dar îl voi explora.
+
+    Completarea unui nivel necesită învingerea boss-ului acelui nivel. Boss-ul apare la
+    minutul 20:00\footnote{Dacă pe parcursul procesului de dezvoltare observ că 20 de
+    minute este prea mult pentru un nivel, timpul va fi scurtat, dar nu la mai puțin de
+    14 minute.} și trebuie învins pentru a progresa la nivelul următor.
+
+    \section{Conținut}
+
+    \emph{WizardGame 2} conține o varietate de inamici ce trebuie învinși de
+    jucător și o varietate de vrăji și atacuri ce pot fi folosite de acesta pentru a ajunge
+    la victorie.
+
+    Jucătorul poate alege între două personaje: \emph{Mircea, The Wizard of Brăila} și
+    \emph{Mihai, the Fullmetal Wizard}.
+    \begin{itemize}
+        \item \emph{Mircea} --- începe cu o vrajă care îi permite să arunce bile de foc
+        \item \emph{Mihai} --- deoarece și-a pierdut brațul în Războiul Magilor din 1959,
+        și-a implatat un braț magic metalic. Acesta îl face să fie mai slab cu atacuri
+        magice, dar mai priceput cu atacuri ce presupun aruncarea unui obiect.
+    \end{itemize}
+
+    Jucătorul poate folosi maxim 3 din urmatoarele vrăji și atacuri:
+    \begin{itemize}
+        \item TODO
+    \end{itemize}
+
+    Jucătorul poate echipa maxim 3 din următoarele seturi de echipament, care îi vor conferi
+    efecte pasive:
+    \begin{itemize}
+        \item TODO
+    \end{itemize}
+
+    Personajul jucătorului are următoarele caracteristici, care pot fi îmbunătățite pe parcursul
+    jocului:
+    \begin{itemize} \label{sec:stats}
+        \item puterea magică (\textbf{+ATK\%}) --- un bonus procentual aplicat asupra unui atac normal.
+        \item șansa atacului critic (\textbf{CRIT\%}) --- șansa ca un atac să își aibă valoare dublată.
+        \item viteza (\textbf{+SPD\%}) --- cât de rapid se mișca personajul jucătorului.
+        \item raza de pickup (\textbf{+PCK}) --- raza maximă în care trebuie să se afle un item
+        pe hartă pentru a putea fi luat de jucător, măsurată în pixeli.
+        \item viteza de atac (\textbf{+HST\%}) --- cât de rapid atacă jucătorul.
+    \end{itemize}
+    \label{sec:pcs}
+
+    \section{Niveluri}
+
+    \begin{figure}[h]
+        % \includegraphics[scale=0.125]{designing-levels}
+        \centering
+        \caption{Proiectarea nivelurilor}
+    \end{figure}
+
+    \emph{WizardGame 2} are următoarele niveluri:
+    \begin{itemize}
+        \item \emph{Curtea lui Mircea} --- un cămp larg, în care obstacolele sunt garduri,
+        pietre și copaci, dar care în general oferă o libertate de mișcare crescută. Inamicii
+        prezenți vor fi schelete, cranii zburătoare și zombie. Inamicii de tip boss vor fi
+        \emph{Matei, the Profaned} și \emph{Adrian, the Crimson Undead}.
+        \item \emph{Bulevardul Magheru} --- un nivel mai îngust, în care obstacolele vor fi
+        mașini parcate. Inamicii prezenți vor fi schelete cu armură, zombie și fantome. Inamicii
+        de tip boss vor fi \emph{Denis} și \emph{Cezar, the Tătărașiborn Guardian}.
+        \item \emph{Calea Victoriei} --- un nivel și mai îngust care va încapea în totalitate pe
+        ecran în înălțime, dar nu în lățime. \emph{Cristian, the Necromancer of Neamț} va fi
+        singurul inamic de tip boss, dar lupta cu el va fi în două etape.
+    \end{itemize}
+
+    în toate aceste nivele vor exista inamici de tip mini-boss care sunt versiuni mai mari și mai
+    puternice a celor normali.
+
+    \section{Interfața grafică}
+
+    TODO
+
+    \addcontentsline{toc}{section}{Anexa 1}
+    \section*{Anexa 1}
+    Evenimentele \emph{WizardGame} se întâmplă cu 2 ani înainte de \emph{WizardGame 2}, în 1964,
+    când \emph{Adrian, the Shaman of Neamț} anunță că va distruge Munții Carpați după ce tocmai
+    a furat toate cărțile de vrăji ale vrăjitorilor români. Mircea, cunoscând vraja \emph{Fireball}
+    în foarte multe detalii nu are nevoie de cărți magice pentru a folosi vraja, și decide să îl
+    oprească pe Adrian, dar \emph{Matei}, senseiul său este omorât de mionionii lui Adrian.
+    Jocul se termină prin moartea lui Adrian și salvarea Munților Carpați.
+
+    \label{sec:anexa1}
+
+\end{document}
