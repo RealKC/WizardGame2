@@ -4,6 +4,9 @@
 \usepackage{graphicx}
 \usepackage[utf8]{inputenc}
 \usepackage{subcaption}
+\usepackage{placeins}
+\usepackage{wrapfig}
+\usepackage{float}
 \usepackage{hyperref}
 
 
@@ -30,8 +33,9 @@
     WizardGame 2 este un sequel la \href{https://github.com/RealKC/WizardGame}{WizardGame}
     \footnote{Acesta a fost proiectul meu pentru POO, un sumar al povestii veti
     regasi in \href{sec:anexa1}{Anexa 1}}.
-    Dupa evenimentele \emph{WizardGame}, Mircea decide sa se mute la casa lui de pe
-    Bulevardul Magheru din București, deoarece Brăila îi aduce amintiri triste.
+    Dupa evenimentele \emph{WizardGame} în care Mircea l-a omorât pe Adrian, Mircea decide sa se
+    mute la casa lui de pe Bulevardul Magheru din București, deoarece Brăila îi aduce amintiri
+    triste.
 
     Cristian, fratele lui Adrian și necromant\footnote{Un vrăjitor care deține puteri ce
     îi permit să reînvie și să controleze morții.} renumit, care era plecat în Sicilia
@@ -41,9 +45,12 @@
     răzbunare. Iar pe data 25 octombrie 1966 își pune în acțiune planurile.
 
     în dimineața acestei zile Cristian își aduce armate de nemorți, în care sunt și Matei
-    și Adrian, reînviați de Cristian, și pe cei mai buni dintre discipolii lui \emph{Denis}
-    și \emph{Cezar, the Tatarasiborn Guardian} în București și astfel începe atacul asupra
-    lui Mircea.
+    și Adrian, reînviați de Cristian, și pe cei mai buni dintre discipolii lui \emph{Denis,
+    the Cosmicbane} și \emph{Cezar, the Tătărașiborn Guardian} în București și astfel
+    începe atacul asupra lui Mircea.
+
+    În timpul luptei, \emph{Eduard, the Carpathian Thunder} aude lupta ce se întâmplă în jurul
+    casei sale, și decide și el să lupte împotriva armatei nemoarte.
 
     \section{Gameplay}
 
@@ -83,17 +90,38 @@
         \item \emph{Mihai} --- deoarece și-a pierdut brațul în Războiul Magilor din 1959,
         și-a implatat un braț magic metalic. Acesta îl face să fie mai slab cu atacuri
         magice, dar mai priceput cu atacuri ce presupun aruncarea unui obiect.
+        \item \emph{Eduard} --- un vrăjitor cu control asupra fulgerului, astfel atacul
+        său este un fulger. Jucătorul deblochează accesul la acest personaj după ce
+        învinge primul nivel. Datorită reflexelor sale excelente, el are șansa atacului critic crescută.
     \end{itemize}
 
-    Jucătorul poate folosi maxim 3 din urmatoarele vrăji și atacuri:
+    Jucătorul poate folosi maxim 3 din urmatoarele vrăji și arme:
     \begin{itemize}
-        \item TODO
+        \item \emph{Defendere Magi} --- o carte de vrăji care crează o zonă circulară în jurul
+        jucătorului care rănește inamicii.
+        \item TODO SPELL 2
+        \item TODO SPELL 3
+        \item TODO SPELL 4
+        \item TODO SPELL 5
+        \item \emph{Pistol Carpați} --- un pistol, viteza sa de atac este crescută comparativ cu
+        folosirea unei vrăji.
+        \item TODO WEAPON 2
+        \item TODO WEAPON 3
+        \item TODO WEAPON 4
     \end{itemize}
 
     Jucătorul poate echipa maxim 3 din următoarele seturi de echipament, care îi vor conferi
     efecte pasive:
     \begin{itemize}
-        \item TODO
+        \item \emph{Fluierul Sfintei Vineri} --- oferă un bonus vitezei jucătorului de 20\%.
+        \item TODO PASSIVE 2
+        \item TODO PASSIVE 3
+        \item TODO PASSIVE 4
+        \item TODO PASSIVE 5
+        \item TODO PASSIVE 6
+        \item TODO PASSIVE 7
+        \item TODO PASSIVE 8
+        \item TODO PASSIVE 9
     \end{itemize}
 
     Personajul jucătorului are următoarele caracteristici, care pot fi îmbunătățite pe parcursul
@@ -108,10 +136,28 @@
     \end{itemize}
     \label{sec:pcs}
 
+    Jucătorul va trebuie să lupte cu inamici simpli (zombie, scheleți, fantome), cu inamici de tip
+    mini-boss, care sunt doar versiuni mai mari și mai puternici a celor simpli, și cu inamici de
+    tip boss, care sunt următorii și care sunt importanți poveștii jocului:
+    \begin{itemize}
+        \item \emph{Matei, the Prophaned} --- sensei-ul lui Mircea, a murit în \emph{WizardGame}, dar a
+        fost reînviat de Cristian pentru a ajuta în răzbunarea lui. Puțin rămâne din shamanul care
+        a fost Matei în viață. Matei folosește magia umbrelor, învățată de el în timpul Războiului Magilor.
+        \item \emph{Adrian, the Crimson Undead} --- fostul lider al clanului Isch'tauk și fratele
+        lui Cristian. Se pare că doliul l-a dus pe Cristian să facă acte de neiertat propriei familii.
+        \item \emph{Cezar, the Tătărașiborn Guardian} --- unul dintre cei mai buni discipoli ai lui
+        Cristian, născut în Tătărași.
+        \item \emph{Denis, the Cosmicbane|} --- unul dintre cei mai buni discipoli ai lui Cristian, și
+        mag cu puteri spațiale, specialitățile lui sunt teleportarea și invizibilitatea.
+        \item \emph{Cristian, the Necromancer of Neamț} --- caută să își răzbune fratele. Jucătorul va
+        lupta cu el în două faze.
+    \end{itemize}
+
+
     \section{Niveluri}
 
     \begin{figure}[h]
-        % \includegraphics[scale=0.125]{designing-levels}
+        \includegraphics[width=0.55\textwidth, angle=90]{designing-levels}
         \centering
         \caption{Proiectarea nivelurilor}
     \end{figure}
@@ -124,7 +170,7 @@
         \emph{Matei, the Profaned} și \emph{Adrian, the Crimson Undead}.
         \item \emph{Bulevardul Magheru} --- un nivel mai îngust, în care obstacolele vor fi
         mașini parcate. Inamicii prezenți vor fi schelete cu armură, zombie și fantome. Inamicii
-        de tip boss vor fi \emph{Denis} și \emph{Cezar, the Tătărașiborn Guardian}.
+        de tip boss vor fi \emph{Denis, the Cosmicbane} și \emph{Cezar, the Tătărașiborn Guardian}.
         \item \emph{Calea Victoriei} --- un nivel și mai îngust care va încapea în totalitate pe
         ecran în înălțime, dar nu în lățime. \emph{Cristian, the Necromancer of Neamț} va fi
         singurul inamic de tip boss, dar lupta cu el va fi în două etape.
@@ -135,10 +181,32 @@
 
     \section{Interfața grafică}
 
-    TODO
+    \begin{figure}[H]
+        \includegraphics[width=0.55\textwidth, angle=90]{designing-menus}
+        \centering
+        \caption{Proiectarea meniurilor aplicației}
+    \end{figure}
 
+    Meniurile jocului sunt standard și proiectate pentru a fi intuitive pentru oricine a mai jucat
+    jocuri.
+
+    \begin{figure}[H]
+        \includegraphics[width=0.55\textwidth, angle=90]{designing-level-ui}
+        \centering
+        \caption{Schița interfeței grafice într-un nivel}
+    \end{figure}
+
+    Interfața grafică dintr-un nivel a fost proiectată cu scopul de a nu distrage de
+    la acțiunea principală, dar în același timp ea oferă informațiile esențiale de care are
+    nevoie jucătorul.
+
+    În general am urmat simplicitatea în proiectarea interfeței grafice, pentru a nu distrage
+    jucătorul de la ce este important.
+
+    \FloatBarrier
     \addcontentsline{toc}{section}{Anexa 1}
     \section*{Anexa 1}
+    \label{sec:anexa1}
     Evenimentele \emph{WizardGame} se întâmplă cu 2 ani înainte de \emph{WizardGame 2}, în 1964,
     când \emph{Adrian, the Shaman of Neamț} anunță că va distruge Munții Carpați după ce tocmai
     a furat toate cărțile de vrăji ale vrăjitorilor români. Mircea, cunoscând vraja \emph{Fireball}
@@ -146,6 +214,10 @@
     oprească pe Adrian, dar \emph{Matei}, senseiul său este omorât de mionionii lui Adrian.
     Jocul se termină prin moartea lui Adrian și salvarea Munților Carpați.
 
-    \label{sec:anexa1}
+    \addcontentsline{toc}{section}{Bibliografie}
+    \section*{Bibliografie}
+    Jocul este inspirat conceptual și mecanic de jocurile \emph{Vampire Survivors}
+    \href{https://store.steampowered.com/app/1794680/Vampire_Survivors/}{Steam} și
+    \emph{Holocure} \href{https://kay-yu.itch.io/holocure}{itch.io}.
 
 \end{document}
