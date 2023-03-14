@@ -31,7 +31,7 @@
 
     \section{Contextul jocului}
     WizardGame 2 este un sequel la \href{https://github.com/RealKC/WizardGame}{WizardGame}
-    \footnote{Acesta a fost proiectul meu pentru POO, un sumar al povestii veti
+    \footnote{Acesta a fost proiectul meu pentru POO, un sumar al poveștii veți
     regasi in \href{sec:anexa1}{Anexa 1}}.
     Dupa evenimentele \emph{WizardGame} în care Mircea l-a omorât pe Adrian, Mircea decide sa se
     mute la casa lui de pe Bulevardul Magheru din București, deoarece Brăila îi aduce amintiri
@@ -44,7 +44,7 @@
     care devenise haotic după moartea lui Adrian, fostul lider, și se pregătește pentru
     răzbunare. Iar pe data 25 octombrie 1966 își pune în acțiune planurile.
 
-    în dimineața acestei zile Cristian își aduce armate de nemorți, în care sunt și Matei
+    În dimineața acestei zile Cristian își aduce armate de nemorți, în care sunt și Matei
     și Adrian, reînviați de Cristian, și pe cei mai buni dintre discipolii lui \emph{Denis,
     the Cosmicbane} și \emph{Cezar, the Tătărașiborn Guardian} în București și astfel
     începe atacul asupra lui Mircea.
@@ -67,10 +67,8 @@
     care îi va permite să obțină arme sau vrăji noi, sau să își îmbunătățească caracteristicile
     \ref{sec:stats}.
 
-    O posibilă extensie asupra acestui sistem ar reprezenta-o existența unui mod de a crește
-    abilitățile intrinsice în mod permanent. Acesta ar implica existența unui sistem de puncte
-    care pot fi folosite în acest scop. Momentan nu sunt sigur că acest lucru va fi prezent
-    în versiunea finală a jocului, dar îl voi explora.
+    Extensii asupra sistemului acesta sunt discutate după prezentarea armelor, vrăjilor și
+    echipamentului \ref{sec:exts}.
 
     Completarea unui nivel necesită învingerea boss-ului acelui nivel. Boss-ul apare la
     minutul 20:00\footnote{Dacă pe parcursul procesului de dezvoltare observ că 20 de
@@ -83,8 +81,15 @@
     jucător și o varietate de vrăji și atacuri ce pot fi folosite de acesta pentru a ajunge
     la victorie.
 
-    Jucătorul poate alege între două personaje: \emph{Mircea, The Wizard of Brăila} și
-    \emph{Mihai, the Fullmetal Wizard}.
+    \label{sec:sprites}
+    \begin{figure}[h]
+        \includegraphics[scale=6]{player-characters}
+        \centering
+        \caption{Personaje jucabile, de la stânga la dreapta: Mircea, Eduard, Mihai}
+    \end{figure}
+
+    Jucătorul poate alege între trei personaje: \emph{Mircea, The Wizard of Brăila},
+    \emph{Mihai, the Fullmetal Wizard} și \emph{Eduard, the Carpathian Thunder}.
     \begin{itemize}
         \item \emph{Mircea} --- începe cu o vrajă care îi permite să arunce bile de foc
         \item \emph{Mihai} --- deoarece și-a pierdut brațul în Războiul Magilor din 1959,
@@ -151,6 +156,7 @@
     fiindu-i puse la dispoziție o alegere între arme, vrăji, echipament și posibilitatea de a
     crește valoarea unei caracteristici.
 
+    \label{sec:exts}
     Câteva idei care ar adaugă mai multă adâncime acestor sisteme ar fi posibilitatea îmbunătățirii
     vrăjilor, armelor și echipamentului prin creșterea nivelelor acestora folosind un sistem de
     nivele pe iteme și existența unui sistem de îmbunătățiri permanente, înafara nivelelor.
@@ -203,7 +209,7 @@
     \section{Interfața grafică}
 
     \begin{figure}[H]
-        \includegraphics[width=0.55\textwidth, angle=90]{designing-menus}
+        \includegraphics[width=0.45\textwidth, angle=90]{designing-menus}
         \centering
         \caption{Proiectarea meniurilor aplicației}
     \end{figure}
@@ -212,7 +218,7 @@
     jocuri.
 
     \begin{figure}[H]
-        \includegraphics[width=0.55\textwidth, angle=90]{designing-level-ui}
+        \includegraphics[width=0.45\textwidth, angle=90]{designing-level-ui}
         \centering
         \caption{Schița interfeței grafice într-un nivel}
     \end{figure}
@@ -240,5 +246,9 @@
     Jocul este inspirat conceptual și mecanic de jocurile \emph{Vampire Survivors}
     \href{https://store.steampowered.com/app/1794680/Vampire_Survivors/}{Steam} și
     \emph{Holocure} \href{https://kay-yu.itch.io/holocure}{itch.io}.
+
+    Sprite-urile de pe pagina \pageref{sec:sprites} sunt realizate folosind tile-urile publicate
+    pe următoare pagină web: \url{https://opengameart.org/content/dungeon-crawl-32x32-tiles}.
+
 
 \end{document}
