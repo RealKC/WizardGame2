@@ -97,36 +97,47 @@
 
     Jucătorul poate folosi maxim 3 din urmatoarele vrăji și arme:
     \begin{itemize}
-        \item \emph{Defendere Magi} --- o carte de vrăji care crează o zonă circulară în jurul
+        \item \emph{Defendere Magi} --- o carte de vrăji care creează o zonă circulară în jurul
         jucătorului care rănește inamicii.
-        \item TODO SPELL 2
-        \item TODO SPELL 3
-        \item TODO SPELL 4
-        \item TODO SPELL 5
+        \item \emph{Circulus Glaciei} --- o carte de vrăji care creează un cerc de țurțuri în jurul
+        jucătorului.
+        \item \emph{Ignis Respiratio} --- o carte de vrăji care creează o flacară în direcția în
+        care se mișcă jucătorul.
+        \item \emph{Terra Gutta} --- o carte de vrăji care creează blocuri de pământ în locații
+        aleatoare pe hartă.
+        \item \emph{Vortex Mercurius} --- o carte de vrăji care creează tornade ce pleacă de la
+        jucător într-o direcție aleasă aleator.
         \item \emph{Pistol Carpați} --- un pistol, viteza sa de atac este crescută comparativ cu
         folosirea unei vrăji.
-        \item TODO WEAPON 2
-        \item TODO WEAPON 3
-        \item TODO WEAPON 4
+        \item \emph{Baltagul Vitoriei} --- un topor gigant, care atacă inamici în jurul jucătorului.
+        \item \emph{Morning Star} --- o bila metalică cu țepi atașată cu un lanț de un mâner, se
+        rotește în jurul jucătorului.
+        \item \emph{Holy Lamp} --- crează o arie conică în fața jucătorului care are bonus de putere
+        împotriva inamicilor nemorți.
     \end{itemize}
 
     Jucătorul poate echipa maxim 3 din următoarele seturi de echipament, care îi vor conferi
     efecte pasive:
     \begin{itemize}
-        \item \emph{Fluierul Sfintei Vineri} --- oferă un bonus vitezei jucătorului de 20\%.
-        \item TODO PASSIVE 2
-        \item TODO PASSIVE 3
-        \item TODO PASSIVE 4
-        \item TODO PASSIVE 5
-        \item TODO PASSIVE 6
-        \item TODO PASSIVE 7
-        \item TODO PASSIVE 8
-        \item TODO PASSIVE 9
+        \item \emph{Fluierul Sfintei Vineri} --- oferă un bonus vitezei jucătorului.
+        \item \emph{Colier cu Safir} --- oferă un bonus puterii magicii jucătorului.
+        \item \emph{Glasses of Infirma Aspectu} --- crește șansa atacului critic.
+        \item \emph{Cape of Great Magic} --- crește puterea magică a jucatorului, dar scade viteza
+        de atac.
+        \item \emph{Orichalcum Magnet} --- crește raza de pickup a jucătorului.
+        \item \emph{Mănușile Alchimistului Focului} --- oferă un bonus puterii magicii jucătorului,
+        crescut față de \emph{Colierul cu Safir}, dar va scădea raza de pickup. Bonusul v-a fi mai
+        mare când sunt folosite de \emph{Mircea}.
+        \item \emph{Chainmail Shirt} --- permite jucătorului să supraviețuiască mai multor atacuri
+        înainte de a muri.
+        \item \emph{Ring of Anima} --- permite jucătorului să-și regeneze viața pierdută.
+        \item \emph{Cercei cu Rubine} --- crește viteza de atac a jucătorului.
     \end{itemize}
 
     Personajul jucătorului are următoarele caracteristici, care pot fi îmbunătățite pe parcursul
     jocului:
     \begin{itemize} \label{sec:stats}
+        \item viața (\textbf{HP}) --- se referă la câte atacuri poate jucătorul suferi înainte de a muri.
         \item puterea magică (\textbf{+ATK\%}) --- un bonus procentual aplicat asupra unui atac normal.
         \item șansa atacului critic (\textbf{CRIT\%}) --- șansa ca un atac să își aibă valoare dublată.
         \item viteza (\textbf{+SPD\%}) --- cât de rapid se mișca personajul jucătorului.
@@ -135,6 +146,16 @@
         \item viteza de atac (\textbf{+HST\%}) --- cât de rapid atacă jucătorul.
     \end{itemize}
     \label{sec:pcs}
+
+    Cele enumerate mai sus ar fi obținute de jucător în momentul în care și-a crescut nivelul,
+    fiindu-i puse la dispoziție o alegere între arme, vrăji, echipament și posibilitatea de a
+    crește valoarea unei caracteristici.
+
+    Câteva idei care ar adaugă mai multă adâncime acestor sisteme ar fi posibilitatea îmbunătățirii
+    vrăjilor, armelor și echipamentului prin creșterea nivelelor acestora folosind un sistem de
+    nivele pe iteme și existența unui sistem de îmbunătățiri permanente, înafara nivelelor.
+    Prezența acestor sisteme în jocul final nu este decisă încă și va fi hotărâtă de timpul
+    disponibil în momentul implementării jocului.
 
     Jucătorul va trebuie să lupte cu inamici simpli (zombie, scheleți, fantome), cu inamici de tip
     mini-boss, care sunt doar versiuni mai mari și mai puternici a celor simpli, și cu inamici de
