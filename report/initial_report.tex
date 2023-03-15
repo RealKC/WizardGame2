@@ -33,7 +33,7 @@
     WizardGame 2 este un sequel la \href{https://github.com/RealKC/WizardGame}{WizardGame}
     \footnote{Acesta a fost proiectul meu pentru POO, un sumar al poveștii veți
     regasi in \href{sec:anexa1}{Anexa 1}}.
-    Dupa evenimentele \emph{WizardGame} în care Mircea l-a omorât pe Adrian, Mircea decide sa se
+    Dupa evenimentele \emph{WizardGame} în care Mircea l-a înfrânt pe Adrian, Mircea decide sa se
     mute la casa lui de pe Bulevardul Magheru din București, deoarece Brăila îi aduce amintiri
     triste.
 
@@ -52,7 +52,7 @@
     În timpul luptei, \emph{Eduard, the Carpathian Thunder} aude lupta ce se întâmplă în jurul
     casei sale, și decide și el să lupte împotriva armatei nemoarte.
 
-    \section{Gameplay}
+    \section{Gameplay și interacțiunea jucătorului cu jocul}
 
     \begin{figure}[h]
         \includegraphics[scale=0.125]{gameplayloop}
@@ -62,7 +62,7 @@
 
     După ce jucătorul își alege un personaj \ref{sec:pcs} și intră într-un nivel, dispune
     doar de un singur atac: o vrajă specifică acelui personaj. Cât timp jucătorul se află
-    în nivel, acesta va omorî inamici, care vor lăsa la poziția lor \emph{experiență}.
+    în nivel, acesta va doborî inamici, care vor lăsa la poziția lor \emph{experiență}.
     Colectarea \emph{experienței} va duce eventual la creșterea nivelului jucătorului, lucru
     care îi va permite să obțină arme sau vrăji noi, sau să își îmbunătățească caracteristicile
     \ref{sec:stats}.
@@ -74,6 +74,20 @@
     minutul 20:00\footnote{Dacă pe parcursul procesului de dezvoltare observ că 20 de
     minute este prea mult pentru un nivel, timpul va fi scurtat, dar nu la mai puțin de
     14 minute.} și trebuie învins pentru a progresa la nivelul următor.
+
+    Jucătorul își mișcă personajul folosing tastele W (în sus), S (în jos), A (la stânga) și D
+    (la dreapta), iar abilitățile sale sunt activate automat, după un timer. Abilitățile care
+    țintesc într-o direcție anume vor folosi direcția în care se mișcă jucătorul în momentul
+    activării abilității. Atfel dificultatea jocului nu reiese din abilitatea jucătorului de a lovi
+    inamicii, ci din abilitatea sa de a se feri de ei, sau atacurile lor, ceea ce va deveni dificil
+    cu cât jucătorul se află mai mult într-un nivel.
+
+    Sistemul de save/load al jocului este automat, și nu necesită o interacțiune explicită a
+    jucătorului, dar o idee interesantă ar fi introducerea conceptului de "save slot". Acesta ar
+    permite jucătorului să asocieze un save cu un "slot", permițându-i astfel să reia jocul de la
+    început fără să ia acțiuni externe jocului. Prezența sistemului "save slot" ar introduce un motiv
+    bun de a integra statistici despre un save în joc, dar nu m-am hotorât asupra prezenței acestui
+    sistem și acest lucru v-a fi hotorât de constrângerile de timp.
 
     \section{Conținut}
 
@@ -216,7 +230,8 @@
     \end{figure}
 
     Meniurile jocului sunt standard și proiectate pentru a fi intuitive pentru oricine a mai jucat
-    jocuri.
+    jocuri. Interacțiunea cu elementele meniurilor se va realiza folosing cursorul mouse-ului, dar
+    va fi permisă și folosirea tastelor, ca și în restul aplicațiilor grafice.
 
     \begin{figure}[H]
         \includegraphics[width=0.45\textwidth, angle=90]{designing-level-ui}
@@ -239,7 +254,7 @@
     când \emph{Adrian, the Shaman of Neamț} anunță că va distruge Munții Carpați după ce tocmai
     a furat toate cărțile de vrăji ale vrăjitorilor români. Mircea, cunoscând vraja \emph{Fireball}
     în foarte multe detalii nu are nevoie de cărți magice pentru a folosi vraja, și decide să îl
-    oprească pe Adrian, dar \emph{Matei}, senseiul său este omorât de mionionii lui Adrian.
+    oprească pe Adrian, dar \emph{Matei}, senseiul său este doborât de mionionii lui Adrian.
     Jocul se termină prin moartea lui Adrian și salvarea Munților Carpați.
 
     \addcontentsline{toc}{section}{Bibliografie}
