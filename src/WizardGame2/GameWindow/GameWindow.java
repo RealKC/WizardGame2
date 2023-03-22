@@ -1,4 +1,4 @@
-package PaooGame.GameWindow;
+package WizardGame2.GameWindow;
 
 import javax.swing.*;
 import java.awt.*;

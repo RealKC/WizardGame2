@@ -1,7 +1,7 @@
-package PaooGame;
+package WizardGame2;
 
-import PaooGame.GameWindow.GameWindow;
-import PaooGame.Graphics.Assets;
+import WizardGame2.GameWindow.GameWindow;
+import WizardGame2.Graphics.Assets;
 
 import java.awt.*;
 import java.awt.image.BufferStrategy;

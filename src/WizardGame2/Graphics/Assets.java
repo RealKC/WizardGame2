@@ -1,4 +1,4 @@
-package PaooGame.Graphics;
+package WizardGame2.Graphics;
 
 import java.awt.image.BufferedImage;
 
