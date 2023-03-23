@@ -4,6 +4,7 @@ import WizardGame2.GameWindow.GameWindow;
 import WizardGame2.Graphics.Assets;
 
 import java.awt.*;
+import java.awt.event.KeyEvent;
 import java.awt.image.BufferStrategy;
 
 /*! \class Game
@@ -57,6 +58,8 @@ public class Game implements Runnable {
     ///                 ****************          *****************        ***************
 
     private Graphics g;          /*!< Referinta catre un context grafic.*/
+
+    int x, y;
 
     /*! \fn public Game(String title, int width, int height)
         \brief Constructor de initializare al clasei Game.
@@ -168,6 +171,18 @@ public class Game implements Runnable {
         Metoda este declarata privat deoarece trebuie apelata doar in metoda run()
      */
     private void update() {
+        if (Keyboard.isKeyPressed(KeyEvent.VK_S)) {
+            y += 2;
+        }
+        if (Keyboard.isKeyPressed(KeyEvent.VK_W)) {
+            y -= 2;
+        }
+        if (Keyboard.isKeyPressed(KeyEvent.VK_A)) {
+            x -= 5;
+        }
+        if (Keyboard.isKeyPressed(KeyEvent.VK_D)) {
+            x += 5;
+        }
 
     }
 
@@ -196,7 +211,7 @@ public class Game implements Runnable {
         /// Se sterge ce era
         g.clearRect(0, 0, wnd.getWindowWidth(), wnd.getWindowHeight());
 
-        g.drawImage(Assets.characters.crop(0, 0), 0, 0, null);
+        g.drawImage(Assets.characters.crop(0, 0), x, y, null);
         g.drawImage(Assets.characters.crop(1, 0), 32, 0, null);
         g.drawImage(Assets.characters.crop(2, 0), 64, 0, null);
 
