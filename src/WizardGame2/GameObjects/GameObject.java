@@ -1,5 +1,7 @@
 package WizardGame2.GameObjects;
 
+import WizardGame2.Map;
+
 import java.awt.*;
 import java.awt.image.BufferedImage;
 
@@ -23,7 +25,7 @@ public abstract class GameObject {
         gfx.drawImage(sprite, x, y, null);
     }
 
-    public abstract void update();
+    public abstract void update(Map map);
 
     /**
      * Moves the GameObject by the specified amounts
@@ -50,8 +52,8 @@ public abstract class GameObject {
         int topA = y;
 
         int leftB = other.x;
-        int rightB = other.hitboxWidth + x;
-        int bottomB = other.hitboxHeight + y;
+        int rightB = other.hitboxWidth + other.x;
+        int bottomB = other.hitboxHeight + other.y;
         int topB = other.y;
 
         if (bottomA <= topB) {
@@ -76,5 +78,21 @@ public abstract class GameObject {
 
         // The two objects intersect
         return true;
+    }
+
+    public int getX() {
+        return x;
+    }
+
+    public int getY() {
+        return y;
+    }
+
+    public int getHitboxWidth() {
+        return hitboxWidth;
+    }
+
+    public int getHitboxHeight() {
+        return hitboxHeight;
     }
 }

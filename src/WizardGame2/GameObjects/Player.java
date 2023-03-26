@@ -2,6 +2,7 @@ package WizardGame2.GameObjects;
 
 import WizardGame2.Graphics.SpriteSheet;
 import WizardGame2.Keyboard;
+import WizardGame2.Map;
 
 import java.awt.event.KeyEvent;
 
@@ -13,7 +14,7 @@ public class Player extends GameObject {
     }
 
     @Override
-    public void update() {
+    public void update(Map map) {
         int deltaY = 0, deltaX = 0;
 
         if (Keyboard.isKeyPressed(KeyEvent.VK_S)) {
@@ -33,5 +34,12 @@ public class Player extends GameObject {
         }
 
         moveBy(deltaX, deltaY);
+
+        for (Obstacle obstacle : map.getObstacles()) {
+            if (this.collidesWith(obstacle)) {
+                moveBy(-deltaX, -deltaY);
+                break;
+            }
+        }
     }
 }

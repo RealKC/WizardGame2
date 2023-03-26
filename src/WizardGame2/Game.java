@@ -1,5 +1,6 @@
 package WizardGame2;
 
+import WizardGame2.GameObjects.Obstacle;
 import WizardGame2.GameObjects.Player;
 import WizardGame2.GameWindow.GameWindow;
 import WizardGame2.Graphics.Assets;
@@ -60,6 +61,7 @@ public class Game implements Runnable {
     private Graphics g;          /*!< Referinta catre un context grafic.*/
 
     Player player;
+    Map map;
 
     /*! \fn public Game(String title, int width, int height)
         \brief Constructor de initializare al clasei Game.
@@ -94,6 +96,11 @@ public class Game implements Runnable {
         Assets.init();
 
         player = new Player(Assets.characters, 0, 0);
+        map = new Map(new Obstacle[4]);
+        map.obstacles[0] = new Obstacle(null, 50, 50, 200, 100);
+        map.obstacles[1] = new Obstacle(null, 150, 200, 200, 100);
+        map.obstacles[2] = new Obstacle(null, 150, 500, 200, 100);
+        map.obstacles[3] = new Obstacle(null, 50, 650, 200, 100);
     }
 
     /*! \fn public void run()
@@ -173,7 +180,7 @@ public class Game implements Runnable {
         Metoda este declarata privat deoarece trebuie apelata doar in metoda run()
      */
     private void update() {
-        player.update();
+        player.update(map);
     }
 
     /*! \fn private void Draw()
@@ -207,6 +214,8 @@ public class Game implements Runnable {
         g.drawImage(Assets.characters.crop(2, 0), 64, 0, null);
 
         g.drawRect(32, 32, 32, 32);
+
+        map.render(g);
 
 
         // end operatie de desenare
