@@ -1,5 +1,6 @@
 package WizardGame2;
 
+import WizardGame2.GameObjects.Enemy;
 import WizardGame2.GameObjects.Obstacle;
 import WizardGame2.GameObjects.Player;
 import WizardGame2.GameWindow.GameWindow;
@@ -61,6 +62,7 @@ public class Game implements Runnable {
     private Graphics g;          /*!< Referinta catre un context grafic.*/
 
     Player player;
+    Enemy enemy;
     Map map;
 
     /*! \fn public Game(String title, int width, int height)
@@ -96,6 +98,7 @@ public class Game implements Runnable {
         Assets.init();
 
         player = new Player(Assets.characters, 0, 0);
+        enemy = new Enemy(Assets.characters.crop(1, 0), 50, 700, 32, 32, player);
         map = new Map(new Obstacle[4]);
         map.obstacles[0] = new Obstacle(null, 50, 50, 200, 100);
         map.obstacles[1] = new Obstacle(null, 150, 200, 200, 100);
@@ -181,6 +184,7 @@ public class Game implements Runnable {
      */
     private void update() {
         player.update(map);
+        enemy.update(map);
     }
 
     /*! \fn private void Draw()
@@ -209,6 +213,7 @@ public class Game implements Runnable {
         g.clearRect(0, 0, wnd.getWindowWidth(), wnd.getWindowHeight());
 
         player.render(g);
+        enemy.render(g);
 
         g.drawImage(Assets.characters.crop(1, 0), 32, 0, null);
         g.drawImage(Assets.characters.crop(2, 0), 64, 0, null);
