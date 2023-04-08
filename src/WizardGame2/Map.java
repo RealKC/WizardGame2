@@ -1,21 +1,33 @@
 package WizardGame2;
 
 import WizardGame2.GameObjects.Obstacle;
+import WizardGame2.GameObjects.Player;
 
 import java.awt.*;
+import java.awt.image.BufferedImage;
 
 public class Map {
     Obstacle[] obstacles;
 
-    public Map(Obstacle[] obstacles) {
+    BufferedImage texture;
+
+    public Map(Obstacle[] obstacles, BufferedImage texture) {
         this.obstacles = obstacles;
+        this.texture = texture;
     }
 
     public Obstacle[] getObstacles() {
         return obstacles;
     }
 
-    public void render(Graphics gfx) {
+
+
+    public void render(Graphics gfx, Player.Camera camera) {
+        int x = Utils.clamp(0, texture.getWidth() - camera.getWidth(), camera.getX());
+        int y = Utils.clamp(0, texture.getHeight() - camera.getHeight(), camera.getY());
+        var visibleMap = texture.getSubimage(x, y, camera.getWidth(), camera.getHeight());
+        gfx.drawImage(visibleMap, 0, 0, null);
+
         Color oldColor = gfx.getColor();
         gfx.setColor(Color.RED);
 

@@ -9,6 +9,7 @@ import java.awt.image.BufferedImage;
  */
 public class Assets {
     public static SpriteSheet characters;
+    public static BufferedImage tempMap;
 
     /*! \fn public static void Init()
         \brief Functia initializaza referintele catre elementele grafice utilizate.
@@ -18,5 +19,6 @@ public class Assets {
      */
     public static void init() {
         characters = new SpriteSheet(ImageLoader.loadImage("/textures/characters.png"));
+        tempMap = ImageLoader.loadImage("/textures/bigmap.png");
     }
 }

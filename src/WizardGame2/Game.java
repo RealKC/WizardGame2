@@ -97,9 +97,9 @@ public class Game implements Runnable {
         /// Se incarca toate elementele grafice (dale)
         Assets.init();
 
-        player = new Player(Assets.characters, 0, 0);
+        player = new Player(Assets.characters, 400, 300, new Player.Camera(400, 300, wnd.getWindowWidth(), wnd.getWindowHeight()));
         enemy = new Enemy(Assets.characters.crop(1, 0), 50, 700, 32, 32, player);
-        map = new Map(new Obstacle[4]);
+        map = new Map(new Obstacle[4], Assets.tempMap);
         map.obstacles[0] = new Obstacle(null, 50, 50, 200, 100);
         map.obstacles[1] = new Obstacle(null, 150, 200, 200, 100);
         map.obstacles[2] = new Obstacle(null, 150, 500, 200, 100);
@@ -212,6 +212,8 @@ public class Game implements Runnable {
         /// Se sterge ce era
         g.clearRect(0, 0, wnd.getWindowWidth(), wnd.getWindowHeight());
 
+        map.render(g, player.getCamera());
+
         player.render(g);
         enemy.render(g);
 
@@ -220,7 +222,6 @@ public class Game implements Runnable {
 
         g.drawRect(32, 32, 32, 32);
 
-        map.render(g);
 
 
         // end operatie de desenare
