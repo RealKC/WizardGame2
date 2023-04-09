@@ -11,9 +11,9 @@ public class Map {
 
     BufferedImage texture;
 
-    public Map(Obstacle[] obstacles, BufferedImage texture) {
+    public Map(Obstacle[] obstacles, MapData mapData) {
         this.obstacles = obstacles;
-        this.texture = texture;
+        this.texture = mapData.getTexture();
     }
 
     public Obstacle[] getObstacles() {

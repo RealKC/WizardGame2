@@ -98,7 +98,7 @@ public class Game implements Runnable {
 
         player = new Player(Assets.characters, 400, 300, new Player.Camera(400, 300, wnd.getWindowWidth(), wnd.getWindowHeight()));
         enemy = new Enemy(Assets.characters.crop(1, 0), 50, 700, 32, 32, player);
-        map = new Map(new Obstacle[4], Assets.tempMap);
+        map = new Map(new Obstacle[4], Assets.maps.get(0));
         map.obstacles[0] = new Obstacle(null, 50, 50, 200, 100);
         map.obstacles[1] = new Obstacle(null, 150, 200, 200, 100);
         map.obstacles[2] = new Obstacle(null, 150, 500, 200, 100);
@@ -220,7 +220,6 @@ public class Game implements Runnable {
         g.drawImage(Assets.characters.crop(2, 0), 64, 0, null);
 
         g.drawRect(32, 32, 32, 32);
-
 
 
         // end operatie de desenare

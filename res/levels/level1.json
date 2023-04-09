@@ -1,0 +1,12 @@
+{
+  "name": "Curtea lui Mircea",
+  "enemies": [],
+  "tiles": {
+    "M": "/textures/field.png"
+  },
+  "tileWidth": 800,
+  "tileHeight": 600,
+  "tileColumns": 3,
+  "tileRows": 3,
+  "pattern": "MMM\nMMM\nMMM"
+}
