@@ -1,4 +1,7 @@
-package WizardGame2.Graphics;
+package WizardGame2;
+
+import WizardGame2.Graphics.ImageLoader;
+import WizardGame2.Graphics.SpriteSheet;
 
 import java.awt.image.BufferedImage;
 

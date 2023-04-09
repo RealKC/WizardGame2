@@ -4,7 +4,6 @@ import WizardGame2.GameObjects.Enemy;
 import WizardGame2.GameObjects.Obstacle;
 import WizardGame2.GameObjects.Player;
 import WizardGame2.GameWindow.GameWindow;
-import WizardGame2.Graphics.Assets;
 
 import java.awt.*;
 import java.awt.image.BufferStrategy;
