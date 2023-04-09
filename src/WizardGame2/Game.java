@@ -120,7 +120,7 @@ public class Game implements Runnable {
         /// sau mai bine spus de 60 ori pe secunda.
 
         final int framesPerSecond = 60; /*!< Constanta intreaga initializata cu numarul de frame-uri pe secunda.*/
-        final double timeFrame = 1000000000 / framesPerSecond; /*!< Durata unui frame in nanosecunde.*/
+        final long timeFrame = 1000000000 / framesPerSecond; /*!< Durata unui frame in nanosecunde.*/
 
         /// Atat timp timp cat threadul este pornit Update() & Draw()
         while (runState) {
