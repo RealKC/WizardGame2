@@ -58,7 +58,7 @@ public class Game implements Runnable {
     ///                 *              *          *               *        *             *
     ///                 ****************          *****************        ***************
 
-    private Graphics g;          /*!< Referinta catre un context grafic.*/
+    private Graphics gfx;          /*!< Referinta catre un context grafic.*/
 
     Player player;
     Enemy enemy;
@@ -207,19 +207,19 @@ public class Game implements Runnable {
             }
         }
         /// Se obtine contextul grafic curent in care se poate desena.
-        g = bs.getDrawGraphics();
+        gfx = bs.getDrawGraphics();
         /// Se sterge ce era
-        g.clearRect(0, 0, wnd.getWindowWidth(), wnd.getWindowHeight());
+        gfx.clearRect(0, 0, wnd.getWindowWidth(), wnd.getWindowHeight());
 
-        map.render(g, player.getCamera());
+        map.render(gfx, player.getCamera());
 
-        player.render(g);
-        enemy.render(g);
+        player.render(gfx);
+        enemy.render(gfx);
 
-        g.drawImage(Assets.characters.crop(1, 0), 32, 0, null);
-        g.drawImage(Assets.characters.crop(2, 0), 64, 0, null);
+        gfx.drawImage(Assets.characters.crop(1, 0), 32, 0, null);
+        gfx.drawImage(Assets.characters.crop(2, 0), 64, 0, null);
 
-        g.drawRect(32, 32, 32, 32);
+        gfx.drawRect(32, 32, 32, 32);
 
 
         // end operatie de desenare
@@ -228,7 +228,7 @@ public class Game implements Runnable {
 
         /// Elibereaza resursele de memorie aferente contextului grafic curent (zonele de memorie ocupate de
         /// elementele grafice ce au fost desenate pe canvas).
-        g.dispose();
+        gfx.dispose();
     }
 }
 
