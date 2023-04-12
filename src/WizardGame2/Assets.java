@@ -16,20 +16,16 @@ import java.util.Objects;
     Game assets include tot ce este folosit intr-un joc: imagini, sunete, harti etc.
  */
 public class Assets {
-    public static SpriteSheet characters;
-    public static BufferedImage tempMap;
+    private static Assets instance = null;
 
-    public static ArrayList<MapData> maps;
+    private SpriteSheet characters;
+    private BufferedImage tempMap;
+
+    private ArrayList<MapData> maps;
 
     private static final String[] mapPaths = new String[]{"/levels/level1.json"};
 
-    /*! \fn public static void Init()
-        \brief Functia initializaza referintele catre elementele grafice utilizate.
-
-        Aceasta functie poate fi rescrisa astfel incat elementele grafice incarcate/utilizate
-        sa fie parametrizate. Din acest motiv referintele nu sunt finale.
-     */
-    public static void init() {
+    private Assets() {
         characters = new SpriteSheet(ImageLoader.loadImage("/textures/characters.png"));
         tempMap = ImageLoader.loadImage("/textures/bigmap.png");
 
@@ -47,5 +43,25 @@ public class Assets {
                 e.printStackTrace();
             }
         }
+    }
+
+    public static Assets getInstance() {
+        if (instance == null) {
+            instance = new Assets();
+        }
+
+        return instance;
+    }
+
+    public SpriteSheet getCharacters() {
+        return characters;
+    }
+
+    public ArrayList<MapData> getMapDatas() {
+        return maps;
+    }
+
+    public BufferedImage getTempMap() {
+        return tempMap;
     }
 }

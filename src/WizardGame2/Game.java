@@ -94,11 +94,12 @@ public class Game implements Runnable {
         /// Este construita fereastra grafica.
         wnd.buildGameWindow();
         /// Se incarca toate elementele grafice (dale)
-        Assets.init();
 
-        player = new Player(Assets.characters, 400, 300, new Player.Camera(400, 300, wnd.getWindowWidth(), wnd.getWindowHeight()));
-        enemy = new Enemy(Assets.characters.crop(1, 0), 50, 700, 32, 32, player);
-        map = new Map(new Obstacle[4], Assets.maps.get(0));
+        var assets = Assets.getInstance();
+
+        player = new Player(assets.getCharacters(), 400, 300, new Player.Camera(400, 300, wnd.getWindowWidth(), wnd.getWindowHeight()));
+        enemy = new Enemy(assets.getCharacters().crop(1, 0), 50, 700, 32, 32, player);
+        map = new Map(new Obstacle[4], assets.getMapDatas().get(0));
         map.obstacles[0] = new Obstacle(null, 50, 50, 200, 100);
         map.obstacles[1] = new Obstacle(null, 150, 200, 200, 100);
         map.obstacles[2] = new Obstacle(null, 150, 500, 200, 100);
@@ -192,6 +193,8 @@ public class Game implements Runnable {
         Metoda este declarata privat deoarece trebuie apelata doar in metoda run()
      */
     private void draw() {
+        var assets = Assets.getInstance();
+
         /// Returnez bufferStrategy pentru canvasul existent
         bs = wnd.getCanvas().getBufferStrategy();
         /// Verific daca buffer strategy a fost construit sau nu
@@ -216,8 +219,8 @@ public class Game implements Runnable {
         player.render(gfx);
         enemy.render(gfx);
 
-        gfx.drawImage(Assets.characters.crop(1, 0), 32, 0, null);
-        gfx.drawImage(Assets.characters.crop(2, 0), 64, 0, null);
+        gfx.drawImage(assets.getCharacters().crop(1, 0), 32, 0, null);
+        gfx.drawImage(assets.getCharacters().crop(2, 0), 64, 0, null);
 
         gfx.drawRect(32, 32, 32, 32);
 
