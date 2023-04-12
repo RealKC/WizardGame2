@@ -71,6 +71,8 @@ public abstract class GameObject {
             return false;
         }
 
+        // IMO the logic is easier to follow when it's written like this
+        //noinspection RedundantIfStatement
         if (leftA >= rightB) {
             // A is to the right of B
             return false;
