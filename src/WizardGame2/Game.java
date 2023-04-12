@@ -97,9 +97,17 @@ public class Game implements Runnable {
 
         var assets = Assets.getInstance();
 
-        player = new Player(assets.getCharacters(), 400, 300, new Player.Camera(400, 300, wnd.getWindowWidth(), wnd.getWindowHeight()));
+        player = new Player(assets.getCharacters(), 800, 600);
+        player.getCamera().setCameraWidth(wnd.getWindowWidth());
+        player.getCamera().setCameraHeight(wnd.getWindowHeight());
+
         enemy = new Enemy(assets.getCharacters().crop(1, 0), 50, 700, 32, 32, player);
+
         map = new Map(new Obstacle[4], assets.getMapDatas().get(0));
+
+        player.getCamera().setMapWidth(map.getWidth());
+        player.getCamera().setMapHeight(map.getHeight());
+
         map.obstacles[0] = new Obstacle(null, 50, 50, 200, 100);
         map.obstacles[1] = new Obstacle(null, 150, 200, 200, 100);
         map.obstacles[2] = new Obstacle(null, 150, 500, 200, 100);
@@ -216,8 +224,8 @@ public class Game implements Runnable {
 
         map.render(gfx, player.getCamera());
 
-        player.render(gfx);
-        enemy.render(gfx);
+        player.render(gfx, player.getCamera().getX(), player.getCamera().getY());
+        enemy.render(gfx, player.getCamera().getX(), player.getCamera().getY());
 
         gfx.drawImage(assets.getCharacters().crop(1, 0), 32, 0, null);
         gfx.drawImage(assets.getCharacters().crop(2, 0), 64, 0, null);

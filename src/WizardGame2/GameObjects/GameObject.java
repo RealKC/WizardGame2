@@ -21,8 +21,8 @@ public abstract class GameObject {
         this.hitboxHeight = hitboxHeight;
     }
 
-    public void render(Graphics gfx) {
-        gfx.drawImage(sprite, x, y, null);
+    public void render(Graphics gfx, int centerX, int centerY) {
+        gfx.drawImage(sprite, x - centerX, y - centerY, null);
     }
 
     public abstract void update(Map map);
@@ -94,5 +94,13 @@ public abstract class GameObject {
 
     public int getHitboxHeight() {
         return hitboxHeight;
+    }
+
+    protected int getSpriteWidth() {
+        return sprite.getWidth();
+    }
+
+    protected int getSpriteHeight() {
+        return sprite.getHeight();
     }
 }

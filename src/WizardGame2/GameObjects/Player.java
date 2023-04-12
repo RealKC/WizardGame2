@@ -9,43 +9,74 @@ import java.awt.event.KeyEvent;
 public class Player extends GameObject {
     private static final int STEP = 2;
 
-    public static class Camera {
-        int x, y, width, height;
+    public class Camera {
+        int x, y, cameraWidth, cameraHeight, mapWidth, mapHeight;
+        boolean stoppedFollowingHorizontally = false, stoppedFollowingVertically = false;
 
-        public Camera(int x, int y, int width, int height) {
+        public Camera(int x, int y) {
             this.x = x;
             this.y = y;
-            this.width = width;
-            this.height = height;
         }
 
         void moveBy(int deltaX, int deltaY) {
-            x += deltaX;
-            y += deltaY;
+            // Code based on https://lazyfoo.net/tutorials/SDL/30_scrolling/index.php
+            // But modified to try and get a camera that stops following at the edges
+            int leftEdge = cameraWidth / 2;
+            int rightEdge = mapWidth - cameraWidth / 2;
+            int topEdge = cameraHeight / 2;
+            int bottomEdge = mapHeight - cameraHeight / 2;
+
+            if (leftEdge < x + deltaX && x + deltaX < rightEdge) {
+                x += deltaX;
+            } else {
+                stoppedFollowingHorizontally = true;
+            }
+
+            if (topEdge < y + deltaY && y + deltaY < bottomEdge) {
+                y += deltaY;
+            } else {
+                stoppedFollowingVertically = true;
+            }
         }
 
         public int getX() {
-            return x;
+            return x + Player.this.getSpriteWidth() / 2 - cameraWidth / 2;
         }
 
         public int getY() {
-            return y;
+            return y + Player.this.getSpriteHeight() / 2 - cameraHeight / 2;
         }
 
-        public int getWidth() {
-            return width;
+        public int getCameraWidth() {
+            return cameraWidth;
         }
 
-        public int getHeight() {
-            return height;
+        public int getCameraHeight() {
+            return cameraHeight;
+        }
+
+        public void setCameraHeight(int cameraHeight) {
+            this.cameraHeight = cameraHeight;
+        }
+
+        public void setCameraWidth(int cameraWidth) {
+            this.cameraWidth = cameraWidth;
+        }
+
+        public void setMapWidth(int mapWidth) {
+            this.mapWidth = mapWidth;
+        }
+
+        public void setMapHeight(int mapHeight) {
+            this.mapHeight = mapHeight;
         }
     }
 
     private final Camera camera;
 
-    public Player(SpriteSheet spriteSheet, int x, int y, Camera camera) {
+    public Player(SpriteSheet spriteSheet, int x, int y) {
         super(spriteSheet.crop(0, 0), x, y, 32, 32);
-        this.camera = camera;
+        this.camera = new Camera(x, y);
     }
 
     public Camera getCamera() {

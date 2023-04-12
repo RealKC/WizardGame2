@@ -20,12 +20,18 @@ public class Map {
         return obstacles;
     }
 
+    public int getWidth() {
+        return texture.getWidth();
+    }
 
+    public int getHeight() {
+        return texture.getHeight();
+    }
 
     public void render(Graphics gfx, Player.Camera camera) {
-        int x = Utils.clamp(0, texture.getWidth() - camera.getWidth(), camera.getX());
-        int y = Utils.clamp(0, texture.getHeight() - camera.getHeight(), camera.getY());
-        var visibleMap = texture.getSubimage(x, y, camera.getWidth(), camera.getHeight());
+        int x = Utils.clamp(0, texture.getWidth() - camera.getCameraWidth(), camera.getX());
+        int y = Utils.clamp(0, texture.getHeight() - camera.getCameraHeight(), camera.getY());
+        var visibleMap = texture.getSubimage(x, y, camera.getCameraWidth(), camera.getCameraHeight());
         gfx.drawImage(visibleMap, 0, 0, null);
 
         Color oldColor = gfx.getColor();
