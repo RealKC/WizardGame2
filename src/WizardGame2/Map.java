@@ -38,7 +38,8 @@ public class Map {
         gfx.setColor(Color.RED);
 
         for (var rect : obstacles) {
-            gfx.drawRect(rect.getX(), rect.getY(), rect.getHitboxWidth(), rect.getHitboxHeight());
+            // FIXME: This is a hack!
+            gfx.drawRect(rect.getX() - x, rect.getY() - y, rect.getHitboxWidth(), rect.getHitboxHeight());
         }
 
         gfx.setColor(oldColor);
