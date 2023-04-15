@@ -10,14 +10,14 @@ public class Player extends GameObject {
     private static final int STEP = 2;
 
     public class Camera {
-        int x, y, cameraWidth, cameraHeight, mapWidth, mapHeight;
+        private int x, y, cameraWidth, cameraHeight, mapWidth, mapHeight;
 
-        public Camera(int x, int y) {
+        private Camera(int x, int y) {
             this.x = x;
             this.y = y;
         }
 
-        void moveBy(int deltaX, int deltaY) {
+        private void moveBy(int deltaX, int deltaY) {
             // Code based on https://lazyfoo.net/tutorials/SDL/30_scrolling/index.php
             // But modified to try and get a camera that stops following at the edges
             int leftEdge = cameraWidth / 2;
