@@ -11,7 +11,6 @@ public class Player extends GameObject {
 
     public class Camera {
         int x, y, cameraWidth, cameraHeight, mapWidth, mapHeight;
-        boolean stoppedFollowingHorizontally = false, stoppedFollowingVertically = false;
 
         public Camera(int x, int y) {
             this.x = x;
@@ -26,16 +25,12 @@ public class Player extends GameObject {
             int topEdge = cameraHeight / 2;
             int bottomEdge = mapHeight - cameraHeight / 2;
 
-            if (leftEdge < x + deltaX && x + deltaX < rightEdge) {
+            if (leftEdge < Player.this.getX() && Player.this.getX() < rightEdge) {
                 x += deltaX;
-            } else {
-                stoppedFollowingHorizontally = true;
             }
 
-            if (topEdge < y + deltaY && y + deltaY < bottomEdge) {
+            if (topEdge < Player.this.getY() && Player.this.getY() < bottomEdge) {
                 y += deltaY;
-            } else {
-                stoppedFollowingVertically = true;
             }
         }
 
