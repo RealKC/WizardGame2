@@ -254,12 +254,6 @@ public class Game implements Runnable {
             bullet.render(gfx, player.getCamera().getX(), player.getCamera().getY());
         }
 
-        gfx.drawImage(assets.getCharacters().crop(1, 0), 32, 0, null);
-        gfx.drawImage(assets.getCharacters().crop(2, 0), 64, 0, null);
-
-        gfx.drawRect(32, 32, 32, 32);
-
-
         // end operatie de desenare
         /// Se afiseaza pe ecran
         bs.show();
