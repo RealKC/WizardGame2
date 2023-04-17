@@ -35,7 +35,7 @@ public class Bullet extends GameObject {
     @Override
     public void render(Graphics gfx, int centerX, int centerY) {
         // FIXME: Stop doing this!
-        gfx.fillOval(getX() - getHitboxWidth() / 2, getY() - getHitboxHeight() / 2, getHitboxWidth(), getHitboxHeight());
+        gfx.fillOval(getX() - centerX, getY() - centerY, getHitboxWidth(), getHitboxHeight());
     }
 
     @Override
