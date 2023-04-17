@@ -84,8 +84,9 @@ public class Player extends GameObject {
         super(spriteSheet.crop(0, 0), x, y, 32, 32);
         this.camera = new Camera(x, y);
 
-        inventory.addActiveItem(Assets.getInstance().getItemFactories().get(0).makeItem());
-
+        var item = Assets.getInstance().getItemFactories().get(0).makeItem();
+        positionObservers.add(item);
+        inventory.addActiveItem(item);
         notifyPositionObservers();
     }
 
