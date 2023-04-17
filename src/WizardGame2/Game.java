@@ -1,5 +1,6 @@
 package WizardGame2;
 
+import WizardGame2.GameObjects.Bullet;
 import WizardGame2.GameObjects.Enemy;
 import WizardGame2.GameObjects.Obstacle;
 import WizardGame2.GameObjects.Player;
@@ -7,6 +8,7 @@ import WizardGame2.GameWindow.GameWindow;
 
 import java.awt.*;
 import java.awt.image.BufferStrategy;
+import java.util.ArrayList;
 
 /*! \class Game
     \brief Clasa principala a intregului proiect. Implementeaza Game - Loop (Update -> Draw)
@@ -42,6 +44,8 @@ import java.awt.image.BufferStrategy;
         - public synchronized void stop()   //metoda publica de oprire a jocului
  */
 public class Game implements Runnable {
+    private static Game instance;
+
     private GameWindow wnd;        /*!< Fereastra in care se va desena tabla jocului*/
     private boolean runState;   /*!< Flag ce starea firului de executie.*/
     private Thread gameThread; /*!< Referinta catre thread-ul de update si draw al ferestrei*/
@@ -64,6 +68,16 @@ public class Game implements Runnable {
     Enemy enemy;
     Map map;
 
+    private ArrayList<Bullet> bullets = new ArrayList<>();
+
+    public static Game getInstance() {
+        if (instance == null) {
+            instance = new Game("WizardGame 2", 800, 600);
+        }
+
+        return instance;
+    }
+
     /*! \fn public Game(String title, int width, int height)
         \brief Constructor de initializare al clasei Game.
 
@@ -74,7 +88,7 @@ public class Game implements Runnable {
         \param width Latimea ferestrei in pixeli.
         \param height Inaltimea ferestrei in pixeli.
      */
-    public Game(String title, int width, int height) {
+    private Game(String title, int width, int height) {
         /// Obiectul GameWindow este creat insa fereastra nu este construita
         /// Acest lucru va fi realizat in metoda init() prin apelul
         /// functiei BuildGameWindow();
@@ -185,6 +199,10 @@ public class Game implements Runnable {
         }
     }
 
+    public ArrayList<Bullet> getBullets() {
+        return bullets;
+    }
+
     /*! \fn private void update()
         \brief Actualizeaza starea elementelor din joc.
 
@@ -193,6 +211,10 @@ public class Game implements Runnable {
     private void update(long currentTime) {
         player.update(map, currentTime);
         enemy.update(map, currentTime);
+
+        for (var bullet : bullets) {
+            bullet.update(map, currentTime);
+        }
     }
 
     /*! \fn private void Draw()
@@ -226,6 +248,10 @@ public class Game implements Runnable {
 
         player.render(gfx, player.getCamera().getX(), player.getCamera().getY());
         enemy.render(gfx, player.getCamera().getX(), player.getCamera().getY());
+
+        for (var bullet : bullets) {
+            bullet.render(gfx, player.getCamera().getX(), player.getCamera().getY());
+        }
 
         gfx.drawImage(assets.getCharacters().crop(1, 0), 32, 0, null);
         gfx.drawImage(assets.getCharacters().crop(2, 0), 64, 0, null);

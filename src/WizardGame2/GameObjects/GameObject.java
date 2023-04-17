@@ -38,6 +38,16 @@ public abstract class GameObject {
     }
 
     /**
+     * Moves the GameObject to the point (x, y)
+     * @param x the new X coordinate
+     * @param y the new Y coordinate
+     */
+    protected void moveTo(int x, int y) {
+        this.x = x;
+        this.y = y;
+    }
+
+    /**
      * Implements AABB collision between two GameObjects
      * @param other another game object
      * @return true if the objects collide, false otherwise

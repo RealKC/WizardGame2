@@ -1,13 +1,18 @@
 package WizardGame2.GameObjects;
 
+import WizardGame2.Assets;
 import WizardGame2.Graphics.SpriteSheet;
+import WizardGame2.Items.Inventory;
 import WizardGame2.Keyboard;
 import WizardGame2.Map;
 
+import java.awt.*;
 import java.awt.event.KeyEvent;
 
 public class Player extends GameObject {
     private static final int STEP = 2;
+
+    Inventory inventory = new Inventory();
 
     public class Camera {
         private int x, y, cameraWidth, cameraHeight, mapWidth, mapHeight;
@@ -72,6 +77,8 @@ public class Player extends GameObject {
     public Player(SpriteSheet spriteSheet, int x, int y) {
         super(spriteSheet.crop(0, 0), x, y, 32, 32);
         this.camera = new Camera(x, y);
+
+        inventory.addActiveItem(Assets.getInstance().getItemFactories().get(0).makeItem());
     }
 
     public Camera getCamera() {
@@ -79,7 +86,15 @@ public class Player extends GameObject {
     }
 
     @Override
+    public void render(Graphics gfx, int centerX, int centerY) {
+        super.render(gfx, centerX, centerY);
+        inventory.render(gfx);
+    }
+
+    @Override
     public void update(Map map, long currentTime) {
+        inventory.update(currentTime);
+
         int deltaY = 0, deltaX = 0;
 
         if (Keyboard.isKeyPressed(KeyEvent.VK_S)) {

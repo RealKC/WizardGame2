@@ -2,11 +2,14 @@ package WizardGame2;
 
 import WizardGame2.Graphics.ImageLoader;
 import WizardGame2.Graphics.SpriteSheet;
+import WizardGame2.Items.ItemData;
+import WizardGame2.Items.ItemFactory;
 import com.google.gson.Gson;
 
 import java.awt.image.BufferedImage;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.Objects;
 
@@ -19,17 +22,22 @@ public class Assets {
     private static Assets instance = null;
 
     private SpriteSheet characters;
+    private SpriteSheet items;
     private BufferedImage tempMap;
 
     private ArrayList<MapData> maps;
+    private ArrayList<ItemFactory> itemFactories;
 
     private static final String[] mapPaths = new String[]{"/levels/level1.json"};
+    private static final String[] itemPaths = new String[]{"/active-items/pistol-carpati.json"};
 
     private Assets() {
         characters = new SpriteSheet(ImageLoader.loadImage("/textures/characters.png"));
+        items = new SpriteSheet(ImageLoader.loadImage("/textures/items-spritesheet.png"));
         tempMap = ImageLoader.loadImage("/textures/bigmap.png");
 
         maps = new ArrayList<>(mapPaths.length);
+        itemFactories = new ArrayList<>(16);
 
         var gson = new Gson();
 
@@ -43,6 +51,25 @@ public class Assets {
                 e.printStackTrace();
             }
         }
+
+        loadItems(gson);
+    }
+
+    private void loadItems(Gson gson) {
+        for (var path : itemPaths) {
+            try (var resource = Assets.class.getResourceAsStream(path)) {
+                var rawItemData = gson.fromJson(new InputStreamReader(Objects.requireNonNull(resource)), ItemData.Raw.class);
+                var itemData = ItemData.fromRaw(getItems(), rawItemData);
+
+                var itemFactoryClass = Class.forName(rawItemData.getItemFactoryName());
+                var itemFactory = (ItemFactory) itemFactoryClass.getDeclaredConstructor().newInstance();
+                itemFactory.setItemData(itemData);
+                itemFactories.add(itemFactory);
+            } catch (Exception e) {
+                System.out.printf("[ASSETS] Caught exception while processing '%s', %s: %s\n", path, e.getClass().getName(), e.getMessage());
+            }
+
+        }
     }
 
     public static Assets getInstance() {
@@ -55,6 +82,14 @@ public class Assets {
 
     public SpriteSheet getCharacters() {
         return characters;
+    }
+
+    public SpriteSheet getItems() {
+        return items;
+    }
+
+    public ArrayList<ItemFactory> getItemFactories() {
+        return itemFactories;
     }
 
     public ArrayList<MapData> getMapDatas() {
