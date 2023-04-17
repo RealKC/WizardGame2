@@ -4,13 +4,11 @@ import WizardGame2.Map;
 
 import java.awt.image.BufferedImage;
 
-public class Enemy extends GameObject {
-    Player player;
+public class Enemy extends GameObject implements Player.PositionObserver {
+    private int playerX, playerY;
 
-    public Enemy(BufferedImage sprite, int x, int y, int hitboxWidth, int hitboxHeight, Player player) {
+    public Enemy(BufferedImage sprite, int x, int y, int hitboxWidth, int hitboxHeight) {
         super(sprite, x, y, hitboxWidth, hitboxHeight);
-
-        this.player = player;
     }
 
     @Override
@@ -18,20 +16,26 @@ public class Enemy extends GameObject {
         int xfactor = 0;
         int yfactor = 0;
 
-        if (player.getX() < this.getX() + 10) {
+        if (playerX < this.getX() + 10) {
             xfactor = -1;
-        } else if (player.getX() > this.getX() + 10) {
+        } else if (playerX > this.getX() + 10) {
             xfactor = 1;
         }
 
-        if (player.getY() < this.getY() + 10) {
+        if (playerY < this.getY() + 10) {
             yfactor = -1;
-        } else if (player.getY() > this.getY() + 10) {
+        } else if (playerY > this.getY() + 10) {
             yfactor = 1;
         }
 
         int step = 2;
 
         moveBy(xfactor * step, yfactor * step);
+    }
+
+    @Override
+    public void notifyAboutNewPosition(int x, int y) {
+        playerX = x;
+        playerY = y;
     }
 }

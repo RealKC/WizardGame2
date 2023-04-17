@@ -115,7 +115,8 @@ public class Game implements Runnable {
         player.getCamera().setCameraWidth(wnd.getWindowWidth());
         player.getCamera().setCameraHeight(wnd.getWindowHeight());
 
-        enemy = new Enemy(assets.getCharacters().crop(1, 0), 50, 700, 32, 32, player);
+        enemy = new Enemy(assets.getCharacters().crop(1, 0), 50, 700, 32, 32);
+        player.addPositionObserver(enemy);
 
         map = new Map(new Obstacle[4], assets.getMapDatas().get(0));
 
