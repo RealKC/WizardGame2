@@ -10,11 +10,18 @@ import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 
+/**
+ * This class implements the player character of the game
+ */
 public class Player extends GameObject {
     private static final int STEP = 2;
 
     Inventory inventory = new Inventory();
 
+    /**
+     * This class implements a camera that ensures the player character is centered on the screen, except for when it
+     * reaches the edges of the map.
+     */
     public class Camera {
         private int x, y, cameraWidth, cameraHeight, mapWidth, mapHeight;
 
@@ -73,7 +80,13 @@ public class Player extends GameObject {
         }
     }
 
+    /**
+     * This interface should be implemented by classes which are interested in the position of the player character
+     */
     public interface PositionObserver {
+        /**
+         * Called whenever the player character's position changes
+         */
         void notifyAboutNewPosition(int x, int y);
     }
 
@@ -141,6 +154,9 @@ public class Player extends GameObject {
         }
     }
 
+    /**
+     * Adds a position observer to an internal list of observers
+     */
     public void addPositionObserver(PositionObserver positionObserver) {
         positionObservers.add(positionObserver);
     }
