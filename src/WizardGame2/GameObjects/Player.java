@@ -79,7 +79,7 @@ public class Player extends GameObject {
     }
 
     @Override
-    public void update(Map map) {
+    public void update(Map map, long currentTime) {
         int deltaY = 0, deltaX = 0;
 
         if (Keyboard.isKeyPressed(KeyEvent.VK_S)) {

@@ -11,7 +11,7 @@ public class Obstacle extends GameObject {
     }
 
     @Override
-    public void update(Map map) {
+    public void update(Map map, long currentTime) {
         // Intentionally left as a noop
     }
 }

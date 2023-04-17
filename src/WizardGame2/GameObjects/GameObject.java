@@ -25,7 +25,7 @@ public abstract class GameObject {
         gfx.drawImage(sprite, x - centerX, y - centerY, null);
     }
 
-    public abstract void update(Map map);
+    public abstract void update(Map map, long currentTime);
 
     /**
      * Moves the GameObject by the specified amounts

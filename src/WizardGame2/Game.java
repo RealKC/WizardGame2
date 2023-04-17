@@ -138,7 +138,7 @@ public class Game implements Runnable {
             /// Daca diferenta de timp dintre curentTime si oldTime mai mare decat 16.6 ms
             if ((curentTime - oldTime) > timeFrame) {
                 /// Actualizeaza pozitiile elementelor
-                update();
+                update(curentTime);
                 /// Deseneaza elementele grafica in fereastra.
                 draw();
                 oldTime = curentTime;
@@ -190,9 +190,9 @@ public class Game implements Runnable {
 
         Metoda este declarata privat deoarece trebuie apelata doar in metoda run()
      */
-    private void update() {
-        player.update(map);
-        enemy.update(map);
+    private void update(long currentTime) {
+        player.update(map, currentTime);
+        enemy.update(map, currentTime);
     }
 
     /*! \fn private void Draw()

@@ -14,7 +14,7 @@ public class Enemy extends GameObject {
     }
 
     @Override
-    public void update(Map map) {
+    public void update(Map map, long currentTime) {
         int xfactor = 0;
         int yfactor = 0;
 
