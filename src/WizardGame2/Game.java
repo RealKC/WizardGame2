@@ -18,7 +18,7 @@ import java.util.ArrayList;
 public class Game implements Runnable {
     private static Game instance;
 
-    private GameWindow wnd;
+    private final GameWindow wnd;
     private boolean runState;
     private Thread gameThread;
 
@@ -26,7 +26,7 @@ public class Game implements Runnable {
     Enemy enemy;
     Map map;
 
-    private ArrayList<Bullet> bullets = new ArrayList<>();
+    private final ArrayList<Bullet> bullets = new ArrayList<>();
 
     public static Game getInstance() {
         if (instance == null) {
@@ -173,7 +173,7 @@ public class Game implements Runnable {
             }
         }
         assert bs != null;
-        
+
         Graphics gfx = bs.getDrawGraphics();
 
         // Clear the screen
