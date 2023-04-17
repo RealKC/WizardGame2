@@ -141,6 +141,10 @@ public class Player extends GameObject {
         }
     }
 
+    public void addPositionObserver(PositionObserver positionObserver) {
+        positionObservers.add(positionObserver);
+    }
+
     private void notifyPositionObservers() {
         for (var positionObserver : positionObservers) {
             positionObserver.notifyAboutNewPosition(getX(), getY());
