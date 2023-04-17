@@ -21,9 +21,6 @@ public class Game implements Runnable {
     private GameWindow wnd;
     private boolean runState;
     private Thread gameThread;
-    private BufferStrategy bs;
-
-    private Graphics gfx;
 
     Player player;
     Enemy enemy;
@@ -155,7 +152,8 @@ public class Game implements Runnable {
      * Renders all game objects and the map
      */
     private void draw() {
-        bs = wnd.getCanvas().getBufferStrategy();
+        BufferStrategy bs = wnd.getCanvas().getBufferStrategy();
+
         if (bs == null) {
             try {
                 /// We use triple buffering to avoid flickering
@@ -174,7 +172,9 @@ public class Game implements Runnable {
                 e.printStackTrace();
             }
         }
-        gfx = bs.getDrawGraphics();
+        assert bs != null;
+        
+        Graphics gfx = bs.getDrawGraphics();
 
         // Clear the screen
         gfx.clearRect(0, 0, wnd.getWindowWidth(), wnd.getWindowHeight());
