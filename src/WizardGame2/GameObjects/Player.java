@@ -8,6 +8,7 @@ import WizardGame2.Map;
 
 import java.awt.*;
 import java.awt.event.KeyEvent;
+import java.util.ArrayList;
 
 public class Player extends GameObject {
     private static final int STEP = 2;
@@ -72,13 +73,20 @@ public class Player extends GameObject {
         }
     }
 
+    public interface PositionObserver {
+        void notifyAboutNewPosition(int x, int y);
+    }
+
     private final Camera camera;
+    private final ArrayList<PositionObserver> positionObservers = new ArrayList<>();
 
     public Player(SpriteSheet spriteSheet, int x, int y) {
         super(spriteSheet.crop(0, 0), x, y, 32, 32);
         this.camera = new Camera(x, y);
 
         inventory.addActiveItem(Assets.getInstance().getItemFactories().get(0).makeItem());
+
+        notifyPositionObservers();
     }
 
     public Camera getCamera() {
@@ -127,6 +135,14 @@ public class Player extends GameObject {
 
         if (!hadAnyCollisions) {
             camera.moveBy(deltaX, deltaY);
+
+            notifyPositionObservers();
+        }
+    }
+
+    private void notifyPositionObservers() {
+        for (var positionObserver : positionObservers) {
+            positionObserver.notifyAboutNewPosition(getX(), getY());
         }
     }
 }
