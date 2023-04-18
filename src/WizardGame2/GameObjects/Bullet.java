@@ -10,6 +10,7 @@ import static java.lang.Math.sin;
 
 public class Bullet extends GameObject {
     public enum MovementType {
+        NONE,
         RADIAL,
         SPIRAL,
     }
@@ -41,6 +42,7 @@ public class Bullet extends GameObject {
     @Override
     public void update(Map map, long currentTime) {
         switch (movementType) {
+            case NONE -> {} // Intentional NOOP
             case RADIAL -> {
                 // Based on: https://github.com/RealKC/WizardGame/blob/master/src/Levels/Bullet.cpp#L52-L60
                 // This code acts as if the bullet is a stationary point on a growing circle, the angle determined by
