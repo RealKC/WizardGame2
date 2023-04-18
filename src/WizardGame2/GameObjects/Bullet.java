@@ -59,4 +59,12 @@ public class Bullet extends GameObject {
             }
         }
     }
+
+    /**
+     * This method returns whether a bullet should be removed or not, and it allows one to
+     * implement piercing bullets.
+     */
+    public boolean shouldBeRemovedAfterThisHit() {
+        return true;
+    }
 }

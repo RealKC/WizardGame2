@@ -158,8 +158,11 @@ public class Game implements Runnable {
             while (j < enemies.size()) {
                 if (bullet.collidesWith(enemies.get(j))) {
                     enemies.remove(j);
-                    bullets.remove(i);
-                    break; // FIXME: Add piercing bullets
+
+                    if (bullet.shouldBeRemovedAfterThisHit()) {
+                        bullets.remove(i);
+                        break;
+                    }
                 }
                 j++;
             }
