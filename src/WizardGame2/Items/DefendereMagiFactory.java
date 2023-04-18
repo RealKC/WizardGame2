@@ -4,6 +4,6 @@ package WizardGame2.Items;
 public class DefendereMagiFactory extends ItemFactory {
     @Override
     public Item makeItem() {
-        return new DefendereMagiItem(itemData.name, 2, itemData.sprite, (int)itemData.baseAttackSpeed);
+        return new DefendereMagiItem(itemData.name, 2, itemData.sprite);
     }
 }

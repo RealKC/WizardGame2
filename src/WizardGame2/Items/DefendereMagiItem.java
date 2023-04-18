@@ -23,8 +23,8 @@ public class DefendereMagiItem extends Item {
 
     private final DefendereMagiArea area = new DefendereMagiArea();
 
-    public DefendereMagiItem(String name, int id, BufferedImage sprite, int attackSpeed) {
-        super(name, id, sprite, attackSpeed);
+    public DefendereMagiItem(String name, int id, BufferedImage sprite) {
+        super(name, id, sprite, 0);
 
         Game.getInstance().getBullets().add(area);
     }
