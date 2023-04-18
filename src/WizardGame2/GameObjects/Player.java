@@ -87,11 +87,13 @@ public class Player extends GameObject {
         /**
          * Called whenever the player character's position changes
          */
-        void notifyAboutNewPosition(int x, int y);
+        void notifyAboutNewPosition(int x, int y, double movementAngle);
     }
 
     private final Camera camera;
     private final ArrayList<PositionObserver> positionObservers = new ArrayList<>();
+
+    private double movementAngle;
 
     public Player(SpriteSheet spriteSheet, int x, int y) {
         super(spriteSheet.crop(0, 0), x, y, 32, 32);
@@ -150,6 +152,8 @@ public class Player extends GameObject {
         if (!hadAnyCollisions) {
             camera.moveBy(deltaX, deltaY);
 
+            movementAngle = Math.atan2(deltaY, deltaX);
+
             notifyPositionObservers();
         }
     }
@@ -163,7 +167,7 @@ public class Player extends GameObject {
 
     private void notifyPositionObservers() {
         for (var positionObserver : positionObservers) {
-            positionObserver.notifyAboutNewPosition(getX(), getY());
+            positionObserver.notifyAboutNewPosition(getX(), getY(), movementAngle);
         }
     }
 }

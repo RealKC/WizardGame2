@@ -50,7 +50,7 @@ public abstract class Item implements Player.PositionObserver {
     }
 
     @Override
-    public void notifyAboutNewPosition(int x, int y) {
+    public void notifyAboutNewPosition(int x, int y, double movementAngle) {
         playerX = x;
         playerY = y;
     }

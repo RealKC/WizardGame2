@@ -34,7 +34,7 @@ public class Enemy extends GameObject implements Player.PositionObserver {
     }
 
     @Override
-    public void notifyAboutNewPosition(int x, int y) {
+    public void notifyAboutNewPosition(int x, int y, double movementAngle) {
         playerX = x;
         playerY = y;
     }
