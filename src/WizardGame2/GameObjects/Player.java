@@ -113,6 +113,26 @@ public class Player extends GameObject {
     public void render(Graphics gfx, int centerX, int centerY) {
         super.render(gfx, centerX, centerY);
         inventory.render(gfx);
+
+        // Render an aiming direction indicator
+
+        boolean angleIsRight = (0 <= movementAngle && movementAngle < Math.PI / 2)
+                || (0.75 * Math.PI <= movementAngle && movementAngle < Math.PI);
+        int factor = angleIsRight ? 1 : 0;
+
+        int spriteCenterX = getX() + getSpriteWidth() / 2;
+        int spriteCenterY = getY() + getSpriteHeight() / 2;
+
+        double radius = Math.hypot(getSpriteHeight(), getSpriteWidth());
+
+        double indicatorX = spriteCenterX + radius * Math.cos(movementAngle);
+        double indicatorY = spriteCenterY + radius * Math.sin(movementAngle);
+
+        var oldColor = gfx.getColor();
+        gfx.setColor(Color.RED);
+        final int INDICATOR_RADIUS = 5;
+        gfx.fillOval((int) (indicatorX) - centerX - factor * INDICATOR_RADIUS, (int) (indicatorY) - centerY - factor * INDICATOR_RADIUS, INDICATOR_RADIUS, INDICATOR_RADIUS);
+        gfx.setColor(oldColor);
     }
 
     @Override
