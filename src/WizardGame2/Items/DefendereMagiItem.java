@@ -5,9 +5,9 @@ import WizardGame2.GameObjects.Bullet;
 
 import java.awt.image.BufferedImage;
 
-public class CirculusGlacieiItem extends Item {
-    static class CirculusGlacieiArea extends Bullet {
-        CirculusGlacieiArea() {
+public class DefendereMagiItem extends Item {
+    private static class DefendereMagiArea extends Bullet {
+        DefendereMagiArea() {
             super(null, 0, 0, 32, 32, MovementType.NONE, 0.0, 0.0);
         }
 
@@ -21,9 +21,9 @@ public class CirculusGlacieiItem extends Item {
         }
     }
 
-    CirculusGlacieiArea area = new CirculusGlacieiArea();
+    private final DefendereMagiArea area = new DefendereMagiArea();
 
-    public CirculusGlacieiItem(String name, int id, BufferedImage sprite, int attackSpeed) {
+    public DefendereMagiItem(String name, int id, BufferedImage sprite, int attackSpeed) {
         super(name, id, sprite, attackSpeed);
 
         Game.getInstance().getBullets().add(area);

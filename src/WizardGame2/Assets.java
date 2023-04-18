@@ -31,7 +31,7 @@ public class Assets {
     private static final String[] mapPaths = new String[]{"/levels/level1.json"};
     private static final String[] itemPaths = new String[]{
             "/active-items/pistol-carpati.json",
-            "/active-items/circulus-glaciei.json",
+            "/active-items/defendere-magi.json",
     };
 
     private Assets() {
