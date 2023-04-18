@@ -7,8 +7,11 @@ import WizardGame2.GameObjects.Player;
 import WizardGame2.GameWindow.GameWindow;
 
 import java.awt.*;
+import java.awt.font.GlyphVector;
 import java.awt.image.BufferStrategy;
 import java.util.ArrayList;
+import java.util.Timer;
+import java.util.TimerTask;
 
 /**
  * Main class of the project
@@ -21,6 +24,11 @@ public class Game implements Runnable {
     private final GameWindow wnd;
     private boolean runState;
     private Thread gameThread;
+
+    /**
+     * The number of seconds that have passed since the start of the level
+     */
+    private int secondsPassed = 0;
 
     Player player;
     private final ArrayList<Enemy> enemies = new ArrayList<>();
@@ -54,6 +62,14 @@ public class Game implements Runnable {
         wnd.buildGameWindow();
 
         var assets = Assets.getInstance();
+
+        Timer timeTicker = new Timer();
+        timeTicker.scheduleAtFixedRate(new TimerTask() {
+            @Override
+            public void run() {
+                Game.this.tickASecond();
+            }
+        }, 0, 1000);
 
         player = new Player(assets.getCharacters(), 800, 600);
         player.getCamera().setCameraWidth(wnd.getWindowWidth());
@@ -214,9 +230,46 @@ public class Game implements Runnable {
             enemy.render(gfx, player.getCamera().getX(), player.getCamera().getY());
         }
 
+        gfx.setFont(new Font(Font.MONOSPACED, Font.BOLD, 25));
+        var currentTime = String.format("%02d:%02d", secondsPassed / 60, secondsPassed % 60);
+        var width = (int) gfx.getFontMetrics().getStringBounds(currentTime, gfx).getWidth();
+        drawTextWithOutline(gfx, currentTime, wnd.getWindowWidth() / 2 - width / 2, 50);
+
         bs.show();
 
         gfx.dispose();
+    }
+
+    private static void drawTextWithOutline(Graphics gfx, String text, int x, int y) {
+        // Based on <https://stackoverflow.com/a/35222059>
+        if (gfx instanceof Graphics2D gfx2d) {
+            Color oldColor = gfx2d.getColor();
+            RenderingHints oldHints = gfx2d.getRenderingHints();
+            Stroke oldStroke = gfx2d.getStroke();
+
+            gfx2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+            gfx2d.setRenderingHint(RenderingHints.KEY_RENDERING, RenderingHints.VALUE_RENDER_QUALITY);
+
+            GlyphVector glyphVector = gfx2d.getFont().createGlyphVector(gfx2d.getFontRenderContext(), text);
+            Shape textShape = glyphVector.getOutline(x, y);
+
+            // Paint the outline
+            gfx2d.setStroke(new BasicStroke(3.0f, BasicStroke.CAP_ROUND, BasicStroke.JOIN_ROUND));
+            gfx2d.setColor(Color.BLACK);
+            gfx2d.draw(textShape);
+
+            // Pain the text itself
+            gfx2d.setColor(Color.WHITE);
+            gfx2d.fill(textShape);
+
+            gfx2d.setColor(oldColor);
+            gfx2d.setRenderingHints(oldHints);
+            gfx2d.setStroke(oldStroke);
+        }
+    }
+
+    private synchronized void tickASecond() {
+        secondsPassed++;
     }
 }
 
