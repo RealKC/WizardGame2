@@ -17,6 +17,6 @@ public class PistolCarpatiItem extends Item {
         }
 
         System.out.printf("%s activated\n", getName());
-        Game.getInstance().getBullets().add(new Bullet(null, playerX, playerY, 30, 30, Bullet.MovementType.RADIAL, 3, 0));
+        Game.getInstance().getBullets().add(new Bullet(null, playerX, playerY, 30, 30, Bullet.MovementType.RADIAL, 3, playerAngle));
     }
 }
