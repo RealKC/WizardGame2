@@ -201,13 +201,14 @@ public class Game implements Runnable {
 
         map.render(gfx, player.getCamera());
 
-        player.render(gfx, player.getCamera().getX(), player.getCamera().getY());
-        for (var enemy : enemies) {
-            enemy.render(gfx, player.getCamera().getX(), player.getCamera().getY());
-        }
-
         for (var bullet : bullets) {
             bullet.render(gfx, player.getCamera().getX(), player.getCamera().getY());
+        }
+
+        player.render(gfx, player.getCamera().getX(), player.getCamera().getY());
+
+        for (var enemy : enemies) {
+            enemy.render(gfx, player.getCamera().getX(), player.getCamera().getY());
         }
 
         bs.show();
