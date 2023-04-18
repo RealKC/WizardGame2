@@ -23,7 +23,7 @@ public class Game implements Runnable {
     private Thread gameThread;
 
     Player player;
-    Enemy enemy;
+    private final ArrayList<Enemy> enemies = new ArrayList<>();
     Map map;
 
     private final ArrayList<Bullet> bullets = new ArrayList<>();
@@ -59,8 +59,8 @@ public class Game implements Runnable {
         player.getCamera().setCameraWidth(wnd.getWindowWidth());
         player.getCamera().setCameraHeight(wnd.getWindowHeight());
 
-        enemy = new Enemy(assets.getCharacters().crop(1, 0), 50, 700, 32, 32);
-        player.addPositionObserver(enemy);
+        enemies.add(new Enemy(assets.getCharacters().crop(1, 0), 50, 700, 32, 32));
+        player.addPositionObserver(enemies.get(0));
 
         map = new Map(new Obstacle[4], assets.getMapDatas().get(0));
 
@@ -141,10 +141,30 @@ public class Game implements Runnable {
      */
     private void update(long currentTime) {
         player.update(map, currentTime);
-        enemy.update(map, currentTime);
+
+        for (var enemy : enemies) {
+            enemy.update(map, currentTime);
+        }
 
         for (var bullet : bullets) {
             bullet.update(map, currentTime);
+        }
+
+        int i = 0;
+        while (i < bullets.size()) {
+            int j = 0;
+
+            Bullet bullet = bullets.get(i);
+            while (j < enemies.size()) {
+                if (bullet.collidesWith(enemies.get(j))) {
+                    enemies.remove(j);
+                    bullets.remove(i);
+                    break; // FIXME: Add piercing bullets
+                }
+                j++;
+            }
+
+            i++;
         }
     }
 
@@ -182,7 +202,9 @@ public class Game implements Runnable {
         map.render(gfx, player.getCamera());
 
         player.render(gfx, player.getCamera().getX(), player.getCamera().getY());
-        enemy.render(gfx, player.getCamera().getX(), player.getCamera().getY());
+        for (var enemy : enemies) {
+            enemy.render(gfx, player.getCamera().getX(), player.getCamera().getY());
+        }
 
         for (var bullet : bullets) {
             bullet.render(gfx, player.getCamera().getX(), player.getCamera().getY());
