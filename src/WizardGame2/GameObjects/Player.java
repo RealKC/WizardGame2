@@ -102,6 +102,9 @@ public class Player extends GameObject {
         var item = Assets.getInstance().getItemFactories().get(0).makeItem();
         positionObservers.add(item);
         inventory.addActiveItem(item);
+        item = Assets.getInstance().getItemFactories().get(1).makeItem();
+        positionObservers.add(item);
+        inventory.addActiveItem(item);
         notifyPositionObservers();
     }
 

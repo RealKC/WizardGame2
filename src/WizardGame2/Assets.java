@@ -29,7 +29,10 @@ public class Assets {
     private ArrayList<ItemFactory> itemFactories;
 
     private static final String[] mapPaths = new String[]{"/levels/level1.json"};
-    private static final String[] itemPaths = new String[]{"/active-items/pistol-carpati.json"};
+    private static final String[] itemPaths = new String[]{
+            "/active-items/pistol-carpati.json",
+            "/active-items/circulus-glaciei.json",
+    };
 
     private Assets() {
         characters = new SpriteSheet(ImageLoader.loadImage("/textures/characters.png"));
