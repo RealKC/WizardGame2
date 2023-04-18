@@ -15,6 +15,7 @@ public abstract class Item implements Player.PositionObserver {
     private int timeUntilNextActivation;
 
     protected int playerX, playerY;
+    protected double playerAngle;
 
     protected Item(String name, int id, BufferedImage sprite, int speed) {
         this.id = id;
@@ -53,5 +54,6 @@ public abstract class Item implements Player.PositionObserver {
     public void notifyAboutNewPosition(int x, int y, double movementAngle) {
         playerX = x;
         playerY = y;
+        playerAngle = movementAngle;
     }
 }
