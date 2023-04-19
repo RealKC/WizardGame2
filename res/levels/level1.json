@@ -1,6 +1,7 @@
 {
   "name": "Curtea lui Mircea",
   "enemies": [],
+
   "tiles": {
     "M": "/textures/field.png"
   },
@@ -8,5 +9,31 @@
   "tileHeight": 600,
   "tileColumns": 3,
   "tileRows": 3,
+
+  "obstacles": {
+    "T": {
+      "x": 0,
+      "y": 0
+    },
+    "F": {
+      "x": 2,
+      "y": 0
+    },
+    "B": {
+      "x": 1,
+      "y": 0
+    }
+  },
+  "obstaclePositions": {
+    "64x64": "T",
+    "636x64": "T",
+    "636x256": "T",
+    "468x300": "F",
+    "500x300": "F",
+    "532x300": "F",
+    "200x568": "B",
+    "280x568": "B"
+  },
+
   "pattern": "MMM\nMMM\nMMM"
 }

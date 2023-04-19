@@ -5,18 +5,29 @@ import WizardGame2.GameObjects.Player;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
+import java.util.ArrayList;
 
 public class Map {
-    Obstacle[] obstacles;
+    ArrayList<Obstacle> obstacles;
 
     BufferedImage texture;
 
-    public Map(Obstacle[] obstacles, MapData mapData) {
+    public static Map fromData(MapData mapData) {
+        var obstacles = new ArrayList<Obstacle>();
+
+        mapData.getObstacles().forEach((position, data) -> {
+            obstacles.add(Obstacle.fromData(Assets.getInstance().getObstacles(), data, position.x, position.y));
+        });
+
+        return new Map(obstacles, mapData);
+    }
+
+    public Map(ArrayList<Obstacle> obstacles, MapData mapData) {
         this.obstacles = obstacles;
         this.texture = mapData.getTexture();
     }
 
-    public Obstacle[] getObstacles() {
+    public ArrayList<Obstacle> getObstacles() {
         return obstacles;
     }
 
@@ -37,9 +48,8 @@ public class Map {
         Color oldColor = gfx.getColor();
         gfx.setColor(Color.RED);
 
-        for (var rect : obstacles) {
-            // FIXME: This is a hack!
-            gfx.drawRect(rect.getX() - x, rect.getY() - y, rect.getHitboxWidth(), rect.getHitboxHeight());
+        for (var obstacle : obstacles) {
+            obstacle.render(gfx, camera.getX(), camera.getY());
         }
 
         gfx.setColor(oldColor);

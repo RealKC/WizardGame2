@@ -2,7 +2,6 @@ package WizardGame2;
 
 import WizardGame2.GameObjects.Bullet;
 import WizardGame2.GameObjects.Enemy;
-import WizardGame2.GameObjects.Obstacle;
 import WizardGame2.GameObjects.Player;
 import WizardGame2.GameWindow.GameWindow;
 
@@ -78,15 +77,10 @@ public class Game implements Runnable {
         enemies.add(new Enemy(assets.getCharacters().crop(1, 0), 50, 700, 32, 32));
         player.addPositionObserver(enemies.get(0));
 
-        map = new Map(new Obstacle[4], assets.getMapDatas().get(0));
+        map = Map.fromData(assets.getMapDatas().get(0));
 
         player.getCamera().setMapWidth(map.getWidth());
         player.getCamera().setMapHeight(map.getHeight());
-
-        map.obstacles[0] = new Obstacle(null, 50, 50, 200, 100);
-        map.obstacles[1] = new Obstacle(null, 150, 200, 200, 100);
-        map.obstacles[2] = new Obstacle(null, 150, 500, 200, 100);
-        map.obstacles[3] = new Obstacle(null, 50, 650, 200, 100);
     }
 
     /**
