@@ -9,3 +9,7 @@
 or derived from there
 * [field.png](./field.png) - drawn using sprites from [Tiny 16: Basic](https://opengameart.org/content/tiny-16-basic)
 by Lanea Zimmerman licensed under CC-BY 3.0
+* [obstacles.png](./obstacles.png):
+  - tree at 0, 1: [Tiny 16: Basic](https://opengameart.org/content/tiny-16-basic) by Lanea Zimmerman licensed under CC-BY 3.0
+  - boulder at 0, 2: from Dungeon Crawl 32x32 Tiles (see above)
+  - fence at 0, 3: drawn by me
