@@ -7,3 +7,5 @@
   - Magnet at row 2, column 3, glasses at row 2, column 9: Made by me
   - Rest are either from [Dungeon Crawl 32x32 Tiles](https://opengameart.org/content/dungeon-crawl-32x32-tiles)
 or derived from there
+* [field.png](./field.png) - drawn using sprites from [Tiny 16: Basic](https://opengameart.org/content/tiny-16-basic)
+by Lanea Zimmerman licensed under CC-BY 3.0
