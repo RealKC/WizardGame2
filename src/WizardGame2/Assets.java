@@ -22,6 +22,7 @@ public class Assets {
     private static Assets instance = null;
 
     private SpriteSheet characters;
+    private SpriteSheet obstacles;
     private SpriteSheet items;
     private BufferedImage tempMap;
 
@@ -37,6 +38,7 @@ public class Assets {
     private Assets() {
         characters = new SpriteSheet(ImageLoader.loadImage("/textures/characters.png"));
         items = new SpriteSheet(ImageLoader.loadImage("/textures/items-spritesheet.png"));
+        obstacles = new SpriteSheet(ImageLoader.loadImage("/textures/obstacles.png"));
         tempMap = ImageLoader.loadImage("/textures/bigmap.png");
 
         maps = new ArrayList<>(mapPaths.length);
@@ -85,6 +87,10 @@ public class Assets {
 
     public SpriteSheet getCharacters() {
         return characters;
+    }
+
+    public SpriteSheet getObstacles() {
+        return obstacles;
     }
 
     public SpriteSheet getItems() {
