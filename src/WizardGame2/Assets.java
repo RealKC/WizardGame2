@@ -30,30 +30,25 @@ public class Assets {
     private final ArrayList<MapData> maps;
     private final ArrayList<ItemFactory> itemFactories;
 
-    private static final String[] mapPaths = new String[]{"/levels/level1.json"};
-
     private Assets() {
         characters = new SpriteSheet(ImageLoader.loadImage("/textures/characters.png"));
         items = new SpriteSheet(ImageLoader.loadImage("/textures/items-spritesheet.png"));
         obstacles = new SpriteSheet(ImageLoader.loadImage("/textures/obstacles.png"));
 
-        maps = new ArrayList<>(mapPaths.length);
+        maps = new ArrayList<>(3);
         itemFactories = new ArrayList<>(16);
 
         var gson = new Gson();
 
-        for (var path : mapPaths) {
-            var filePath = Objects.requireNonNull(Assets.class.getResource(path)).getFile();
-            try {
-                var rawMapData = gson.fromJson(new FileReader(filePath), MapData.Raw.class);
-                maps.add(MapData.fromRaw(rawMapData));
-            } catch (FileNotFoundException e) {
-                System.err.printf("File: '%s' not found!\n", filePath);
-                e.printStackTrace();
-            }
-        }
-
+        loadMaps(gson);
         loadItems(gson);
+    }
+
+    private void loadMaps(Gson gson) {
+        iterateOverResourceFolder("/levels/", (path, reader) -> {
+            MapData.Raw rawMapData = gson.fromJson(reader, MapData.Raw.class);
+            maps.add(MapData.fromRaw(rawMapData));
+        });
     }
 
     private void loadItems(Gson gson) {
