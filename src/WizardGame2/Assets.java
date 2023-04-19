@@ -6,12 +6,14 @@ import WizardGame2.Items.ItemData;
 import WizardGame2.Items.ItemFactory;
 import com.google.gson.Gson;
 
-import java.awt.image.BufferedImage;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.InputStreamReader;
+import java.io.*;
+import java.net.URI;
+import java.net.URISyntaxException;
+import java.nio.file.*;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Objects;
+import java.util.function.BiConsumer;
 
 /*! \class public class Assets
     \brief Clasa incarca fiecare element grafic necesar jocului.
@@ -72,6 +74,50 @@ public class Assets {
                 System.out.printf("[ASSETS] Caught exception while processing '%s', %s: %s\n", path, e.getClass().getName(), e.getMessage());
             }
 
+        }
+    }
+
+    /**
+     * Iterates over every file in a resource folder and calls a callback for every one
+     * @param folder the resource folder to be iterated
+     * @param consumer the callback that will be called for each file
+     */
+    private static void iterateOverResourceFolder(String folder, BiConsumer<Path, Reader> consumer) {
+        // Based on this StackOverflow answer: https://stackoverflow.com/a/67839914
+        try {
+            URI uri = Objects.requireNonNull(Assets.class.getResource(folder)).toURI();
+            Path path;
+
+            try {
+                path = Paths.get(uri);
+            } catch (FileSystemNotFoundException e) {
+                // We are running inside a jar, not from IDEA
+                var env = new HashMap<String, String>();
+                try (var jarFS = FileSystems.newFileSystem(uri, env)) {
+                    path = jarFS.getPath(folder);
+                } catch (IOException ioException) {
+                    e.printStackTrace();
+                    return;
+                }
+            }
+
+            try (var files = Files.list(path)) {
+                files.forEach((filePath) -> {
+                    try {
+                        consumer.accept(filePath, Files.newBufferedReader(filePath));
+                    } catch (IOException e) {
+                        System.out.printf("[ASSETS] Encountered an exception while processing '%s': %s\n", filePath, e.getMessage());
+                        e.printStackTrace();
+                    }
+                });
+            } catch (IOException e) {
+                System.out.printf("[ASSETS] Failed to list files in '%s' (not a path?): %s\n", path, e.getMessage());
+                e.printStackTrace();
+            }
+
+        } catch (URISyntaxException e) {
+            System.out.printf("[ASSETS] Got an invalid URI: %s\n", e.getMessage());
+            e.printStackTrace();
         }
     }
 
