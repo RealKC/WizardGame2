@@ -21,12 +21,12 @@ import java.util.Objects;
 public class Assets {
     private static Assets instance = null;
 
-    private SpriteSheet characters;
-    private SpriteSheet obstacles;
-    private SpriteSheet items;
+    private final SpriteSheet characters;
+    private final SpriteSheet obstacles;
+    private final SpriteSheet items;
 
-    private ArrayList<MapData> maps;
-    private ArrayList<ItemFactory> itemFactories;
+    private final ArrayList<MapData> maps;
+    private final ArrayList<ItemFactory> itemFactories;
 
     private static final String[] mapPaths = new String[]{"/levels/level1.json"};
     private static final String[] itemPaths = new String[]{
