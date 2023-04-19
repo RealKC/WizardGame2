@@ -31,10 +31,6 @@ public class Assets {
     private final ArrayList<ItemFactory> itemFactories;
 
     private static final String[] mapPaths = new String[]{"/levels/level1.json"};
-    private static final String[] itemPaths = new String[]{
-            "/active-items/pistol-carpati.json",
-            "/active-items/defendere-magi.json",
-    };
 
     private Assets() {
         characters = new SpriteSheet(ImageLoader.loadImage("/textures/characters.png"));
@@ -61,11 +57,11 @@ public class Assets {
     }
 
     private void loadItems(Gson gson) {
-        for (var path : itemPaths) {
-            try (var resource = Assets.class.getResourceAsStream(path)) {
-                var rawItemData = gson.fromJson(new InputStreamReader(Objects.requireNonNull(resource)), ItemData.Raw.class);
-                var itemData = ItemData.fromRaw(getItems(), rawItemData);
+        iterateOverResourceFolder("/active-items/", (path, reader) -> {
+            var rawItemData = gson.fromJson(reader, ItemData.Raw.class);
+            var itemData = ItemData.fromRaw(getItems(), rawItemData);
 
+            try {
                 var itemFactoryClass = Class.forName(rawItemData.getItemFactoryName());
                 var itemFactory = (ItemFactory) itemFactoryClass.getDeclaredConstructor().newInstance();
                 itemFactory.setItemData(itemData);
@@ -73,8 +69,7 @@ public class Assets {
             } catch (Exception e) {
                 System.out.printf("[ASSETS] Caught exception while processing '%s', %s: %s\n", path, e.getClass().getName(), e.getMessage());
             }
-
-        }
+        });
     }
 
     /**
