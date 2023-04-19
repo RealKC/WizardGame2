@@ -39,4 +39,12 @@ public class SpriteSheet {
     public BufferedImage crop(int x, int y) {
         return spriteSheet.getSubimage(x * tileWidth, y * tileHeight, tileWidth, tileHeight);
     }
+
+    public int getTileWidth() {
+        return tileWidth;
+    }
+
+    public int getTileHeight() {
+        return tileHeight;
+    }
 }
