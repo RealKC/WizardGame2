@@ -74,10 +74,8 @@ public class Game implements Runnable {
         player.getCamera().setCameraWidth(wnd.getWindowWidth());
         player.getCamera().setCameraHeight(wnd.getWindowHeight());
 
-        enemies.add(new Enemy(assets.getCharacters().crop(1, 0), 50, 700, 32, 32));
-        player.addPositionObserver(enemies.get(0));
-
         level = Level.fromData(assets.getLevelDatas().get(0));
+        player.addPositionObserver(level);
 
         player.getCamera().setMapWidth(level.getWidth());
         player.getCamera().setMapHeight(level.getHeight());
@@ -264,6 +262,15 @@ public class Game implements Runnable {
 
     private synchronized void tickASecond() {
         secondsPassed++;
+
+        if (level != null) {
+            ArrayList<Enemy> enemies = level.maybeSpawn(secondsPassed);
+
+            if (enemies != null) {
+                this.enemies.addAll(enemies);
+                player.addPositionObservers(enemies);
+            }
+        }
     }
 }
 

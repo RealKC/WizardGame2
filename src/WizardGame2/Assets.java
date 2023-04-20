@@ -5,6 +5,7 @@ import WizardGame2.Graphics.SpriteSheet;
 import WizardGame2.Items.ItemData;
 import WizardGame2.Items.ItemFactory;
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 
 import java.io.*;
 import java.net.URI;
@@ -38,7 +39,9 @@ public class Assets {
         levelDatas = new ArrayList<>(3);
         itemFactories = new ArrayList<>(16);
 
-        var gson = new Gson();
+        GsonBuilder gsonBuilder = new GsonBuilder();
+        gsonBuilder.registerTypeAdapter(EnemyDistribution.class, new EnemyDistribution.Deserializer());
+        var gson = gsonBuilder.create();
 
         loadMaps(gson);
         loadItems(gson);

@@ -1,5 +1,6 @@
 package WizardGame2;
 
+import WizardGame2.GameObjects.Enemy;
 import WizardGame2.GameObjects.Obstacle;
 import WizardGame2.Graphics.ImageLoader;
 
@@ -17,11 +18,23 @@ public class LevelData {
 
     private Map<Point, Obstacle.Data> obstacles;
 
+    private Enemy.Data[] enemies;
+    private Enemy.Data[] bosses;
+    private Map<Integer, Wave> waves;
+    private Integer[] waveNumbers;
+
+    public static class Wave {
+        EnemyDistribution distribution;
+        String[] enemies;
+
+        public Wave() {}
+    }
+
+
     // Those warnings are false positives, IDEA just can't figure out that class instances are initialised by GSON
     @SuppressWarnings({"unused", "MismatchedQueryAndUpdateOfCollection"})
     public static class Raw {
         private String name;
-        private String[] enemies;
         private Map<Character, String> tiles;
         private String pattern;
 
@@ -29,6 +42,11 @@ public class LevelData {
 
         private Map<String, Obstacle.Data> obstacles;
         private Map<String, String> obstaclePositions;
+
+        private Enemy.Data[] enemies;
+        private Enemy.Data[] bosses;
+
+        private Map<Integer, Wave> waves;
 
         public Raw() {
         }
@@ -46,6 +64,11 @@ public class LevelData {
         var mapData = new LevelData();
 
         mapData.name = rawMapData.name;
+        mapData.enemies = rawMapData.enemies;
+        mapData.bosses = rawMapData.bosses;
+        mapData.waves = rawMapData.waves;
+        mapData.waveNumbers = new Integer[rawMapData.waves.size()];
+        rawMapData.waves.keySet().toArray(mapData.waveNumbers);
 
         int textureWidth = rawMapData.tileWidth * rawMapData.tileColumns;
         int textureHeight = rawMapData.tileHeight * rawMapData.tileRows;
@@ -114,5 +137,28 @@ public class LevelData {
 
     public Map<Point, Obstacle.Data> getObstacles() {
         return obstacles;
+    }
+
+    public Enemy.Data pickRandomEnemy(int waveNr) {
+        Wave wave = waves.get(waveNr);
+        String picked = wave.distribution.pickEnemy(wave.enemies);
+
+        for (Enemy.Data enemy : enemies) {
+            if (picked.equals(enemy.getName())) {
+                return enemy;
+            }
+        }
+
+        throw new RuntimeException("Invalid enemies definition in the JSON file");
+    }
+
+    public int waveNumberForTime(int seconds) {
+        for (int i = 0; i < waveNumbers.length - 1; ++i) {
+            if (waveNumbers[i] <= seconds && seconds < waveNumbers[i + 1]) {
+                return waveNumbers[i];
+            }
+        }
+
+        return waveNumbers[waveNumbers.length - 1];
     }
 }

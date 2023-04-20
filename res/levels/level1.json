@@ -1,6 +1,5 @@
 {
   "name": "Curtea lui Mircea",
-  "enemies": [],
 
   "tiles": {
     "M": "/textures/field.png"
@@ -35,5 +34,66 @@
     "280x568": "B"
   },
 
-  "pattern": "MMM\nMMM\nMMM"
+  "pattern": "MMM\nMMM\nMMM",
+
+  "enemies": [
+    {
+      "name": "skeleton1",
+      "health": 100,
+      "x": 4,
+      "y": 0
+    },
+    {
+      "name": "skeleton2",
+      "health": 125,
+      "x": 5,
+      "y": 0
+    },
+    {
+      "name": "floating-skull",
+      "health": 25,
+      "x": 9,
+      "y": 0
+    },
+    {
+      "name": "ghost",
+      "health": 200,
+      "x": 8,
+      "y": 0
+    }
+  ],
+
+  "bosses": [
+    {
+      "name": "Matei, The Profaned",
+      "health": 750,
+      "x": 2,
+      "y": 1
+    },
+    {
+      "name": "Adrian, The Crimson Undead",
+      "health": 1000,
+      "x": 3,
+      "y": 1
+    }
+  ],
+
+  "waves": {
+    "0": {
+        "distribution": "1",
+        "enemies": ["skeleton1"]
+    },
+    "60": {
+      "distribution": "0.75;0.25",
+      "enemies": ["skeleton1", "skeleton2"]
+    },
+    "240": {
+      "distribution": "0.75;0.15;0.1",
+      "enemies": ["skeleton1", "skeleton2", "floating-skull"]
+    },
+    "600": {
+      "distribution": "0.5;0.15;0.1;0.25",
+      "enemies": ["skeleton1", "skeleton2", "floating-skull", "ghost"]
+    }
+  }
 }
