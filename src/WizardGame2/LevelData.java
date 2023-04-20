@@ -8,6 +8,9 @@ import java.awt.image.BufferedImage;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * This class contains the data that makes up a level, but no behaviour associated with levels
+ */
 public class LevelData {
     private String name;
     private BufferedImage texture;

@@ -7,6 +7,9 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 
+/**
+ * This class implements the behaviour associated with a level
+ */
 public class Level {
     ArrayList<Obstacle> obstacles;
 
