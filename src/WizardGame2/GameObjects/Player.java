@@ -89,10 +89,19 @@ public class Player extends GameObject {
          * Called whenever the player character's position changes
          */
         void notifyAboutNewPosition(int x, int y, double movementAngle);
+
+        /**
+         * Indicates whether this {@link PositionObserver} is safe to remove from the observer list.
+         * This may be the result of e.g. an enemy dying.
+         */
+        default boolean canBeRemoved() {
+            return false;
+        }
     }
 
     private final Camera camera;
     private final ArrayList<PositionObserver> positionObservers = new ArrayList<>();
+    private long lastCleanupAt = 0;
 
     private double movementAngle;
 
@@ -180,6 +189,8 @@ public class Player extends GameObject {
 
             notifyPositionObservers();
         }
+
+        maybeCleanupObservers(currentTime);
     }
 
     /**
@@ -196,6 +207,23 @@ public class Player extends GameObject {
     private void notifyPositionObservers() {
         for (var positionObserver : positionObservers) {
             positionObserver.notifyAboutNewPosition(getX(), getY(), movementAngle);
+        }
+    }
+
+    private void maybeCleanupObservers(long currentTime) {
+        if (currentTime - lastCleanupAt < 2500) {
+            return;
+        }
+
+        lastCleanupAt = currentTime;
+
+        int i = 0;
+        while (i < positionObservers.size()) {
+            if (positionObservers.get(i).canBeRemoved()) {
+                positionObservers.remove(i);
+            } else {
+                i++;
+            }
         }
     }
 }
