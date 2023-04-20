@@ -9,6 +9,7 @@ import WizardGame2.Level;
 import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.util.ArrayList;
+import java.util.Collection;
 
 /**
  * This class implements the player character of the game
@@ -186,6 +187,10 @@ public class Player extends GameObject {
      */
     public void addPositionObserver(PositionObserver positionObserver) {
         positionObservers.add(positionObserver);
+    }
+
+    public void addPositionObservers(Collection<? extends PositionObserver> positionObservers) {
+        this.positionObservers.addAll(positionObservers);
     }
 
     private void notifyPositionObservers() {
