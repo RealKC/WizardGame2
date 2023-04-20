@@ -27,7 +27,7 @@ public class Assets {
     private final SpriteSheet obstacles;
     private final SpriteSheet items;
 
-    private final ArrayList<MapData> maps;
+    private final ArrayList<LevelData> levelDatas;
     private final ArrayList<ItemFactory> itemFactories;
 
     private Assets() {
@@ -35,7 +35,7 @@ public class Assets {
         items = new SpriteSheet(ImageLoader.loadImage("/textures/items-spritesheet.png"));
         obstacles = new SpriteSheet(ImageLoader.loadImage("/textures/obstacles.png"));
 
-        maps = new ArrayList<>(3);
+        levelDatas = new ArrayList<>(3);
         itemFactories = new ArrayList<>(16);
 
         var gson = new Gson();
@@ -46,8 +46,8 @@ public class Assets {
 
     private void loadMaps(Gson gson) {
         iterateOverResourceFolder("/levels/", (path, reader) -> {
-            MapData.Raw rawMapData = gson.fromJson(reader, MapData.Raw.class);
-            maps.add(MapData.fromRaw(rawMapData));
+            LevelData.Raw rawLevelData = gson.fromJson(reader, LevelData.Raw.class);
+            levelDatas.add(LevelData.fromRaw(rawLevelData));
         });
     }
 
@@ -135,7 +135,7 @@ public class Assets {
         return itemFactories;
     }
 
-    public ArrayList<MapData> getMapDatas() {
-        return maps;
+    public ArrayList<LevelData> getLevelDatas() {
+        return levelDatas;
     }
 }

@@ -8,7 +8,7 @@ import java.awt.image.BufferedImage;
 import java.util.HashMap;
 import java.util.Map;
 
-public class MapData {
+public class LevelData {
     private String name;
     private BufferedImage texture;
 
@@ -39,8 +39,8 @@ public class MapData {
         }
     }
 
-    public static MapData fromRaw(Raw rawMapData) {
-        var mapData = new MapData();
+    public static LevelData fromRaw(Raw rawMapData) {
+        var mapData = new LevelData();
 
         mapData.name = rawMapData.name;
 
@@ -103,7 +103,7 @@ public class MapData {
         return deserializedObstacles;
     }
 
-    private MapData() {}
+    private LevelData() {}
 
     BufferedImage getTexture() {
         return texture;

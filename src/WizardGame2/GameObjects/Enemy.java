@@ -1,6 +1,6 @@
 package WizardGame2.GameObjects;
 
-import WizardGame2.Map;
+import WizardGame2.Level;
 
 import java.awt.image.BufferedImage;
 
@@ -12,7 +12,7 @@ public class Enemy extends GameObject implements Player.PositionObserver {
     }
 
     @Override
-    public void update(Map map, long currentTime) {
+    public void update(Level level, long currentTime) {
         int xfactor = 0;
         int yfactor = 0;
 

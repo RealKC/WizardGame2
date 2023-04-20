@@ -1,6 +1,6 @@
 package WizardGame2.GameObjects;
 
-import WizardGame2.Map;
+import WizardGame2.Level;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
@@ -25,7 +25,7 @@ public abstract class GameObject {
         gfx.drawImage(sprite, x - centerX, y - centerY, null);
     }
 
-    public abstract void update(Map map, long currentTime);
+    public abstract void update(Level level, long currentTime);
 
     /**
      * Moves the GameObject by the specified amounts

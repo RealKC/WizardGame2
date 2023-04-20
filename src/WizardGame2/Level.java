@@ -7,24 +7,24 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 
-public class Map {
+public class Level {
     ArrayList<Obstacle> obstacles;
 
     BufferedImage texture;
 
-    public static Map fromData(MapData mapData) {
+    public static Level fromData(LevelData levelData) {
         var obstacles = new ArrayList<Obstacle>();
 
-        mapData.getObstacles().forEach((position, data) -> {
+        levelData.getObstacles().forEach((position, data) -> {
             obstacles.add(Obstacle.fromData(Assets.getInstance().getObstacles(), data, position.x, position.y));
         });
 
-        return new Map(obstacles, mapData);
+        return new Level(obstacles, levelData);
     }
 
-    public Map(ArrayList<Obstacle> obstacles, MapData mapData) {
+    public Level(ArrayList<Obstacle> obstacles, LevelData levelData) {
         this.obstacles = obstacles;
-        this.texture = mapData.getTexture();
+        this.texture = levelData.getTexture();
     }
 
     public ArrayList<Obstacle> getObstacles() {

@@ -1,6 +1,6 @@
 package WizardGame2.GameObjects;
 
-import WizardGame2.Map;
+import WizardGame2.Level;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
@@ -40,7 +40,7 @@ public class Bullet extends GameObject {
     }
 
     @Override
-    public void update(Map map, long currentTime) {
+    public void update(Level level, long currentTime) {
         switch (movementType) {
             case NONE -> {} // Intentional NOOP
             case RADIAL -> {

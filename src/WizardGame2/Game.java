@@ -31,7 +31,7 @@ public class Game implements Runnable {
 
     Player player;
     private final ArrayList<Enemy> enemies = new ArrayList<>();
-    Map map;
+    Level level;
 
     private final ArrayList<Bullet> bullets = new ArrayList<>();
 
@@ -77,10 +77,10 @@ public class Game implements Runnable {
         enemies.add(new Enemy(assets.getCharacters().crop(1, 0), 50, 700, 32, 32));
         player.addPositionObserver(enemies.get(0));
 
-        map = Map.fromData(assets.getMapDatas().get(0));
+        level = Level.fromData(assets.getLevelDatas().get(0));
 
-        player.getCamera().setMapWidth(map.getWidth());
-        player.getCamera().setMapHeight(map.getHeight());
+        player.getCamera().setMapWidth(level.getWidth());
+        player.getCamera().setMapHeight(level.getHeight());
     }
 
     /**
@@ -150,14 +150,14 @@ public class Game implements Runnable {
      * @param currentTime Current time in nanoseconds
      */
     private void update(long currentTime) {
-        player.update(map, currentTime);
+        player.update(level, currentTime);
 
         for (var enemy : enemies) {
-            enemy.update(map, currentTime);
+            enemy.update(level, currentTime);
         }
 
         for (var bullet : bullets) {
-            bullet.update(map, currentTime);
+            bullet.update(level, currentTime);
         }
 
         int i = 0;
@@ -212,7 +212,7 @@ public class Game implements Runnable {
         // Clear the screen
         gfx.clearRect(0, 0, wnd.getWindowWidth(), wnd.getWindowHeight());
 
-        map.render(gfx, player.getCamera());
+        level.render(gfx, player.getCamera());
 
         for (var bullet : bullets) {
             bullet.render(gfx, player.getCamera().getX(), player.getCamera().getY());

@@ -4,7 +4,7 @@ import WizardGame2.Assets;
 import WizardGame2.Graphics.SpriteSheet;
 import WizardGame2.Items.Inventory;
 import WizardGame2.Keyboard;
-import WizardGame2.Map;
+import WizardGame2.Level;
 
 import java.awt.*;
 import java.awt.event.KeyEvent;
@@ -139,7 +139,7 @@ public class Player extends GameObject {
     }
 
     @Override
-    public void update(Map map, long currentTime) {
+    public void update(Level level, long currentTime) {
         inventory.update(currentTime);
 
         int deltaY = 0, deltaX = 0;
@@ -164,7 +164,7 @@ public class Player extends GameObject {
 
         boolean hadAnyCollisions = false;
 
-        for (Obstacle obstacle : map.getObstacles()) {
+        for (Obstacle obstacle : level.getObstacles()) {
             if (this.collidesWith(obstacle)) {
                 moveBy(-deltaX, -deltaY);
                 hadAnyCollisions = true;

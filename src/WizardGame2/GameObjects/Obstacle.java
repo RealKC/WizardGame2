@@ -1,7 +1,7 @@
 package WizardGame2.GameObjects;
 
 import WizardGame2.Graphics.SpriteSheet;
-import WizardGame2.Map;
+import WizardGame2.Level;
 
 import java.awt.image.BufferedImage;
 
@@ -33,7 +33,7 @@ public class Obstacle extends GameObject {
     }
 
     @Override
-    public void update(Map map, long currentTime) {
+    public void update(Level level, long currentTime) {
         // Intentionally left as a noop
     }
 }
