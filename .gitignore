@@ -7,6 +7,7 @@
 *.synctex.gz
 target/
 *.toc
+report/_minted-report
 out/
 *.jar
 html/

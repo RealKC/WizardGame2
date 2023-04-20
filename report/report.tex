@@ -7,10 +7,11 @@
 \usepackage{placeins}
 \usepackage{wrapfig}
 \usepackage{float}
+\usepackage{minted}
 \usepackage{hyperref}
 
 
-\graphicspath{{./images/}}
+\graphicspath{{./images/} {./diagrams/}}
 
 \title{\textbf{WizardGame 2}}
 \author{
@@ -90,6 +91,7 @@
     sistem și acest lucru v-a fi hotorât de constrângerile de timp.
 
     \section{Conținut}
+    \label{sec:content}
 
     \emph{WizardGame 2} conține o varietate de inamici ce trebuie învinși de
     jucător și o varietate de vrăji și atacuri ce pot fi folosite de acesta pentru a ajunge
@@ -250,6 +252,86 @@
     jucătorul de la ce este important.
 
     \FloatBarrier
+
+    \section{Architectural Design Document}
+
+    \subsection{Pachetul \texttt{GameObjects}}
+    \begin{figure}[H]
+        \includegraphics[width=\linewidth]{gameobjects-diagram}
+        \centering
+        \caption{Diagrama UML a game object-urilor}
+    \end{figure}
+
+    Subclasele clasei \texttt{GameObject} reprezintă obiecte care au interacțiuni cu alte obiecte
+    ale jocului: personajul jucătorului în sine, inamicii, proiectile și obstacole.
+
+    Un \texttt{GameObject} se poate ciocni cu alte \texttt{GameObject}-e, procedeu guvernat de
+    \emph{AABB Collision}\footnote{Acest algoritm verifică dacă două dreptunghiuri se intersectează,
+    dreptunghiurile fiind definite de proprietățile \texttt{x}, \texttt{y}, \texttt{hitboxWidth} și
+    \texttt{hitboxHeight}.}
+
+    Notabile sunt metodele \texttt{update} și \texttt{render} deoarece sunt apelate în fiecare frame
+    pentru toate \texttt{GameObject}-urile. Prima metodă actualizează statusul unui anumit obiect în
+    funcție de schimbările stării jocului, iar a doua desenează pe ecran obiectul.
+
+    Interfața \texttt{Player.PositionObserver} permite unui alt \texttt{GameObject} (și nu numai) să
+    se aboneze la schimbările poziției jucătorului, primind notificări de fiecare dată când poziția
+    jucătorului se schimbă. O astfel de notificare include noua poziție și unghiul în care se mișcă
+    jucătorul.
+
+    Clasele \texttt{Obstacle} și \texttt{Enemy} au proprietăți definite în fișiere JSON. Formatul
+    unui obstacol este următorul:
+
+    \begin{minted}[linenos, breaklines]{json}
+    {
+        "identificator": {
+            "x": "Coloana din spritesheet în care se află acest obstacol",
+            "y": "Rândul din spritesheet în care se află acest obstacol"
+        }
+    }
+    \end{minted}
+
+    Iar formatul unui inamic este:
+    \begin{minted}[linenos, breaklines]{json}
+        {
+            "name": "identificator",
+            "health": "Valoarea vieții acestui inamic",
+            "x": "Coloana din spritesheet în care se află acest inamic",
+            "y": "Rândul din spritesheet în care se află acest inamic"
+        }
+    \end{minted}
+
+    \subsection{Pachetul \texttt{Items}}
+    \begin{figure}[H]
+        \includegraphics[width=\linewidth]{items-diagram}
+        \centering
+        \caption{Diagrama UML a item-urilor}
+    \end{figure}
+
+    Subclasele clasei \texttt{Item} reprezintă armele, vrăjile și seturile de echipament menționate
+    în secțiunea \ref{sec:content}. Aceste clase nu sunt instanțiate direct, ci prin subclase ale
+    clasei \texttt{ItemFactory} care abstractizează modul de creare a unui \texttt{Item} (care
+    poate fi diferit în funcție de subclasă).
+
+    Clasa \texttt{Item} implementează și interfața \texttt{Player.PositionObserver}, care îi permite
+    să primească notificări legate de schimbare poziției jucătorului în lume, prin metoda
+    \texttt{notifyAboutNewPosition} care primește noile coordonate ale jucătorului și unghiul în
+    care se mișcă acesta.
+
+    Notabil este faptul că item-urile nu sunt definite în cod, ci printr-un fișier JSON al cărui
+    format este următorul format:
+
+    \begin{minted}[linenos, breaklines]{json}
+        {
+            "name": "Numele item-ului",
+            "baseAttack": "Valoarea scăzută din viața unui inamic lovit de atac",
+            "speed": "Valoarea care controlează activarea item-ului",
+            "x": "Coloana din spritesheet în care se află acest item",
+            "y": "Rândul din spritesheet în care se află acest item",
+            "itemFactoryName": "Numele complet al clasei factory care poate creea instanțe de acest item"
+        }
+    \end{minted}
+
     \addcontentsline{toc}{section}{Anexa 1}
     \section*{Anexa 1}
     \label{sec:anexa1}
