@@ -83,4 +83,10 @@ public class Enemy extends GameObject implements Player.PositionObserver {
         playerX = x;
         playerY = y;
     }
+
+    @Override
+    public boolean canBeRemoved() {
+        // We stop caring about the player's position after death
+        return health <= 0;
+    }
 }
