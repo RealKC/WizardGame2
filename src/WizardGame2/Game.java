@@ -164,15 +164,24 @@ public class Game implements Runnable {
 
             Bullet bullet = bullets.get(i);
             while (j < enemies.size()) {
-                if (bullet.collidesWith(enemies.get(j))) {
-                    enemies.remove(j);
+                Enemy enemy = enemies.get(j);
+                Enemy.Died died = Enemy.Died.NO;
+                if (bullet.collidesWith(enemy)) {
+
+                    died = enemy.takeDamage(bullet.getAttackDamage());
+                    if (died == Enemy.Died.YES) {
+                        enemies.remove(j);
+                    }
 
                     if (bullet.shouldBeRemovedAfterThisHit()) {
                         bullets.remove(i);
                         break;
                     }
                 }
-                j++;
+
+                if (died == Enemy.Died.NO) {
+                    j++;
+                }
             }
 
             i++;

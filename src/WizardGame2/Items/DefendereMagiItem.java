@@ -7,8 +7,8 @@ import java.awt.image.BufferedImage;
 
 public class DefendereMagiItem extends Item {
     private static class DefendereMagiArea extends Bullet {
-        DefendereMagiArea() {
-            super(null, 0, 0, 32, 32, MovementType.NONE, 0.0, 0.0);
+        DefendereMagiArea(double attackDamage) {
+            super(null, 0, 0, 32, 32, MovementType.NONE, 0.0, 0.0, attackDamage);
         }
 
         @Override
@@ -21,10 +21,11 @@ public class DefendereMagiItem extends Item {
         }
     }
 
-    private final DefendereMagiArea area = new DefendereMagiArea();
+    private final DefendereMagiArea area;
 
-    public DefendereMagiItem(String name, int id, BufferedImage sprite) {
+    public DefendereMagiItem(String name, int id, BufferedImage sprite, double attackDamage) {
         super(name, id, sprite, 0);
+        area = new DefendereMagiArea(attackDamage);
 
         Game.getInstance().getBullets().add(area);
     }

@@ -20,18 +20,24 @@ public class Bullet extends GameObject {
     private double distance = 0;
     private final double angle;
 
+    private final double attackDamage;
+
     private final int originX, originY;
 
     public Bullet(BufferedImage sprite, int x, int y, int hitboxWidth, int hitboxHeight,
-                  MovementType movementType, double speed, double angle) {
+                  MovementType movementType, double speed, double angle, double attackDamage) {
         super(sprite, x, y, hitboxWidth, hitboxHeight);
         originX = x;
         originY = y;
         this.movementType = movementType;
         this.speed = speed;
         this.angle = angle;
+        this.attackDamage = attackDamage;
     }
 
+    public double getAttackDamage() {
+        return attackDamage;
+    }
 
     @Override
     public void render(Graphics gfx, int centerX, int centerY) {
