@@ -75,7 +75,17 @@ public class Enemy extends GameObject implements Player.PositionObserver {
 
         int step = 2;
 
-        moveBy(xfactor * step, yfactor * step);
+        int deltaX = xfactor * step;
+        int deltaY = yfactor * step;
+
+        moveBy(deltaX, deltaY);
+
+        for (Obstacle obstacle : level.getObstacles()) {
+            if (this.collidesWith(obstacle)) {
+                moveBy(-deltaX, -deltaY);
+                break;
+            }
+        }
     }
 
     @Override
