@@ -251,9 +251,27 @@
     În general am urmat simplicitatea în proiectarea interfeței grafice, pentru a nu distrage
     jucătorul de la ce este important.
 
-    \FloatBarrier
 
     \section{Architectural Design Document}
+    \FloatBarrier
+    \begin{figure}[H]
+        \includegraphics[width=\linewidth]{high-level-diagram}
+        \centering
+        \caption{Diagrama de nivel înalt a jocului}
+    \end{figure}
+
+    Jocul este compus din diferite clase care implementează diferite părți ale logicii sale. Astfel,
+    jocul poate fi separat în următoarele componente:
+    \begin{itemize}
+        \item Clasele din pachetul \texttt{GameObjects} implementează logica obiectelor cu care
+        jucătorul poate interacționa fizic într-un nivel.
+        \item Clasele din pachetul \texttt{Items} reprezintă armele, vrăjile și echipamentul
+        jucătorului.
+        \item Clasa \texttt{Level} implementează logica aferentă unui nivel: afișarea sa pe ecran
+        și crearea instanțelor de inamici noi.
+        \item Clasa \texttt{Game} care aduce toate clasele împreună și folosind șablonul
+        \emph{main loop} realizează interactivitatea cu jucătorul.
+    \end{itemize}
 
     \subsection{Pachetul \texttt{GameObjects}}
     \begin{figure}[H]
@@ -331,6 +349,19 @@
             "itemFactoryName": "Numele complet al clasei factory care poate creea instanțe de acest item"
         }
     \end{minted}
+
+    \subsection{Clasa \texttt{Level}}
+    \begin{figure}[H]
+        \includegraphics[width=\textwidth]{level-diagram}
+        \centering
+        \caption{Diagrama UML a clasei \texttt{Level}}
+    \end{figure}
+
+    Clasa \texttt{Level} implementează funcționalitatea unui nivel, utilizându-se de clasele
+    \texttt{LevelData}, \texttt{Wave} și \texttt{EnemyDistribution}. Nivele sunt definite în fișiere
+    JSON folosind următorul format:
+
+    \inputminted[linenos, breaklines]{json}{example-level.json}
 
     \addcontentsline{toc}{section}{Anexa 1}
     \section*{Anexa 1}

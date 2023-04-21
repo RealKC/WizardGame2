@@ -1,0 +1,31 @@
+{
+    "name": "Numele nivelului",
+    "tiles": {
+        "identificator": "calea către resursă"
+    },
+    "tileWidth": "lătime unei dale",
+    "tileHeight": "înălțimea unei dale",
+    "tileColumns": "numărul de coloane pentru dale",
+    "tileRows": "numărul de rânduri pentru dale",
+    "obstacles": {
+        // Formatul a fost menționat în secțiunea GameObjects
+    },
+    "obstaclePositions": {
+        "'poziția pe axa X'x'pozitția pe axa Y'": "identificator",
+        // ...
+    },
+    "pattern": "o matrice tileColumns x tileRows care reprezintă modul de aranjare a dalelor în nivel",
+    "enemies": [
+        // Formatul a fost menționat în secțiunea GameObjects
+    ],
+    "bosses": [
+        // Același format ca și la inamici
+    ],
+    "waves": {
+        "secunda la care începe": {
+            "distribution": "o listă de probabilități separate prin ;",
+            "enemies": "un vector de identificatori pentru inamici"
+        },
+        // ...
+    }
+}
