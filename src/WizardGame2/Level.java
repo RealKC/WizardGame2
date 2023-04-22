@@ -77,7 +77,7 @@ public class Level implements Player.PositionObserver {
 
         for (int i = 0; i < count; ++i) {
             int radius = 155 + random.nextInt(10);
-            double angle = random.nextDouble(0, Math.PI);
+            double angle = random.nextDouble() * Math.PI;
 
             int x = playerX + (int) (radius * Math.cos(angle));
             int y = playerY + (int) (radius * Math.sin(angle));

@@ -243,7 +243,8 @@ public class Game implements Runnable {
 
     private static void drawTextWithOutline(Graphics gfx, String text, int x, int y) {
         // Based on <https://stackoverflow.com/a/35222059>
-        if (gfx instanceof Graphics2D gfx2d) {
+        if (gfx instanceof Graphics2D) {
+            var gfx2d = (Graphics2D) gfx;
             Color oldColor = gfx2d.getColor();
             RenderingHints oldHints = gfx2d.getRenderingHints();
             Stroke oldStroke = gfx2d.getStroke();
