@@ -1,7 +1,7 @@
 {
   "name": "Pistol Carpați",
   "baseAttack": 5,
-  "speed": 3,
+  "speed": 22,
   "x": 0,
   "y": 0,
   "itemFactoryName": "WizardGame2.Items.PistolCarpatiFactory"
