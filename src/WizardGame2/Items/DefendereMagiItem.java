@@ -3,12 +3,16 @@ package WizardGame2.Items;
 import WizardGame2.GameObjects.Bullet;
 import WizardGame2.Scenes.LevelScene;
 
+import java.awt.*;
 import java.awt.image.BufferedImage;
 
 public class DefendereMagiItem extends Item {
     private static class DefendereMagiArea extends Bullet {
+        static final int BASE_DIAMATER = 60;
+        static final int BASE_RADIUS = BASE_DIAMATER / 2;
+
         DefendereMagiArea(double attackDamage) {
-            super(null, 0, 0, 32, 32, MovementType.NONE, 0.0, 0.0, attackDamage);
+            super(null, 0, 0, BASE_DIAMATER, BASE_DIAMATER, MovementType.NONE, 0.0, 0.0, attackDamage);
         }
 
         @Override
@@ -16,8 +20,14 @@ public class DefendereMagiItem extends Item {
             return false;
         }
 
+        @Override
+        public void render(Graphics gfx, int centerX, int centerY) {
+            gfx.drawRect(getX() - centerX, getY() - centerY, BASE_DIAMATER, BASE_DIAMATER);
+            gfx.fillOval(getX() - centerX, getY() - centerY, BASE_DIAMATER, BASE_DIAMATER);
+        }
+
         void setPosition(int x, int y) {
-            moveTo(x, y);
+            moveTo(x - BASE_RADIUS + 16, y - BASE_RADIUS + 16);
         }
     }
 
