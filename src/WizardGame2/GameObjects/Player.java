@@ -18,6 +18,7 @@ public class Player extends GameObject {
     private static final int STEP = 2;
 
     Inventory inventory = new Inventory();
+    private int stoppedCounter = 0;
 
     /**
      * This class implements a camera that ensures the player character is centered on the screen, except for when it
@@ -185,7 +186,20 @@ public class Player extends GameObject {
         if (!hadAnyCollisions) {
             camera.moveBy(deltaX, deltaY);
 
-            movementAngle = Math.atan2(deltaY, deltaX);
+            double newAngle = Math.atan2(deltaY, deltaX);
+            boolean shouldUpdateAngle = true;
+
+            if (Math.abs(newAngle) <= 0.1 && deltaX <= 0) {
+                stoppedCounter++;
+                if (stoppedCounter <= 10) {
+                    stoppedCounter = 0;
+                    shouldUpdateAngle = false;
+                }
+            }
+
+            if (shouldUpdateAngle) {
+                movementAngle = newAngle;
+            }
 
             notifyPositionObservers();
         }
