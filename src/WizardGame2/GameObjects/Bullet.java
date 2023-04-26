@@ -24,6 +24,8 @@ public class Bullet extends GameObject {
 
     private final int originX, originY;
 
+    private int enemiesToHitUntilRemoval = 1;
+
     public Bullet(BufferedImage sprite, int x, int y, int hitboxWidth, int hitboxHeight,
                   MovementType movementType, double speed, double angle, double attackDamage) {
         super(sprite, x, y, hitboxWidth, hitboxHeight);
@@ -77,6 +79,7 @@ public class Bullet extends GameObject {
      * implement piercing bullets.
      */
     public boolean shouldBeRemovedAfterThisHit() {
-        return true;
+        enemiesToHitUntilRemoval--;
+        return enemiesToHitUntilRemoval == 0;
     }
 }
