@@ -1,16 +1,11 @@
 package WizardGame2;
 
-import WizardGame2.GameObjects.Bullet;
-import WizardGame2.GameObjects.Enemy;
-import WizardGame2.GameObjects.Player;
 import WizardGame2.GameWindow.GameWindow;
+import WizardGame2.Scenes.LevelScene;
+import WizardGame2.Scenes.SceneManager;
 
 import java.awt.*;
-import java.awt.font.GlyphVector;
 import java.awt.image.BufferStrategy;
-import java.util.ArrayList;
-import java.util.Timer;
-import java.util.TimerTask;
 
 /**
  * Main class of the project
@@ -24,16 +19,7 @@ public class Game implements Runnable {
     private boolean runState;
     private Thread gameThread;
 
-    /**
-     * The number of seconds that have passed since the start of the level
-     */
-    private int secondsPassed = 0;
-
-    Player player;
-    private final ArrayList<Enemy> enemies = new ArrayList<>();
-    Level level;
-
-    private final ArrayList<Bullet> bullets = new ArrayList<>();
+    SceneManager sceneManager;
 
     public static Game getInstance() {
         if (instance == null) {
@@ -60,25 +46,7 @@ public class Game implements Runnable {
     private void initGame() {
         wnd.buildGameWindow();
 
-        var assets = Assets.getInstance();
-
-        Timer timeTicker = new Timer();
-        timeTicker.scheduleAtFixedRate(new TimerTask() {
-            @Override
-            public void run() {
-                Game.this.tickASecond();
-            }
-        }, 0, 1000);
-
-        player = new Player(assets.getCharacters(), 800, 600);
-        player.getCamera().setCameraWidth(wnd.getWindowWidth());
-        player.getCamera().setCameraHeight(wnd.getWindowHeight());
-
-        level = Level.fromData(assets.getLevelDatas().get(0));
-        player.addPositionObserver(level);
-
-        player.getCamera().setMapWidth(level.getWidth());
-        player.getCamera().setMapHeight(level.getHeight());
+        sceneManager = new SceneManager(LevelScene.getInstance());
     }
 
     /**
@@ -137,55 +105,19 @@ public class Game implements Runnable {
     }
 
     /**
-     * Gets all the bullets in the game
-     */
-    public ArrayList<Bullet> getBullets() {
-        return bullets;
-    }
-
-    /**
      * Updates the game objects
      * @param currentTime Current time in nanoseconds
      */
     private void update(long currentTime) {
-        player.update(level, currentTime);
+        sceneManager.update(currentTime);
+    }
 
-        for (var enemy : enemies) {
-            enemy.update(level, currentTime);
-        }
+    public int getWindowWidth() {
+        return wnd.getWindowWidth();
+    }
 
-        for (var bullet : bullets) {
-            bullet.update(level, currentTime);
-        }
-
-        int i = 0;
-        while (i < bullets.size()) {
-            int j = 0;
-
-            Bullet bullet = bullets.get(i);
-            while (j < enemies.size()) {
-                Enemy enemy = enemies.get(j);
-                Enemy.Died died = Enemy.Died.NO;
-                if (bullet.collidesWith(enemy)) {
-
-                    died = enemy.takeDamage(bullet.getAttackDamage());
-                    if (died == Enemy.Died.YES) {
-                        enemies.remove(j);
-                    }
-
-                    if (bullet.shouldBeRemovedAfterThisHit()) {
-                        bullets.remove(i);
-                        break;
-                    }
-                }
-
-                if (died == Enemy.Died.NO) {
-                    j++;
-                }
-            }
-
-            i++;
-        }
+    public int getWindowHeight() {
+        return wnd.getWindowHeight();
     }
 
     /**
@@ -219,68 +151,10 @@ public class Game implements Runnable {
         // Clear the screen
         gfx.clearRect(0, 0, wnd.getWindowWidth(), wnd.getWindowHeight());
 
-        level.render(gfx, player.getCamera());
-
-        for (var bullet : bullets) {
-            bullet.render(gfx, player.getCamera().getX(), player.getCamera().getY());
-        }
-
-        player.render(gfx, player.getCamera().getX(), player.getCamera().getY());
-
-        for (var enemy : enemies) {
-            enemy.render(gfx, player.getCamera().getX(), player.getCamera().getY());
-        }
-
-        gfx.setFont(new Font(Font.MONOSPACED, Font.BOLD, 25));
-        var currentTime = String.format("%02d:%02d", secondsPassed / 60, secondsPassed % 60);
-        var width = (int) gfx.getFontMetrics().getStringBounds(currentTime, gfx).getWidth();
-        drawTextWithOutline(gfx, currentTime, wnd.getWindowWidth() / 2 - width / 2, 50);
-
+        sceneManager.render(gfx);
         bs.show();
 
         gfx.dispose();
-    }
-
-    private static void drawTextWithOutline(Graphics gfx, String text, int x, int y) {
-        // Based on <https://stackoverflow.com/a/35222059>
-        if (gfx instanceof Graphics2D) {
-            var gfx2d = (Graphics2D) gfx;
-            Color oldColor = gfx2d.getColor();
-            RenderingHints oldHints = gfx2d.getRenderingHints();
-            Stroke oldStroke = gfx2d.getStroke();
-
-            gfx2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
-            gfx2d.setRenderingHint(RenderingHints.KEY_RENDERING, RenderingHints.VALUE_RENDER_QUALITY);
-
-            GlyphVector glyphVector = gfx2d.getFont().createGlyphVector(gfx2d.getFontRenderContext(), text);
-            Shape textShape = glyphVector.getOutline(x, y);
-
-            // Paint the outline
-            gfx2d.setStroke(new BasicStroke(3.0f, BasicStroke.CAP_ROUND, BasicStroke.JOIN_ROUND));
-            gfx2d.setColor(Color.BLACK);
-            gfx2d.draw(textShape);
-
-            // Pain the text itself
-            gfx2d.setColor(Color.WHITE);
-            gfx2d.fill(textShape);
-
-            gfx2d.setColor(oldColor);
-            gfx2d.setRenderingHints(oldHints);
-            gfx2d.setStroke(oldStroke);
-        }
-    }
-
-    private synchronized void tickASecond() {
-        secondsPassed++;
-
-        if (level != null) {
-            ArrayList<Enemy> enemies = level.maybeSpawn(secondsPassed);
-
-            if (enemies != null) {
-                this.enemies.addAll(enemies);
-                player.addPositionObservers(enemies);
-            }
-        }
     }
 }
 

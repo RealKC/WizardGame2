@@ -1,7 +1,7 @@
 package WizardGame2.Items;
 
-import WizardGame2.Game;
 import WizardGame2.GameObjects.Bullet;
+import WizardGame2.Scenes.LevelScene;
 
 import java.awt.image.BufferedImage;
 
@@ -27,7 +27,9 @@ public class DefendereMagiItem extends Item {
         super(name, id, sprite, 0);
         area = new DefendereMagiArea(attackDamage);
 
-        Game.getInstance().getBullets().add(area);
+        var levelScene = LevelScene.getInstance();
+        assert levelScene != null;
+        levelScene.getBullets().add(area);
     }
 
     @Override

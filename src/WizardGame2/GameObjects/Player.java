@@ -1,8 +1,8 @@
 package WizardGame2.GameObjects;
 
-import WizardGame2.Assets;
 import WizardGame2.Graphics.SpriteSheet;
 import WizardGame2.Items.Inventory;
+import WizardGame2.Items.Item;
 import WizardGame2.Keyboard;
 import WizardGame2.Level;
 
@@ -109,14 +109,6 @@ public class Player extends GameObject {
     public Player(SpriteSheet spriteSheet, int x, int y) {
         super(spriteSheet.crop(0, 0), x, y, 32, 32);
         this.camera = new Camera(x, y);
-
-        var item = Assets.getInstance().getItemFactories().get(0).makeItem();
-        positionObservers.add(item);
-        inventory.addActiveItem(item);
-        item = Assets.getInstance().getItemFactories().get(1).makeItem();
-        positionObservers.add(item);
-        inventory.addActiveItem(item);
-        notifyPositionObservers();
     }
 
     public Camera getCamera() {
@@ -216,6 +208,11 @@ public class Player extends GameObject {
 
     public void addPositionObservers(Collection<? extends PositionObserver> positionObservers) {
         this.positionObservers.addAll(positionObservers);
+    }
+
+    public void addActiveItem(Item item) {
+        inventory.addActiveItem(item);
+        addPositionObserver(item);
     }
 
     private void notifyPositionObservers() {

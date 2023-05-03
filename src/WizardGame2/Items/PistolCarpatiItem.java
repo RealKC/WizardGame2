@@ -1,7 +1,7 @@
 package WizardGame2.Items;
 
-import WizardGame2.Game;
 import WizardGame2.GameObjects.Bullet;
+import WizardGame2.Scenes.LevelScene;
 
 import java.awt.image.BufferedImage;
 
@@ -19,8 +19,9 @@ public class PistolCarpatiItem extends Item {
             return;
         }
 
-        System.out.printf("%s activated\n", getName());
-        Game.getInstance().getBullets().add(new Bullet(null, playerX, playerY, 30, 30,
+        var levelScene = LevelScene.getInstance();
+        assert levelScene != null;
+        levelScene.getBullets().add(new Bullet(null, playerX, playerY, 30, 30,
                 Bullet.MovementType.RADIAL, 12, playerAngle, attackDamage));
     }
 }
