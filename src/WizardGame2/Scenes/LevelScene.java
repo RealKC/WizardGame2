@@ -1,14 +1,12 @@
 package WizardGame2.Scenes;
 
-import WizardGame2.Assets;
-import WizardGame2.Game;
+import WizardGame2.*;
 import WizardGame2.GameObjects.Bullet;
 import WizardGame2.GameObjects.Enemy;
 import WizardGame2.GameObjects.Player;
-import WizardGame2.Level;
-import WizardGame2.Utils;
 
 import java.awt.*;
+import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -30,6 +28,8 @@ public class LevelScene implements Scene {
      */
     boolean firstUpdate = true;
 
+    private boolean isPaused = false;
+
     private static LevelScene instance;
 
     public static LevelScene getInstance() {
@@ -40,7 +40,7 @@ public class LevelScene implements Scene {
         return instance;
     }
 
-    public void reset() {
+    public static void reset() {
         instance = null;
     }
 
@@ -49,7 +49,7 @@ public class LevelScene implements Scene {
         timeTicker.scheduleAtFixedRate(new TimerTask() {
             @Override
             public void run() {
-                LevelScene.this.tickASecond();
+               LevelScene.this.tickASecond();
             }
         }, 0, 1000);
 
@@ -68,6 +68,11 @@ public class LevelScene implements Scene {
 
     @Override
     public SceneUpdate update(long currentTime) {
+        if (Keyboard.isKeyPressed(KeyEvent.VK_ESCAPE)) {
+            isPaused = true;
+            return SceneUpdate.NEXT_SCENE;
+        }
+
         if (firstUpdate) {
             var itemFactories = Assets.getInstance().getItemFactories();
             player.addActiveItem(itemFactories.get(0).makeItem());
@@ -114,7 +119,7 @@ public class LevelScene implements Scene {
             i++;
         }
 
-        return SceneUpdate.STAY;
+        return  SceneUpdate.STAY;
     }
 
     @Override
@@ -137,9 +142,17 @@ public class LevelScene implements Scene {
         Utils.drawTextWithOutline(gfx, currentTime, Game.getInstance().getWindowWidth() / 2 - width / 2, 50);
     }
 
+    public boolean getIsPaused() {
+        return isPaused;
+    }
+
+    public void setPaused(boolean b) {
+        isPaused = b;
+    }
+
     @Override
     public Scene nextScene() {
-        return null;
+        return new PauseMenuScene(this);
     }
 
     /**
@@ -150,6 +163,10 @@ public class LevelScene implements Scene {
     }
 
     private synchronized void tickASecond() {
+        if (LevelScene.this.isPaused) {
+            return;
+        }
+
         secondsPassed++;
 
         if (level != null) {

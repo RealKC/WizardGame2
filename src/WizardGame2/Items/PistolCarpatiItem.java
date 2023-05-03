@@ -15,7 +15,7 @@ public class PistolCarpatiItem extends Item {
 
     @Override
     void update(long currentTime) {
-        if (!hasCooldownPassed()) {
+        if (!hasCooldownPassed() || LevelScene.getInstance().getIsPaused()) {
             return;
         }
 
