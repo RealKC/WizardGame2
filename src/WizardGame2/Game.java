@@ -2,6 +2,7 @@ package WizardGame2;
 
 import WizardGame2.GameWindow.GameWindow;
 import WizardGame2.Scenes.LevelScene;
+import WizardGame2.Scenes.MainMenuScene;
 import WizardGame2.Scenes.SceneManager;
 
 import java.awt.*;
@@ -46,7 +47,7 @@ public class Game implements Runnable {
     private void initGame() {
         wnd.buildGameWindow();
 
-        sceneManager = new SceneManager(LevelScene.getInstance());
+        sceneManager = new SceneManager(new MainMenuScene());
     }
 
     /**
@@ -118,6 +119,10 @@ public class Game implements Runnable {
 
     public int getWindowHeight() {
         return wnd.getWindowHeight();
+    }
+
+    public Canvas getCanvas() {
+        return wnd.getCanvas();
     }
 
     /**
