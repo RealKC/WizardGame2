@@ -29,6 +29,12 @@ public class Level implements Player.PositionObserver {
             obstacles.add(Obstacle.fromData(Assets.getInstance().getObstacles(), data, position.x, position.y));
         });
 
+        // Add world borders
+        obstacles.add(new Obstacle(null, -2, 0, 2, levelData.getTexture().getHeight())); // left border
+        obstacles.add(new Obstacle(null, levelData.getTexture().getWidth() + 2, 0, 2, levelData.getTexture().getHeight())); // right border
+        obstacles.add(new Obstacle(null, -2, 0, levelData.getTexture().getWidth(), 2)); // top border
+        obstacles.add(new Obstacle(null, 0, levelData.getTexture().getHeight(), levelData.getTexture().getWidth() , 2)); // bottom order
+
         return new Level(obstacles, levelData);
     }
 
