@@ -5,6 +5,7 @@ import WizardGame2.Graphics.SpriteSheet;
 import java.awt.image.BufferedImage;
 
 public class ItemData {
+    @SuppressWarnings("unused")
     public static class Raw {
         private String name;
         private float baseAttack;

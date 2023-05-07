@@ -1,7 +1,6 @@
 package WizardGame2;
 
 import WizardGame2.GameWindow.GameWindow;
-import WizardGame2.Scenes.LevelScene;
 import WizardGame2.Scenes.MainMenuScene;
 import WizardGame2.Scenes.SceneManager;
 
