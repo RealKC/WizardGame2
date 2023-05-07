@@ -30,7 +30,9 @@ public class PauseMenuScene implements Scene {
             shouldSwitchScenes = true;
             nextScene = NextScene.MAIN_MENU;
         });
-        buttons[2] = new Button(new Rectangle(Game.getInstance().getWindowWidth() / 2 - 100, 300, 250, 30), "Quit to desktop", () -> {});
+        buttons[2] = new Button(new Rectangle(Game.getInstance().getWindowWidth() / 2 - 100, 300, 250, 30), "Quit to desktop", () -> {
+            Game.getInstance().exit();
+        });
     }
 
     @Override

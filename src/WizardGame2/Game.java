@@ -76,6 +76,13 @@ public class Game implements Runnable {
     }
 
     /**
+     * Exits the game, performing any clean-up needed
+     */
+    public void exit() {
+        System.exit(0);
+    }
+
+    /**
      * Starts the game on its own thread
      */
     public synchronized void startGame() {
@@ -83,25 +90,6 @@ public class Game implements Runnable {
             runState = true;
             gameThread = new Thread(this);
             gameThread.start();
-        }
-    }
-
-    /**
-     * Stops the game thread
-     */
-    public synchronized void stopGame() {
-        if (runState) {
-            /// Actualizare stare thread
-            runState = false;
-            /// Metoda join() arunca exceptii motiv pentru care trebuie incadrata intr-un block try - catch.
-            try {
-                /// Metoda join() pune un thread in asteptare panca cand un altul isi termina executie.
-                /// Totusi, in situatia de fata efectul apelului este de oprire a threadului.
-                gameThread.join();
-            } catch (InterruptedException ex) {
-                /// In situatia in care apare o exceptie pe ecran vor fi afisate informatii utile pentru depanare.
-                ex.printStackTrace();
-            }
         }
     }
 

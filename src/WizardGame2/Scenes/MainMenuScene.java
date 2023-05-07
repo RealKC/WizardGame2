@@ -11,7 +11,7 @@ public class MainMenuScene implements Scene {
 
     public MainMenuScene() {
         buttons[0] = new Button(new Rectangle(Game.getInstance().getWindowWidth() / 2 - 100, 200, 200, 30), "Play", () -> shouldSwitchScenes = true);
-        buttons[1] = new Button(new Rectangle(Game.getInstance().getWindowWidth() / 2 - 100, 300, 200, 30), "Exit", () -> {});
+        buttons[1] = new Button(new Rectangle(Game.getInstance().getWindowWidth() / 2 - 100, 300, 200, 30), "Exit", () -> Game.getInstance().exit());
     }
 
     @Override
