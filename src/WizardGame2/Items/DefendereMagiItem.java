@@ -11,6 +11,8 @@ public class DefendereMagiItem extends Item {
         static final int BASE_DIAMATER = 60;
         static final int BASE_RADIUS = BASE_DIAMATER / 2;
 
+        static final Color COLOR = new Color(246, 194, 14, 139);
+
         DefendereMagiArea(double attackDamage) {
             super(null, 0, 0, BASE_DIAMATER, BASE_DIAMATER, MovementType.NONE, 0.0, 0.0, attackDamage);
         }
@@ -22,8 +24,10 @@ public class DefendereMagiItem extends Item {
 
         @Override
         public void render(Graphics gfx, int centerX, int centerY) {
-            gfx.drawRect(getX() - centerX, getY() - centerY, BASE_DIAMATER, BASE_DIAMATER);
+            var oldColor = gfx.getColor();
+            gfx.setColor(COLOR);
             gfx.fillOval(getX() - centerX, getY() - centerY, BASE_DIAMATER, BASE_DIAMATER);
+            gfx.setColor(oldColor);
         }
 
         void setPosition(int x, int y) {
