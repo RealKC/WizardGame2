@@ -21,6 +21,13 @@ public abstract class GameObject {
         this.hitboxHeight = hitboxHeight;
     }
 
+    /**
+     * Renders a {@link GameObject} on the screen. The centerX and centerY parameters are to be used to draw objects at
+     * the correct position in reference to the camera.
+     * @param gfx the {@link Graphics} object used for drawing
+     * @param centerX the X coordinate of the center of the screen
+     * @param centerY the Y coordinate of the center of the screen
+     */
     public void render(Graphics gfx, int centerX, int centerY) {
         gfx.drawImage(sprite, x - centerX, y - centerY, null);
     }
