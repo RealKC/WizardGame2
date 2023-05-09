@@ -7,5 +7,5 @@ public abstract class ItemFactory {
         this.itemData = itemData;
     }
 
-     public abstract Item makeItem();
+    public abstract Item makeItem();
 }
