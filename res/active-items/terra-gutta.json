@@ -1,0 +1,8 @@
+{
+  "name": "Terra Gutta",
+  "baseAttack": 5,
+  "speed": 3,
+  "x": 5,
+  "y": 0,
+  "itemFactoryName": "WizardGame2.Items.TerraGuttaFactory"
+}
