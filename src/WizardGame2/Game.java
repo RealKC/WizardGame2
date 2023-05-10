@@ -38,6 +38,7 @@ public class Game implements Runnable {
     private Game(String title, int width, int height) {
         wnd = new GameWindow(title, width, height);
         runState = false;
+        DatabaseManager.getInstance();
     }
 
     /**
