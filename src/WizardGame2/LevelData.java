@@ -162,4 +162,8 @@ public class LevelData {
 
         return waveNumbers[waveNumbers.length - 1];
     }
+
+    public String getName() {
+        return name;
+    }
 }

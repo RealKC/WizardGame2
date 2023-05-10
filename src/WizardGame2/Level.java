@@ -58,7 +58,7 @@ public class Level implements Player.PositionObserver {
     }
 
     public String getId() {
-        return "level1"; // TODO: Make this configurable
+        return data.getName();
     }
 
     public void render(Graphics gfx, Player.Camera camera) {
