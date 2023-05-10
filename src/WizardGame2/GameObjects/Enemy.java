@@ -56,6 +56,10 @@ public class Enemy extends GameObject implements Player.PositionObserver {
         return health > 0 ? Died.NO : Died.YES;
     }
 
+    public int getScoreValue() {
+        return 5; // TODO: Make this configurable
+    }
+
     @Override
     public void update(Level level, long currentTime) {
         int xfactor = 0;

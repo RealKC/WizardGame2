@@ -8,6 +8,7 @@ import WizardGame2.GameObjects.Player;
 import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -29,6 +30,8 @@ public class LevelScene implements Scene {
     boolean firstUpdate = true;
 
     private boolean isPaused = false;
+
+    private int score = 0;
 
     private static LevelScene instance;
 
@@ -102,6 +105,7 @@ public class LevelScene implements Scene {
 
                     died = enemy.takeDamage(bullet.getAttackDamage());
                     if (died == Enemy.Died.YES) {
+                        score += enemy.getScoreValue();
                         enemies.remove(j);
                     }
 
@@ -160,6 +164,11 @@ public class LevelScene implements Scene {
      */
     public ArrayList<Bullet> getBullets() {
         return bullets;
+    }
+
+    public void onLevelLeave() {
+        var date = new Date();
+        DatabaseManager.getInstance().addNewScoreEntry(level.getId(), date.toString(), score);
     }
 
     private synchronized void tickASecond() {

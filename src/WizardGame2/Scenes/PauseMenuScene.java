@@ -64,6 +64,7 @@ public class PauseMenuScene implements Scene {
                 levelScene.setPaused(false);
                 return levelScene;
             case MAIN_MENU:
+                levelScene.onLevelLeave();
                 LevelScene.reset();
                 return new MainMenuScene();
         }

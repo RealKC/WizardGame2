@@ -57,6 +57,10 @@ public class Level implements Player.PositionObserver {
         return texture.getHeight();
     }
 
+    public String getId() {
+        return "level1"; // TODO: Make this configurable
+    }
+
     public void render(Graphics gfx, Player.Camera camera) {
         int x = Utils.clamp(0, texture.getWidth() - camera.getCameraWidth(), camera.getX());
         int y = Utils.clamp(0, texture.getHeight() - camera.getCameraHeight(), camera.getY());
