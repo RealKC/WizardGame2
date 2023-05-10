@@ -1,5 +1,6 @@
 package WizardGame2;
 
+import WizardGame2.Exceptions.EnemyException;
 import WizardGame2.GameObjects.Enemy;
 import WizardGame2.GameObjects.Obstacle;
 import WizardGame2.GameObjects.Player;
@@ -82,15 +83,19 @@ public class Level implements Player.PositionObserver {
         int count = 2 + random.nextInt(3);
 
         for (int i = 0; i < count; ++i) {
-            int radius = 155 + random.nextInt(10);
-            double angle = random.nextDouble() * Math.PI;
+            try {
+                int radius = 155 + random.nextInt(10);
+                double angle = random.nextDouble() * Math.PI;
 
-            int x = playerX + (int) (radius * Math.cos(angle));
-            int y = playerY + (int) (radius * Math.sin(angle));
+                int x = playerX + (int) (radius * Math.cos(angle));
+                int y = playerY + (int) (radius * Math.sin(angle));
 
-            Enemy.Data enemyData = data.pickRandomEnemy(data.waveNumberForTime(seconds));
+                Enemy.Data enemyData = data.pickRandomEnemy(data.waveNumberForTime(seconds));
 
-            enemies.add(Enemy.fromData(Assets.getInstance().getCharacters(), enemyData, x, y));
+                enemies.add(Enemy.fromData(Assets.getInstance().getCharacters(), enemyData, x, y));
+            } catch (EnemyException e) {
+                Utils.logException(this.getClass(), e, "got exception trying to spawn the #%dth enemy", i);
+            }
         }
 
         return enemies;

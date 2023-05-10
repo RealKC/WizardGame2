@@ -1,5 +1,6 @@
 package WizardGame2;
 
+import WizardGame2.Exceptions.EnemyException;
 import com.google.gson.JsonDeserializationContext;
 import com.google.gson.JsonDeserializer;
 import com.google.gson.JsonElement;
@@ -43,7 +44,7 @@ public class EnemyDistribution {
     public EnemyDistribution() {
     }
 
-    public String pickEnemy(String[] enemies) {
+    public String pickEnemy(String[] enemies) throws EnemyException {
         assert ranges.length == enemies.length + 1;
 
         double pick = random.nextDouble();
@@ -54,7 +55,7 @@ public class EnemyDistribution {
             }
         }
 
-        throw new RuntimeException("Failed to pick an enemy");
+        throw new EnemyException(String.format("Failed to pick an enemy: %g was outside of all enemy ranges", pick));
     }
 
     @Override

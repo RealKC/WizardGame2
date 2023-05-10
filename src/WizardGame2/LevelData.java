@@ -1,5 +1,6 @@
 package WizardGame2;
 
+import WizardGame2.Exceptions.EnemyException;
 import WizardGame2.GameObjects.Enemy;
 import WizardGame2.GameObjects.Obstacle;
 import WizardGame2.Graphics.ImageLoader;
@@ -139,7 +140,7 @@ public class LevelData {
         return obstacles;
     }
 
-    public Enemy.Data pickRandomEnemy(int waveNr) {
+    public Enemy.Data pickRandomEnemy(int waveNr) throws EnemyException {
         Wave wave = waves.get(waveNr);
         String picked = wave.distribution.pickEnemy(wave.enemies);
 
@@ -149,7 +150,7 @@ public class LevelData {
             }
         }
 
-        throw new RuntimeException("Invalid enemies definition in the JSON file");
+        throw new EnemyException("Invalid enemies definition in the JSON file");
     }
 
     public int waveNumberForTime(int seconds) {
