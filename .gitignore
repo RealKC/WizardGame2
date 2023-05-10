@@ -1,3 +1,4 @@
+# Report related intermediary files
 *.aux
 *.fdb_latexmk
 *.fls
@@ -8,6 +9,9 @@
 target/
 *.toc
 report/_minted-report
+
+# Build related files
 out/
 *.jar
 html/
+*.db
