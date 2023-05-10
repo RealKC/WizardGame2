@@ -106,6 +106,16 @@ public class Player extends GameObject {
 
     private double movementAngle;
 
+    private double life = 100.0;
+
+    /**
+     * i-frames are frames in which the player is invincible. They exist in order to make sure the player does not die
+     * too quickly.
+     */
+    private int currentIFrames = 0;
+
+    private static final int MAX_IFRAMES = 30;
+
     public Player(SpriteSheet spriteSheet, int x, int y) {
         super(spriteSheet.crop(0, 0), x, y, 32, 32);
         this.camera = new Camera(x, y);
@@ -113,6 +123,20 @@ public class Player extends GameObject {
 
     public Camera getCamera() {
         return camera;
+    }
+
+    public boolean isDead() {
+        System.out.printf("player has %g hp\n", life);
+        return life <= 0.0;
+    }
+
+    public void takeDamage(double dmg) {
+        if (currentIFrames <= 0) {
+            life -= dmg;
+            currentIFrames = MAX_IFRAMES;
+        } else {
+            currentIFrames--;
+        }
     }
 
     @Override

@@ -87,6 +87,14 @@ public class LevelScene implements Scene {
 
         for (var enemy : enemies) {
             enemy.update(level, currentTime);
+
+            if (enemy.collidesWith(player)) {
+                player.takeDamage(enemy.getAttackDamage());
+            }
+        }
+
+        if (player.isDead()) {
+            System.out.println("Player died");
         }
 
         for (var bullet : bullets) {
