@@ -12,6 +12,8 @@ public class Enemy extends GameObject implements Player.PositionObserver {
 
     private int scoreValue;
 
+    private int attackDamage;
+
     @SuppressWarnings("unused")
     public static class Data {
         private String name;
@@ -22,6 +24,8 @@ public class Enemy extends GameObject implements Player.PositionObserver {
         private int x, y;
 
         private int score;
+
+        private int damage;
 
         public Data() {}
 
@@ -37,18 +41,20 @@ public class Enemy extends GameObject implements Player.PositionObserver {
                     ", x=" + x +
                     ", y=" + y +
                     ", score = " + score +
+                    ", damage = " + damage +
                     '}';
         }
     }
 
     public static Enemy fromData(SpriteSheet spriteSheet, Data data, int x, int y) {
-        return new Enemy(spriteSheet.crop(data.x, data.y), x, y, 32, 32, data.health, data.score);
+        return new Enemy(spriteSheet.crop(data.x, data.y), x, y, 32, 32, data.health, data.score, data.damage);
     }
 
-    public Enemy(BufferedImage sprite, int x, int y, int hitboxWidth, int hitboxHeight, double health, int score) {
+    public Enemy(BufferedImage sprite, int x, int y, int hitboxWidth, int hitboxHeight, double health, int score, int attackDamage) {
         super(sprite, x, y, hitboxWidth, hitboxHeight);
         this.health = health;
         this.scoreValue = score;
+        this.attackDamage = attackDamage;
     }
 
     public enum Died {
@@ -64,6 +70,10 @@ public class Enemy extends GameObject implements Player.PositionObserver {
 
     public int getScoreValue() {
         return scoreValue;
+    }
+
+    public int getAttackDamage() {
+        return attackDamage;
     }
 
     @Override
