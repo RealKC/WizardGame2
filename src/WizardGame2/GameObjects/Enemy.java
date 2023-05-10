@@ -10,6 +10,8 @@ public class Enemy extends GameObject implements Player.PositionObserver {
 
     private double health;
 
+    private int scoreValue;
+
     @SuppressWarnings("unused")
     public static class Data {
         private String name;
@@ -18,6 +20,8 @@ public class Enemy extends GameObject implements Player.PositionObserver {
          * Coordinates within the character spritesheet
          */
         private int x, y;
+
+        private int score;
 
         public Data() {}
 
@@ -32,17 +36,19 @@ public class Enemy extends GameObject implements Player.PositionObserver {
                     ", health=" + health +
                     ", x=" + x +
                     ", y=" + y +
+                    ", score = " + score +
                     '}';
         }
     }
 
     public static Enemy fromData(SpriteSheet spriteSheet, Data data, int x, int y) {
-        return new Enemy(spriteSheet.crop(data.x, data.y), x, y, 32, 32, data.health);
+        return new Enemy(spriteSheet.crop(data.x, data.y), x, y, 32, 32, data.health, data.score);
     }
 
-    public Enemy(BufferedImage sprite, int x, int y, int hitboxWidth, int hitboxHeight, double health) {
+    public Enemy(BufferedImage sprite, int x, int y, int hitboxWidth, int hitboxHeight, double health, int score) {
         super(sprite, x, y, hitboxWidth, hitboxHeight);
         this.health = health;
+        this.scoreValue = score;
     }
 
     public enum Died {
@@ -57,7 +63,7 @@ public class Enemy extends GameObject implements Player.PositionObserver {
     }
 
     public int getScoreValue() {
-        return 5; // TODO: Make this configurable
+        return scoreValue;
     }
 
     @Override

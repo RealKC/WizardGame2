@@ -41,25 +41,29 @@
       "name": "skeleton1",
       "health": 100,
       "x": 4,
-      "y": 0
+      "y": 0,
+      "score": 5
     },
     {
       "name": "skeleton2",
       "health": 125,
       "x": 5,
-      "y": 0
+      "y": 0,
+      "score": 15
     },
     {
       "name": "floating-skull",
       "health": 25,
       "x": 9,
-      "y": 0
+      "y": 0,
+      "score": 55
     },
     {
       "name": "ghost",
       "health": 200,
       "x": 8,
-      "y": 0
+      "y": 0,
+      "score": 55
     }
   ],
 
@@ -68,13 +72,15 @@
       "name": "Matei, The Profaned",
       "health": 750,
       "x": 2,
-      "y": 1
+      "y": 1,
+      "score": 5000
     },
     {
       "name": "Adrian, The Crimson Undead",
       "health": 1000,
       "x": 3,
-      "y": 1
+      "y": 1,
+      "score": 6200
     }
   ],
 
