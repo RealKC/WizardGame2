@@ -84,6 +84,10 @@ public class LevelScene implements Scene, Player.LevelUpObserver {
             nextScene = NextScene.PAUSE_MENU;
         }
 
+        if (Keyboard.isKeyPressed(KeyEvent.VK_F12)) {
+            player.takeDamage(1000000000);
+        }
+
         if (nextScene != NextScene.NONE) {
             return SceneUpdate.NEXT_SCENE;
         }
