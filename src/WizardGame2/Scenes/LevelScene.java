@@ -3,6 +3,7 @@ package WizardGame2.Scenes;
 import WizardGame2.*;
 import WizardGame2.GameObjects.Bullet;
 import WizardGame2.GameObjects.Enemy;
+import WizardGame2.GameObjects.ExperienceObject;
 import WizardGame2.GameObjects.Player;
 
 import java.awt.*;
@@ -18,6 +19,7 @@ public class LevelScene implements Scene {
     private final Player player;
     private final ArrayList<Enemy> enemies = new ArrayList<>();
     private final ArrayList<Bullet> bullets = new ArrayList<>();
+    private final ArrayList<ExperienceObject> experienceObjects = new ArrayList<>();
 
     /**
      * The number of seconds that have passed since the start of the level
@@ -80,6 +82,7 @@ public class LevelScene implements Scene {
             var itemFactories = Assets.getInstance().getItemFactories();
             player.addActiveItem(itemFactories.get(0).makeItem());
             player.addActiveItem(itemFactories.get(1).makeItem());
+            player.addActiveItem(itemFactories.get(2).makeItem());
             firstUpdate = false;
         }
 
@@ -113,6 +116,15 @@ public class LevelScene implements Scene {
 
                     died = enemy.takeDamage(bullet.getAttackDamage());
                     if (died == Enemy.Died.YES) {
+                        experienceObjects.add(new ExperienceObject(
+                                Assets.getInstance().getObstacles(),
+                                enemy.getX(),
+                                enemy.getY(),
+                                enemy.getHitboxWidth(),
+                                enemy.getHitboxHeight(),
+                                enemy.getScoreValue()
+                        ));
+
                         score += enemy.getScoreValue();
                         enemies.remove(j);
                     }
@@ -140,6 +152,10 @@ public class LevelScene implements Scene {
 
         for (var bullet : bullets) {
             bullet.render(gfx, player.getCamera().getX(), player.getCamera().getY());
+        }
+
+        for (var experienceObject : experienceObjects) {
+            experienceObject.render(gfx, player.getCamera().getX(), player.getCamera().getY());
         }
 
         player.render(gfx, player.getCamera().getX(), player.getCamera().getY());
@@ -172,6 +188,10 @@ public class LevelScene implements Scene {
      */
     public ArrayList<Bullet> getBullets() {
         return bullets;
+    }
+
+    public ArrayList<ExperienceObject> getExperienceObjects() {
+        return experienceObjects;
     }
 
     public void onLevelLeave() {

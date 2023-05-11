@@ -5,6 +5,8 @@ import WizardGame2.Items.Inventory;
 import WizardGame2.Items.Item;
 import WizardGame2.Keyboard;
 import WizardGame2.Level;
+import WizardGame2.Scenes.LevelScene;
+import WizardGame2.Utils;
 
 import java.awt.*;
 import java.awt.event.KeyEvent;
@@ -100,6 +102,33 @@ public class Player extends LivingGameObject {
         }
     }
 
+    private class LevelManager {
+        int experience = 0;
+
+        int level = 1;
+
+        static final int[] experienceSteps = new int[] {25, 50, 100, 250, 300, 350, 400, 500, 700};
+
+        int currentExperienceStep() {
+            if (level >= experienceSteps.length) {
+                return experienceSteps.length - 1;
+            }
+
+            return level;
+        }
+
+        void addExperience(int value) {
+            var newValue = experience + value;
+            var experienceNeededToLevelUp = experienceSteps[currentExperienceStep()];
+
+            if (newValue - experience > experienceNeededToLevelUp) {
+                level++;
+            }
+        }
+    }
+
+    private final LevelManager levelManager = new LevelManager();
+
     private final Camera camera;
     private final ArrayList<PositionObserver> positionObservers = new ArrayList<>();
     private long lastCleanupAt = 0;
@@ -115,6 +144,8 @@ public class Player extends LivingGameObject {
 
     private static final int MAX_IFRAMES = 30;
 
+    private static final Font levelFont = new Font(Font.MONOSPACED, Font.PLAIN, 25);
+
     public Player(SpriteSheet spriteSheet, int x, int y) {
         super(spriteSheet.crop(0, 0), x, y, 32, 32, 100.0);
         this.camera = new Camera(x, y);
@@ -129,6 +160,10 @@ public class Player extends LivingGameObject {
         super.render(gfx, centerX, centerY);
         inventory.render(gfx);
 
+        var oldFont = gfx.getFont();
+        gfx.setFont(levelFont);
+        Utils.drawTextWithOutline(gfx, "lvl " + levelManager.level, 132, 40);
+        gfx.setFont(oldFont);
         // Render an aiming direction indicator
 
         boolean angleIsRight = (0 <= movementAngle && movementAngle < Math.PI / 2)
@@ -184,6 +219,8 @@ public class Player extends LivingGameObject {
             }
         }
 
+        pickupAnyXp();
+
         if (!hadAnyCollisions) {
             camera.moveBy(deltaX, deltaY);
 
@@ -206,6 +243,21 @@ public class Player extends LivingGameObject {
         }
 
         maybeCleanupObservers(currentTime);
+    }
+
+    private void pickupAnyXp() {
+        var experienceObjects = LevelScene.getInstance().getExperienceObjects();
+        int i = 0;
+
+        while (i < experienceObjects.size()) {
+            var experienceObject = experienceObjects.get(i);
+            if (this.collidesWith(experienceObject)) {
+                levelManager.addExperience(experienceObject.getValue());
+                experienceObjects.remove(i);
+            } else {
+                i++;
+            }
+        }
     }
 
     @Override
