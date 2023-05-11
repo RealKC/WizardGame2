@@ -35,6 +35,7 @@ public class LevelScene implements Scene, Player.LevelUpObserver {
         NONE,
         PAUSE_MENU,
         LEVEL_UP,
+        GAME_OVER,
     }
 
     private NextScene nextScene = NextScene.NONE;
@@ -111,7 +112,7 @@ public class LevelScene implements Scene, Player.LevelUpObserver {
         }
 
         if (player.isDead()) {
-            System.out.println("Player died");
+            nextScene = NextScene.GAME_OVER;
         }
 
         for (var bullet : bullets) {
@@ -206,6 +207,9 @@ public class LevelScene implements Scene, Player.LevelUpObserver {
 
             case PAUSE_MENU:
                 return new PauseMenuScene(this);
+
+            case GAME_OVER:
+                return new GameOverScene(this, player.isDead() ? GameOverScene.GameResult.LOST : GameOverScene.GameResult.WON);
 
             case NONE:
                 return null;
