@@ -8,9 +8,9 @@ import java.awt.image.BufferedImage;
 public class Enemy extends LivingGameObject implements Player.PositionObserver {
     private int playerX, playerY;
 
-    private int scoreValue;
+    private final int scoreValue;
 
-    private int attackDamage;
+    private final int attackDamage;
 
     @SuppressWarnings("unused")
     public static class Data {
