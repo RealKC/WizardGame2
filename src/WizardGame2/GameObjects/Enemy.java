@@ -5,10 +5,8 @@ import WizardGame2.Level;
 
 import java.awt.image.BufferedImage;
 
-public class Enemy extends GameObject implements Player.PositionObserver {
+public class Enemy extends LivingGameObject implements Player.PositionObserver {
     private int playerX, playerY;
-
-    private double health;
 
     private int scoreValue;
 
@@ -51,21 +49,9 @@ public class Enemy extends GameObject implements Player.PositionObserver {
     }
 
     public Enemy(BufferedImage sprite, int x, int y, int hitboxWidth, int hitboxHeight, double health, int score, int attackDamage) {
-        super(sprite, x, y, hitboxWidth, hitboxHeight);
-        this.health = health;
+        super(sprite, x, y, hitboxWidth, hitboxHeight, health);
         this.scoreValue = score;
         this.attackDamage = attackDamage;
-    }
-
-    public enum Died {
-        YES,
-        NO,
-    }
-
-    public Died takeDamage(double amount) {
-        health -= amount;
-
-        return health > 0 ? Died.NO : Died.YES;
     }
 
     public int getScoreValue() {
@@ -117,6 +103,6 @@ public class Enemy extends GameObject implements Player.PositionObserver {
     @Override
     public boolean canBeRemoved() {
         // We stop caring about the player's position after death
-        return health <= 0;
+        return isDead();
     }
 }

@@ -14,7 +14,7 @@ import java.util.Collection;
 /**
  * This class implements the player character of the game
  */
-public class Player extends GameObject {
+public class Player extends LivingGameObject {
     private static final int STEP = 2;
 
     Inventory inventory = new Inventory();
@@ -106,7 +106,6 @@ public class Player extends GameObject {
 
     private double movementAngle;
 
-    private double life = 100.0;
 
     /**
      * i-frames are frames in which the player is invincible. They exist in order to make sure the player does not die
@@ -117,26 +116,12 @@ public class Player extends GameObject {
     private static final int MAX_IFRAMES = 30;
 
     public Player(SpriteSheet spriteSheet, int x, int y) {
-        super(spriteSheet.crop(0, 0), x, y, 32, 32);
+        super(spriteSheet.crop(0, 0), x, y, 32, 32, 100.0);
         this.camera = new Camera(x, y);
     }
 
     public Camera getCamera() {
         return camera;
-    }
-
-    public boolean isDead() {
-        System.out.printf("player has %g hp\n", life);
-        return life <= 0.0;
-    }
-
-    public void takeDamage(double dmg) {
-        if (currentIFrames <= 0) {
-            life -= dmg;
-            currentIFrames = MAX_IFRAMES;
-        } else {
-            currentIFrames--;
-        }
     }
 
     @Override
@@ -221,6 +206,19 @@ public class Player extends GameObject {
         }
 
         maybeCleanupObservers(currentTime);
+    }
+
+    @Override
+    public Died takeDamage(double amount) {
+        if (currentIFrames <= 0) {
+            currentIFrames = MAX_IFRAMES;
+            System.out.println("took damage");
+            return super.takeDamage(amount);
+        }
+
+        currentIFrames--;
+        System.out.println("iframe triggered");
+        return isDead() ? Died.YES : Died.NO;
     }
 
     /**
