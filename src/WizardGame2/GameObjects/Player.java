@@ -102,8 +102,19 @@ public class Player extends LivingGameObject {
         }
     }
 
+    /**
+     * This interface should be implemented by classes that are interested in player level ups
+     */
+    public interface LevelUpObserver {
+        /**
+         * Call whenever the player levels up
+         */
+        void notifyAboutLevelUp(int level);
+    }
+
     private class LevelManager {
-        int experience = 0;
+        int baseExperience = 0;
+        int currentExperience = 0;
 
         int level = 1;
 
@@ -118,16 +129,24 @@ public class Player extends LivingGameObject {
         }
 
         void addExperience(int value) {
-            var newValue = experience + value;
             var experienceNeededToLevelUp = experienceSteps[currentExperienceStep()];
 
-            if (newValue - experience > experienceNeededToLevelUp) {
+            currentExperience += value;
+
+            if (currentExperience - baseExperience >= experienceNeededToLevelUp) {
                 level++;
+                baseExperience = currentExperience;
+
+                if (Player.this.levelUpObserver != null) {
+                    Player.this.levelUpObserver.notifyAboutLevelUp(level);
+                }
             }
         }
     }
 
     private final LevelManager levelManager = new LevelManager();
+
+    private LevelUpObserver levelUpObserver = null;
 
     private final Camera camera;
     private final ArrayList<PositionObserver> positionObservers = new ArrayList<>();
@@ -264,12 +283,10 @@ public class Player extends LivingGameObject {
     public Died takeDamage(double amount) {
         if (currentIFrames <= 0) {
             currentIFrames = MAX_IFRAMES;
-            System.out.println("took damage");
             return super.takeDamage(amount);
         }
 
         currentIFrames--;
-        System.out.println("iframe triggered");
         return isDead() ? Died.YES : Died.NO;
     }
 
@@ -282,6 +299,10 @@ public class Player extends LivingGameObject {
 
     public void addPositionObservers(Collection<? extends PositionObserver> positionObservers) {
         this.positionObservers.addAll(positionObservers);
+    }
+
+    public void setLevelUpObserver(LevelUpObserver levelUpObserver) {
+        this.levelUpObserver = levelUpObserver;
     }
 
     public void addActiveItem(Item item) {

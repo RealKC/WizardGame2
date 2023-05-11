@@ -13,7 +13,7 @@ import java.util.Date;
 import java.util.Timer;
 import java.util.TimerTask;
 
-public class LevelScene implements Scene {
+public class LevelScene implements Scene, Player.LevelUpObserver {
     private final Level level;
 
     private final Player player;
@@ -31,7 +31,13 @@ public class LevelScene implements Scene {
      */
     boolean firstUpdate = true;
 
-    private boolean isPaused = false;
+    private enum NextScene {
+        NONE,
+        PAUSE_MENU,
+        LEVEL_UP,
+    }
+
+    private NextScene nextScene = NextScene.NONE;
 
     private int score = 0;
 
@@ -63,6 +69,7 @@ public class LevelScene implements Scene {
         player = new Player(assets.getCharacters(), 800, 600);
         player.getCamera().setCameraWidth(Game.getInstance().getWindowWidth());
         player.getCamera().setCameraHeight(Game.getInstance().getWindowHeight());
+        player.setLevelUpObserver(this);
 
         level = Level.fromData(assets.getLevelDatas().get(0));
         player.addPositionObserver(level);
@@ -74,7 +81,10 @@ public class LevelScene implements Scene {
     @Override
     public SceneUpdate update(long currentTime) {
         if (Keyboard.isKeyPressed(KeyEvent.VK_ESCAPE)) {
-            isPaused = true;
+            nextScene = NextScene.PAUSE_MENU;
+        }
+
+        if (nextScene != NextScene.NONE) {
             return SceneUpdate.NEXT_SCENE;
         }
 
@@ -143,7 +153,7 @@ public class LevelScene implements Scene {
             i++;
         }
 
-        return  SceneUpdate.STAY;
+        return SceneUpdate.STAY;
     }
 
     @Override
@@ -171,16 +181,33 @@ public class LevelScene implements Scene {
     }
 
     public boolean getIsPaused() {
-        return isPaused;
+        return nextScene == NextScene.PAUSE_MENU;
     }
 
-    public void setPaused(boolean b) {
-        isPaused = b;
+    public void setPaused(boolean paused) {
+        if (paused) {
+            nextScene = NextScene.PAUSE_MENU;
+        } else {
+            nextScene = NextScene.NONE;
+        }
     }
 
     @Override
     public Scene nextScene() {
-        return new PauseMenuScene(this);
+        switch (nextScene) {
+            case LEVEL_UP: {
+                nextScene = NextScene.NONE;
+                return new LevelUpScene(this);
+            }
+
+            case PAUSE_MENU:
+                return new PauseMenuScene(this);
+
+            case NONE:
+                return null;
+        }
+
+        return null;
     }
 
     /**
@@ -200,7 +227,7 @@ public class LevelScene implements Scene {
     }
 
     private synchronized void tickASecond() {
-        if (LevelScene.this.isPaused) {
+        if (LevelScene.this.getIsPaused()) {
             return;
         }
 
@@ -214,5 +241,10 @@ public class LevelScene implements Scene {
                 player.addPositionObservers(enemies);
             }
         }
+    }
+
+    @Override
+    public void notifyAboutLevelUp(int level) {
+        nextScene = NextScene.LEVEL_UP;
     }
 }
