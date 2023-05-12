@@ -14,16 +14,16 @@ public class Enemy extends LivingGameObject implements Player.PositionObserver {
 
     @SuppressWarnings("unused")
     public static class Data {
-        private String name;
-        private double health;
+        String name;
+        double health;
         /**
          * Coordinates within the character spritesheet
          */
-        private int x, y;
+        int x, y;
 
-        private int score;
+        int score;
 
-        private int damage;
+        int damage;
 
         public Data() {}
 
