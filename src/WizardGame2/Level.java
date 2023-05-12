@@ -1,6 +1,7 @@
 package WizardGame2;
 
 import WizardGame2.Exceptions.EnemyException;
+import WizardGame2.GameObjects.Boss;
 import WizardGame2.GameObjects.Enemy;
 import WizardGame2.GameObjects.Obstacle;
 import WizardGame2.GameObjects.Player;
@@ -37,7 +38,6 @@ public class Level implements Player.PositionObserver {
         obstacles.add(new Obstacle(null, levelData.getTexture().getWidth() + 2, 0, 2, levelData.getTexture().getHeight())); // right border
         obstacles.add(new Obstacle(null, -2, 0, levelData.getTexture().getWidth(), 2)); // top border
         obstacles.add(new Obstacle(null, 0, levelData.getTexture().getHeight(), levelData.getTexture().getWidth() , 2)); // bottom order
-
         return new Level(obstacles, levelData);
     }
 
@@ -113,6 +113,10 @@ public class Level implements Player.PositionObserver {
         }
 
         return enemies;
+    }
+
+    public Enemy spawnBoss(int seconds) {
+        return Boss.fromData(Assets.getInstance().getCharacters(), data.pickBoss(seconds), playerX, playerY - 200);
     }
 
     @Override

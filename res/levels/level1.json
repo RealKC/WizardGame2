@@ -76,10 +76,11 @@
     {
       "name": "Matei, The Profaned",
       "health": 750,
-      "x": 2,
+      "x": 1,
       "y": 1,
       "score": 5000,
-      "damage": 1
+      "damage": 1,
+      "behaviour": "WizardGame2.GameObjects.BossBehaviours.MateiBehaviour"
     },
     {
       "name": "Adrian, The Crimson Undead",

@@ -1,10 +1,7 @@
 package WizardGame2.Scenes;
 
 import WizardGame2.*;
-import WizardGame2.GameObjects.Bullet;
-import WizardGame2.GameObjects.Enemy;
-import WizardGame2.GameObjects.ExperienceObject;
-import WizardGame2.GameObjects.Player;
+import WizardGame2.GameObjects.*;
 
 import java.awt.*;
 import java.awt.event.KeyEvent;
@@ -93,15 +90,18 @@ public class LevelScene implements Scene, Player.LevelUpObserver {
             return SceneUpdate.NEXT_SCENE;
         }
 
+
+        player.update(level, currentTime);
+
         if (firstUpdate) {
             var itemFactories = Assets.getInstance().getItemFactories();
             player.addActiveItem(itemFactories.get(0).makeItem());
             player.addActiveItem(itemFactories.get(1).makeItem());
             player.addActiveItem(itemFactories.get(2).makeItem());
+            enemies.add(level.spawnBoss(7 * 60));
+
             firstUpdate = false;
         }
-
-        player.update(level, currentTime);
 
         for (var enemy : enemies) {
             enemy.update(level, currentTime);

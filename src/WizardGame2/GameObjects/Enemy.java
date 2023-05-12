@@ -25,6 +25,11 @@ public class Enemy extends LivingGameObject implements Player.PositionObserver {
 
         int damage;
 
+        /**
+         * Represents the behaviour of a boss enemy, if nonnull
+         */
+        String behaviour;
+
         public Data() {}
 
         public String getName() {
