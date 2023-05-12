@@ -120,4 +120,18 @@ LIMIT 10
 
         return null;
     }
+
+    public void setLastBeatLevel(int level) {
+        try {
+            var stmt = conn.prepareStatement("""
+UPDATE lastFinishedLevel
+SET level = ?
+WHERE level < ?
+""");
+            stmt.setInt(1, level);
+            stmt.setInt(2, level);
+        } catch (SQLException e) {
+            Utils.logException(getClass(), e, "failed to set last beat level");
+        }
+    }
 }

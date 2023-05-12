@@ -231,7 +231,11 @@ public class LevelScene implements Scene, Player.LevelUpObserver {
 
     public void onLevelLeave() {
         var date = new Date();
-        DatabaseManager.getInstance().addNewScoreEntry(level.getName(), date.toString(), score);
+        var databaseManager = DatabaseManager.getInstance();
+        databaseManager.addNewScoreEntry(level.getName(), date.toString(), score);
+        if (!player.isDead()) {
+            databaseManager.setLastBeatLevel(level.getId());
+        }
     }
 
     private synchronized void tickASecond() {
