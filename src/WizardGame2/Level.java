@@ -21,6 +21,8 @@ public class Level implements Player.PositionObserver {
 
     int playerX, playerY;
 
+    boolean hasBeenWon = false;
+
     private final Random random = new Random();
 
     public static Level fromData(LevelData levelData) {
@@ -59,6 +61,10 @@ public class Level implements Player.PositionObserver {
 
     public String getName() {
         return data.getName();
+    }
+
+    public boolean hasBeenWon() {
+        return hasBeenWon;
     }
 
     public int getId() {

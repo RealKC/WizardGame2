@@ -209,7 +209,7 @@ public class LevelScene implements Scene, Player.LevelUpObserver {
                 return new PauseMenuScene(this);
 
             case GAME_OVER:
-                return new GameOverScene(this, player.isDead() ? GameOverScene.GameResult.LOST : GameOverScene.GameResult.WON);
+                return new GameOverScene(this, level.hasBeenWon() ? GameOverScene.GameResult.WON : GameOverScene.GameResult.LOST);
 
             case NONE:
                 return null;
@@ -233,7 +233,7 @@ public class LevelScene implements Scene, Player.LevelUpObserver {
         var date = new Date();
         var databaseManager = DatabaseManager.getInstance();
         databaseManager.addNewScoreEntry(level.getName(), date.toString(), score);
-        if (!player.isDead()) {
+        if (level.hasBeenWon()) {
             databaseManager.setLastBeatLevel(level.getId());
         }
     }
