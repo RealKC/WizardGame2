@@ -57,7 +57,7 @@ public class Level implements Player.PositionObserver {
         return texture.getHeight();
     }
 
-    public String getId() {
+    public String getName() {
         return data.getName();
     }
 

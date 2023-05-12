@@ -231,7 +231,7 @@ public class LevelScene implements Scene, Player.LevelUpObserver {
 
     public void onLevelLeave() {
         var date = new Date();
-        DatabaseManager.getInstance().addNewScoreEntry(level.getId(), date.toString(), score);
+        DatabaseManager.getInstance().addNewScoreEntry(level.getName(), date.toString(), score);
     }
 
     private synchronized void tickASecond() {
