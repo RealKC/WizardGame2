@@ -2,6 +2,7 @@ package WizardGame2;
 
 import java.awt.*;
 import java.awt.font.GlyphVector;
+import java.awt.image.BufferedImage;
 
 public class Utils {
     /**
@@ -52,6 +53,22 @@ public class Utils {
             gfx2d.setRenderingHints(oldHints);
             gfx2d.setStroke(oldStroke);
         }
+    }
+
+    public static BufferedImage scale(BufferedImage original, int newSize) {
+        return scale(original, newSize, newSize);
+    }
+
+    static BufferedImage scale(BufferedImage original, int newWidth, int newHeight) {
+        // https://stackoverflow.com/a/4216315
+        var scaled = new BufferedImage(newWidth, newHeight, original.getType());
+
+        var gfx = scaled.createGraphics();
+        gfx.setRenderingHint(RenderingHints.KEY_INTERPOLATION, RenderingHints.VALUE_INTERPOLATION_NEAREST_NEIGHBOR);
+        gfx.drawImage(original, 0, 0, newWidth, newHeight, 0, 0, original.getWidth(), original.getHeight(), null);
+        gfx.dispose();
+
+        return scaled;
     }
 
     public static <T> void logException(Class<T> clazz, Exception e, String message, Object... args) {
