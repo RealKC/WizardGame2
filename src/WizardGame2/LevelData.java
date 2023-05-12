@@ -160,6 +160,21 @@ public class LevelData {
         throw new EnemyException("Invalid enemies definition in the JSON file");
     }
 
+    public Enemy.Data pickBoss(int seconds) {
+        final int halfTime = 7 * 60;
+        final int endTime = 14 * 60;
+
+        if (seconds < halfTime) {
+            return null;
+        }
+
+        if (seconds < endTime) {
+            return bosses[0];
+        }
+
+        return bosses[1];
+    }
+
     public int waveNumberForTime(int seconds) {
         for (int i = 0; i < waveNumbers.length - 1; ++i) {
             if (waveNumbers[i] <= seconds && seconds < waveNumbers[i + 1]) {
