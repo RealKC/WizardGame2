@@ -1,5 +1,6 @@
 {
   "name": "Curtea lui Mircea",
+  "id": 1,
 
   "tiles": {
     "M": "/textures/field.png"

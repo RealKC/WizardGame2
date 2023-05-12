@@ -15,6 +15,7 @@ import java.util.Map;
  */
 public class LevelData {
     private String name;
+    private int id;
     private BufferedImage texture;
 
     private Map<Point, Obstacle.Data> obstacles;
@@ -23,6 +24,10 @@ public class LevelData {
     private Enemy.Data[] bosses;
     private Map<Integer, Wave> waves;
     private Integer[] waveNumbers;
+
+    public int getId() {
+        return id;
+    }
 
     public static class Wave {
         EnemyDistribution distribution;
@@ -36,6 +41,7 @@ public class LevelData {
     @SuppressWarnings({"unused", "MismatchedQueryAndUpdateOfCollection"})
     public static class Raw {
         private String name;
+        private int id;
         private Map<Character, String> tiles;
         private String pattern;
 
@@ -65,6 +71,7 @@ public class LevelData {
         var mapData = new LevelData();
 
         mapData.name = rawMapData.name;
+        mapData.id = rawMapData.id;
         mapData.enemies = rawMapData.enemies;
         mapData.bosses = rawMapData.bosses;
         mapData.waves = rawMapData.waves;
