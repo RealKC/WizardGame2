@@ -7,10 +7,12 @@ import java.awt.image.BufferedImage;
  */
 public abstract class LivingGameObject extends GameObject {
     private double hitPoints;
+    private double maxHitPoints;
 
     protected LivingGameObject(BufferedImage sprite, int x, int y, int hitboxWidth, int hitboxHeight, double hitPoints) {
         super(sprite, x, y, hitboxWidth, hitboxHeight);
         this.hitPoints = hitPoints;
+        this.maxHitPoints = hitPoints;
     }
 
     /**
@@ -46,4 +48,7 @@ public abstract class LivingGameObject extends GameObject {
         return hitPoints <= 0;
     }
 
+    protected void increaseMaxHP(double delta) {
+        maxHitPoints += delta;
+    }
 }

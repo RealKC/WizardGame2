@@ -169,7 +169,7 @@ public class Player extends LivingGameObject {
     /**
      * Stats are multipliers applied to various player abilities in order to make the player stronger
      */
-    public static class Stats {
+    public class Stats {
         private Stats() {}
 
         private final Random random = new Random();
@@ -190,6 +190,10 @@ public class Player extends LivingGameObject {
             }
 
             return attackDamage * magicPower;
+        }
+
+        public void increaseMaxHP(double delta) {
+            Player.this.increaseMaxHP(delta);
         }
 
         public void increaseMagicPower(double delta) {
