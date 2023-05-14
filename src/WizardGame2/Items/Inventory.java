@@ -1,6 +1,7 @@
 package WizardGame2.Items;
 
 import WizardGame2.Assets;
+import WizardGame2.GameObjects.Player;
 
 import java.awt.*;
 import java.util.ArrayList;
@@ -63,9 +64,9 @@ public class Inventory {
         gfx.setColor(oldColor);
     }
 
-    public void update(long currentTime) {
+    public void update(long currentTime, Player.Stats stats) {
         for (var activeItem : activeItems) {
-            activeItem.update(currentTime);
+            activeItem.update(currentTime, stats);
         }
     }
 

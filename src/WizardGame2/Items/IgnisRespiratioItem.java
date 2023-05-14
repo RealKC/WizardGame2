@@ -1,6 +1,7 @@
 package WizardGame2.Items;
 
 import WizardGame2.GameObjects.Bullet;
+import WizardGame2.GameObjects.Player;
 
 import java.awt.image.BufferedImage;
 
@@ -18,7 +19,7 @@ public class IgnisRespiratioItem extends Item {
     }
 
     @Override
-    void update(long currentTime) {
+    void update(long currentTime, Player.Stats stats) {
 
     }
 }

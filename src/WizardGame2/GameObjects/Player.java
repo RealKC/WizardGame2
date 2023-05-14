@@ -12,6 +12,7 @@ import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Random;
 
 /**
  * This class implements the player character of the game
@@ -165,6 +166,35 @@ public class Player extends LivingGameObject {
 
     private static final Font levelFont = new Font(Font.MONOSPACED, Font.PLAIN, 25);
 
+    /**
+     * Stats are multipliers applied to various player abilities in order to make the player stronger
+     */
+    public static class Stats {
+        private Stats() {}
+
+        private final Random random = new Random();
+
+        private double magicPower = 1;
+        private double critChance = 0.1;
+        private double speedBoost = 1;
+        private int pickupRange = 25;
+        private double haste = 1;
+
+        public double getHaste() {
+            return haste;
+        }
+
+        public double applyAttackModifiers(double attackDamage) {
+            if (random.nextDouble() <= critChance) {
+                return attackDamage * magicPower * 1.5;
+            }
+
+            return attackDamage * magicPower;
+        }
+    }
+
+    final Stats stats = new Stats();
+
     public Player(SpriteSheet spriteSheet, int x, int y) {
         super(spriteSheet.crop(0, 0), x, y, 32, 32, 100.0);
         this.camera = new Camera(x, y);
@@ -206,7 +236,7 @@ public class Player extends LivingGameObject {
 
     @Override
     public void update(Level level, long currentTime) {
-        inventory.update(currentTime);
+        inventory.update(currentTime, stats);
 
         int deltaY = 0, deltaX = 0;
 
@@ -225,6 +255,9 @@ public class Player extends LivingGameObject {
         if (Keyboard.isKeyPressed(KeyEvent.VK_D)) {
             deltaX += STEP;
         }
+
+        deltaX = (int) (stats.speedBoost * deltaX);
+        deltaY = (int) (stats.speedBoost * deltaY);
 
         moveBy(deltaX, deltaY);
 

@@ -1,6 +1,7 @@
 package WizardGame2.Items;
 
 import WizardGame2.GameObjects.Bullet;
+import WizardGame2.GameObjects.Player;
 import WizardGame2.Scenes.LevelScene;
 
 import java.awt.*;
@@ -13,6 +14,8 @@ public class DefendereMagiItem extends Item {
 
         static final Color COLOR = new Color(246, 194, 14, 139);
 
+        private Player.Stats playerStats;
+
         DefendereMagiArea(double attackDamage) {
             super(COLOR, 0, 0, BASE_DIAMATER, BASE_DIAMATER, MovementType.NONE, 0.0, 0.0, attackDamage);
         }
@@ -20,6 +23,12 @@ public class DefendereMagiItem extends Item {
         @Override
         public boolean shouldBeRemovedAfterThisHit() {
             return false;
+        }
+
+
+        @Override
+        public double getAttackDamage() {
+            return playerStats.applyAttackModifiers(super.getAttackDamage());
         }
 
         void setPosition(int x, int y) {
@@ -39,7 +48,11 @@ public class DefendereMagiItem extends Item {
     }
 
     @Override
-    void update(long currentTime) {
+    void update(long currentTime, Player.Stats stats) {
         area.setPosition(playerX, playerY);
+
+        if (area.playerStats == null) {
+            area.playerStats = stats;
+        }
     }
 }

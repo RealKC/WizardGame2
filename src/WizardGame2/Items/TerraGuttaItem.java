@@ -1,6 +1,7 @@
 package WizardGame2.Items;
 
 import WizardGame2.GameObjects.Bullet;
+import WizardGame2.GameObjects.Player;
 import WizardGame2.Scenes.LevelScene;
 
 import java.awt.*;
@@ -20,8 +21,8 @@ public class TerraGuttaItem extends Item {
     }
 
     @Override
-    void update(long currentTime) {
-        if (!hasCooldownPassed() || LevelScene.getInstance().getIsPaused()) {
+    void update(long currentTime, Player.Stats stats) {
+        if (!hasCooldownPassed(stats.getHaste()) || LevelScene.getInstance().getIsPaused()) {
             return;
         }
 
@@ -37,6 +38,6 @@ public class TerraGuttaItem extends Item {
         int y = playerY + (int) (radius * Math.sin(angle)) - 300;
 
         levelScene.getBullets().add(new Bullet(COLOR, x, y, 30, 30,
-                Bullet.MovementType.RADIAL, 5, 0.5 * Math.PI, attackDamage));
+                Bullet.MovementType.RADIAL, 5, 0.5 * Math.PI, stats.applyAttackModifiers(attackDamage)));
     }
 }

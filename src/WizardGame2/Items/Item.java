@@ -25,7 +25,7 @@ public abstract class Item implements Player.PositionObserver {
         timeUntilNextActivation = 0;
     }
 
-    abstract void update(long currentTime);
+    abstract void update(long currentTime, Player.Stats stats);
 
     public String getName() {
         return name;
@@ -39,8 +39,8 @@ public abstract class Item implements Player.PositionObserver {
         return sprite;
     }
 
-    protected boolean hasCooldownPassed() {
-        timeUntilNextActivation -= attackSpeed;
+    protected boolean hasCooldownPassed(double haste) {
+        timeUntilNextActivation -= attackSpeed * haste;
 
         if (timeUntilNextActivation <= 0) {
             timeUntilNextActivation = cooldown;
