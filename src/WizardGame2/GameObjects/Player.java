@@ -357,6 +357,10 @@ public class Player extends LivingGameObject {
         return isDead() ? Died.YES : Died.NO;
     }
 
+    public Stats getStats() {
+        return stats;
+    }
+
     /**
      * Adds a position observer to an internal list of observers
      */
