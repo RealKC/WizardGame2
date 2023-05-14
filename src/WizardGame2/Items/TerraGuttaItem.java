@@ -3,6 +3,7 @@ package WizardGame2.Items;
 import WizardGame2.GameObjects.Bullet;
 import WizardGame2.Scenes.LevelScene;
 
+import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.util.Random;
 
@@ -10,6 +11,8 @@ public class TerraGuttaItem extends Item {
     double attackDamage;
 
     final Random random = new Random();
+
+    private static final Color COLOR = new Color(131, 71, 14, 255);
 
     public TerraGuttaItem(String name, int id, BufferedImage sprite, int attackSpeed, double attackDamage) {
         super(name, id, sprite, attackSpeed);
@@ -33,7 +36,7 @@ public class TerraGuttaItem extends Item {
         int x = playerX + (int) (radius * Math.cos(angle));
         int y = playerY + (int) (radius * Math.sin(angle)) - 300;
 
-        levelScene.getBullets().add(new Bullet(null, x, y, 30, 30,
+        levelScene.getBullets().add(new Bullet(COLOR, x, y, 30, 30,
                 Bullet.MovementType.RADIAL, 5, 0.5 * Math.PI, attackDamage));
     }
 }

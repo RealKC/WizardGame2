@@ -14,20 +14,12 @@ public class DefendereMagiItem extends Item {
         static final Color COLOR = new Color(246, 194, 14, 139);
 
         DefendereMagiArea(double attackDamage) {
-            super(null, 0, 0, BASE_DIAMATER, BASE_DIAMATER, MovementType.NONE, 0.0, 0.0, attackDamage);
+            super(COLOR, 0, 0, BASE_DIAMATER, BASE_DIAMATER, MovementType.NONE, 0.0, 0.0, attackDamage);
         }
 
         @Override
         public boolean shouldBeRemovedAfterThisHit() {
             return false;
-        }
-
-        @Override
-        public void render(Graphics gfx, int centerX, int centerY) {
-            var oldColor = gfx.getColor();
-            gfx.setColor(COLOR);
-            gfx.fillOval(getX() - centerX, getY() - centerY, BASE_DIAMATER, BASE_DIAMATER);
-            gfx.setColor(oldColor);
         }
 
         void setPosition(int x, int y) {

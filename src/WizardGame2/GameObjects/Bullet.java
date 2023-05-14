@@ -26,6 +26,8 @@ public class Bullet extends GameObject {
 
     private int enemiesToHitUntilRemoval = 1;
 
+    private final Color color;
+
     public Bullet(BufferedImage sprite, int x, int y, int hitboxWidth, int hitboxHeight,
                   MovementType movementType, double speed, double angle, double attackDamage) {
         super(sprite, x, y, hitboxWidth, hitboxHeight);
@@ -35,6 +37,19 @@ public class Bullet extends GameObject {
         this.speed = speed;
         this.angle = angle;
         this.attackDamage = attackDamage;
+        this.color = null;
+    }
+
+    public Bullet(Color color, int x, int y, int hitboxWidth, int hitboxHeight,
+                  MovementType movementType, double speed, double angle, double attackDamage) {
+        super(null, x, y, hitboxWidth, hitboxHeight);
+        originX = x;
+        originY = y;
+        this.movementType = movementType;
+        this.speed = speed;
+        this.angle = angle;
+        this.attackDamage = attackDamage;
+        this.color = color;
     }
 
     public double getAttackDamage() {
@@ -43,8 +58,14 @@ public class Bullet extends GameObject {
 
     @Override
     public void render(Graphics gfx, int centerX, int centerY) {
-        // FIXME: Stop doing this!
-        gfx.fillOval(getX() - centerX, getY() - centerY, getHitboxWidth(), getHitboxHeight());
+        if (color != null) {
+            var oldColor = gfx.getColor();
+            gfx.setColor(color);
+            gfx.fillOval(getX() - centerX, getY() - centerY, getHitboxWidth(), getHitboxHeight());
+            gfx.setColor(oldColor);
+        } else {
+            super.render(gfx, centerX, centerY);
+        }
     }
 
     @Override
