@@ -1,36 +1,28 @@
 package WizardGame2.Scenes;
 
 import WizardGame2.Game;
-import WizardGame2.Utils;
 
 import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
 
-public class Button implements MouseListener, MouseMotionListener {
-    public interface OnClick {
-        void accept();
-    }
+/**
+ * An abstract class that implements clicking on an area of the screen
+ */
+public abstract class Button implements MouseListener, MouseMotionListener {
 
-    private final Rectangle bounds;
-
-    private final String text;
-    private int textWidth = -1;
-
-    private final OnClick onClick;
+    protected final Rectangle bounds;
 
     private static final Color notHovered = new Color(0, 0, 0, 0);
     private static final Color hovered = new Color(10, 10, 10, 10);
 
-    private Color buttonColor = notHovered;
+    protected Color buttonColor = notHovered;
 
-    private static final Font font = new Font(Font.DIALOG, Font.BOLD, 25);
+    protected static final Font font = new Font(Font.DIALOG, Font.BOLD, 25);
 
-    public Button(Rectangle bounds, String text, OnClick onClick) {
+    public Button(Rectangle bounds) {
         this.bounds = bounds;
-        this.text = text;
-        this.onClick = onClick;
 
         var canvas = Game.getInstance().getCanvas();
 
@@ -38,59 +30,41 @@ public class Button implements MouseListener, MouseMotionListener {
         canvas.addMouseMotionListener(this);
     }
 
-    public void render(Graphics gfx) {
-        var oldColor = gfx.getColor();
-        gfx.setColor(buttonColor);
-        gfx.fillRect(bounds.x, bounds.y, bounds.width, bounds.height);
-        gfx.setColor(oldColor);
+    abstract public void render(Graphics gfx);
 
-        var oldFont = gfx.getFont();
-        gfx.setFont(font);
-
-        if (textWidth < 0) {
-            var fontMetrics = gfx.getFontMetrics();
-            var stringBounds = fontMetrics.getStringBounds(text, gfx);
-            textWidth = (int) stringBounds.getWidth();
-        }
-
-        int x = bounds.x + bounds.width / 2 - textWidth / 2;
-        int y = bounds.y + bounds.height - 5;
-        Utils.drawTextWithOutline(gfx, text, x, y);
-        gfx.setFont(oldFont);
-    }
-
+    abstract void onClicked();
 
     @Override
-    public void mouseReleased(MouseEvent mouseEvent) {
+    public final void mouseReleased(MouseEvent mouseEvent) {
         if (!bounds.contains(mouseEvent.getPoint())) {
             return;
         }
 
-        onClick.accept();
+        onClicked();
     }
 
     @Override
-    public void mouseClicked(MouseEvent mouseEvent) {
+    public final void mouseClicked(MouseEvent mouseEvent) {
     }
 
     @Override
-    public void mousePressed(MouseEvent mouseEvent) {
+    public final void mousePressed(MouseEvent mouseEvent) {
     }
 
     @Override
-    public void mouseEntered(MouseEvent mouseEvent) {
+    public final void mouseEntered(MouseEvent mouseEvent) {
     }
 
     @Override
-    public void mouseExited(MouseEvent mouseEvent) {
+    public final void mouseExited(MouseEvent mouseEvent) {
     }
 
     @Override
-    public void mouseDragged(MouseEvent mouseEvent) {
+    public final void mouseDragged(MouseEvent mouseEvent) {
     }
 
     @Override
-    public void mouseMoved(MouseEvent mouseEvent) {
+    public final void mouseMoved(MouseEvent mouseEvent) {
         if (bounds.contains(mouseEvent.getPoint())) {
             buttonColor = hovered;
         } else {

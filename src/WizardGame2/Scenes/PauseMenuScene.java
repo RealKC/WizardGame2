@@ -22,15 +22,15 @@ public class PauseMenuScene implements Scene {
     public PauseMenuScene(LevelScene levelScene) {
         this.levelScene = levelScene;
 
-        buttons[0] = new Button(new Rectangle(Game.getInstance().getWindowWidth() / 2 - 100, 200, 250, 30), "Continue", () -> {
+        buttons[0] = new TextButton(new Rectangle(Game.getInstance().getWindowWidth() / 2 - 100, 200, 250, 30), "Continue", () -> {
             shouldSwitchScenes = true;
             nextScene = NextScene.LEVEL;
         });
-        buttons[1] = new Button(new Rectangle(Game.getInstance().getWindowWidth() / 2 - 100, 250, 250, 30), "Back to Main Menu", () -> {
+        buttons[1] = new TextButton(new Rectangle(Game.getInstance().getWindowWidth() / 2 - 100, 250, 250, 30), "Back to Main Menu", () -> {
             shouldSwitchScenes = true;
             nextScene = NextScene.MAIN_MENU;
         });
-        buttons[2] = new Button(new Rectangle(Game.getInstance().getWindowWidth() / 2 - 100, 300, 250, 30), "Quit to desktop", () -> {
+        buttons[2] = new TextButton(new Rectangle(Game.getInstance().getWindowWidth() / 2 - 100, 300, 250, 30), "Quit to desktop", () -> {
             Game.getInstance().exit();
         });
     }
