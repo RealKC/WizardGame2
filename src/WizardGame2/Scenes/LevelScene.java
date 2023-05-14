@@ -220,6 +220,10 @@ public class LevelScene implements Scene, Player.LevelUpObserver {
         return null;
     }
 
+    public Player getPlayer() {
+        return player;
+    }
+
     /**
      * Gets all the bullets in the game
      */
