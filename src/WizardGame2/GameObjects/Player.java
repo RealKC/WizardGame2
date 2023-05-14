@@ -191,6 +191,26 @@ public class Player extends LivingGameObject {
 
             return attackDamage * magicPower;
         }
+
+        public void increaseMagicPower(double delta) {
+            magicPower += delta;
+        }
+
+        public void increaseCritChance(double delta) {
+            critChance += delta;
+        }
+
+        public void increaseSpeedBost(double delta) {
+            speedBoost += delta;
+        }
+
+        public void increasePickupRange(int delta) {
+            pickupRange += delta;
+        }
+
+        public void increaseHaste(double delta) {
+            haste += delta;
+        }
     }
 
     final Stats stats = new Stats();
