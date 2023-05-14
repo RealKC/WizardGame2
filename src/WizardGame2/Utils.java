@@ -75,4 +75,8 @@ public class Utils {
         System.out.printf("[in %s] %s: %s", clazz.getName(), String.format(message, args), e);
         e.printStackTrace();
     }
+
+    public static boolean isClose(int val, int to) {
+        return (to - 10 <= val) && (val <= to + 10);
+    }
 }
