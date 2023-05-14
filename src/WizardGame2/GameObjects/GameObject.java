@@ -115,6 +115,10 @@ public abstract class GameObject {
         return hitboxHeight;
     }
 
+    protected BufferedImage getSprite() {
+        return sprite;
+    }
+
     protected int getSpriteWidth() {
         return sprite.getWidth();
     }
