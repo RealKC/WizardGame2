@@ -47,7 +47,7 @@ public class Boss extends Enemy {
     }
 
     private Boss(BufferedImage sprite, int x, int y, int hitboxWidth, int hitboxHeight, double health, int score, int attackDamage, Behaviour behaviour) {
-        super(sprite, x, y, hitboxWidth, hitboxHeight, health, score, attackDamage);
+        super(sprite, x, y, hitboxWidth, hitboxHeight, health, score, attackDamage, false);
         this.behaviour = behaviour;
         behaviour.attachTo(this);
     }
