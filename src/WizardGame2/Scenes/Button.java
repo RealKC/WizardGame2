@@ -30,6 +30,17 @@ public abstract class Button implements MouseListener, MouseMotionListener {
         canvas.addMouseMotionListener(this);
     }
 
+    public void unregisterListeners() {
+        if (this instanceof TextButton) {
+            System.out.println("unregistered: " + ((TextButton)this).getText());
+        }
+
+        var canvas = Game.getInstance().getCanvas();
+
+        canvas.removeMouseMotionListener(this);
+        canvas.removeMouseListener(this);
+    }
+
     abstract public void render(Graphics gfx);
 
     abstract void onClicked();
