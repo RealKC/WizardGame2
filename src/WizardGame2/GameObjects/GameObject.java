@@ -99,6 +99,75 @@ public abstract class GameObject {
         return true;
     }
 
+    public enum Direction {
+        UP,
+        DOWN,
+        RIGHT,
+        LEFT,
+        NONE;
+
+        boolean hasHorizontalCollision() {
+            switch (this) {
+                case RIGHT:
+                case LEFT:
+                    return true;
+                default:
+                    return false;
+            }
+        }
+
+        boolean hasVerticalCollision() {
+            switch (this) {
+                case UP:
+                case DOWN:
+                    return true;
+                default:
+                    return false;
+            }
+        }
+    }
+
+    public Direction detectCollisionDirection(GameObject other) {
+        int leftA = x;
+        int rightA = hitboxWidth + x;
+        int bottomA = hitboxHeight + y;
+        int topA = y;
+
+        int leftB = other.x;
+        int rightB = other.hitboxWidth + other.x;
+        int bottomB = other.hitboxHeight + other.y;
+        int topB = other.y;
+
+        if (leftA < rightB && rightA > leftB && topA < bottomB && bottomA > topB) {
+            Direction xCollision, yCollision;
+            int xDepth, yDepth;
+
+            if (leftA < leftB && rightA < rightB) {
+                xCollision = Direction.LEFT;
+                xDepth = leftB - rightA;
+            } else {
+                xCollision = Direction.RIGHT;
+                xDepth = leftA - rightB;
+            }
+
+            if (bottomA > bottomB && topA > topB) {
+                yCollision = Direction.DOWN;
+                yDepth = bottomB - topA;
+            } else {
+                yCollision = Direction.UP;
+                yDepth = bottomA - topB;
+            }
+
+            if (Math.abs(yDepth) < Math.abs(xDepth)) {
+                return yCollision;
+            } else {
+                return xCollision;
+            }
+        }
+
+        return Direction.NONE;
+    }
+
     public int getX() {
         return x;
     }
