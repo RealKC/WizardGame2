@@ -98,7 +98,9 @@ public class LevelScene implements Scene, Player.LevelUpObserver {
             player.addActiveItem(itemFactories.get(0).makeItem());
             player.addActiveItem(itemFactories.get(1).makeItem());
             player.addActiveItem(itemFactories.get(2).makeItem());
-            enemies.add(level.spawnBoss(7 * 60));
+            var boss = level.spawnBoss(7 * 60);
+            enemies.add(boss);
+            player.addPositionObserver(boss);
 
             firstUpdate = false;
         }
@@ -106,7 +108,7 @@ public class LevelScene implements Scene, Player.LevelUpObserver {
         for (var enemy : enemies) {
             enemy.update(level, currentTime);
 
-            if (enemy.collidesWith(player)) {
+            if (player.collidesWith(enemy)) {
                 player.takeDamage(enemy.getAttackDamage());
             }
         }
@@ -127,7 +129,7 @@ public class LevelScene implements Scene, Player.LevelUpObserver {
             while (j < enemies.size()) {
                 Enemy enemy = enemies.get(j);
                 Enemy.Died died = Enemy.Died.NO;
-                if (bullet.collidesWith(enemy)) {
+                if (enemy.collidesWith(bullet)) {
 
                     died = enemy.takeDamage(bullet.getAttackDamage());
                     if (died == Enemy.Died.YES) {

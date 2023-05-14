@@ -14,7 +14,11 @@ public class Boss extends Enemy {
 
         void render(Graphics gfx, BufferedImage sprite, int centerX, int centerY);
 
-        void update(Level level, long currentTime);
+        void update(Level level, long currentTime, int playerX, int playerY);
+
+        default boolean shouldIgnoreCollision() {
+            return false;
+        }
     }
 
     private final Behaviour behaviour;
@@ -49,12 +53,21 @@ public class Boss extends Enemy {
     }
 
     @Override
+    public boolean collidesWith(GameObject other) {
+        if (behaviour.shouldIgnoreCollision()) {
+            return false;
+        }
+
+        return super.collidesWith(other);
+    }
+
+    @Override
     public void render(Graphics gfx, int centerX, int centerY) {
         behaviour.render(gfx, getSprite(), centerX, centerY);
     }
 
     @Override
     public void update(Level level, long currentTime) {
-        behaviour.update(level, currentTime);
+        behaviour.update(level, currentTime, playerX, playerY);
     }
 }

@@ -6,7 +6,7 @@ import WizardGame2.Level;
 import java.awt.image.BufferedImage;
 
 public class Enemy extends LivingGameObject implements Player.PositionObserver {
-    private int playerX, playerY;
+    protected int playerX, playerY;
 
     private final int scoreValue;
 
@@ -69,18 +69,22 @@ public class Enemy extends LivingGameObject implements Player.PositionObserver {
 
     @Override
     public void update(Level level, long currentTime) {
+        moveToTarget(level, playerX, playerY);
+    }
+
+    public void moveToTarget(Level level, int targetX, int targetY) {
         int xfactor = 0;
         int yfactor = 0;
 
-        if (playerX < this.getX() + 10) {
+        if (targetX < this.getX() + 10) {
             xfactor = -1;
-        } else if (playerX > this.getX() + 10) {
+        } else if (targetX > this.getX() + 10) {
             xfactor = 1;
         }
 
-        if (playerY < this.getY() + 10) {
+        if (targetY < this.getY() + 10) {
             yfactor = -1;
-        } else if (playerY > this.getY() + 10) {
+        } else if (targetY > this.getY() + 10) {
             yfactor = 1;
         }
 
@@ -93,7 +97,12 @@ public class Enemy extends LivingGameObject implements Player.PositionObserver {
 
         for (Obstacle obstacle : level.getObstacles()) {
             if (this.collidesWith(obstacle)) {
-                moveBy(-deltaX, -deltaY);
+                Direction collisionDirection = this.detectCollisionDirection(obstacle);
+
+                int xf = collisionDirection.hasHorizontalCollision() ? -1 : 0;
+                int yf = collisionDirection.hasVerticalCollision() ? -1 : 0;
+
+                moveBy(xf * deltaX, yf * deltaY);
                 break;
             }
         }
