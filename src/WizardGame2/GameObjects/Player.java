@@ -228,20 +228,30 @@ public class Player extends LivingGameObject {
 
         moveBy(deltaX, deltaY);
 
-        boolean hadAnyCollisions = false;
+        boolean moved = true;
+
+        int cameraXf = 1, cameraYf = 1;
 
         for (Obstacle obstacle : level.getObstacles()) {
             if (this.collidesWith(obstacle)) {
-                moveBy(-deltaX, -deltaY);
-                hadAnyCollisions = true;
+                Direction collisionDirection = this.detectCollisionDirection(obstacle);
+
+                int xf = collisionDirection.hasHorizontalCollision() ? -1 : 0;
+                int yf = collisionDirection.hasVerticalCollision() ? -1 : 0;
+
+                cameraXf = collisionDirection.hasHorizontalCollision() ? 0 : 1;
+                cameraYf = collisionDirection.hasVerticalCollision() ? 0 : 1;
+
+                moveBy(xf * deltaX, yf * deltaY);
+                moved = xf == 0 || yf == 0;
                 break;
             }
         }
 
         pickupAnyXp();
 
-        if (!hadAnyCollisions) {
-            camera.moveBy(deltaX, deltaY);
+        if (moved) {
+            camera.moveBy(cameraXf * deltaX, cameraYf * deltaY);
 
             double newAngle = Math.atan2(deltaY, deltaX);
             boolean shouldUpdateAngle = true;
