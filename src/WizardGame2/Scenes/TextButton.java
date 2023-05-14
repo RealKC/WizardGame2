@@ -1,6 +1,5 @@
 package WizardGame2.Scenes;
 
-import WizardGame2.Game;
 import WizardGame2.Utils;
 
 import java.awt.*;
@@ -20,11 +19,6 @@ public class TextButton extends Button {
         super(bounds);
         this.text = text;
         this.onClick = onClick;
-
-        var canvas = Game.getInstance().getCanvas();
-
-        canvas.addMouseListener(this);
-        canvas.addMouseMotionListener(this);
     }
 
     @Override
