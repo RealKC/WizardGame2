@@ -4,12 +4,15 @@ import WizardGame2.Graphics.SpriteSheet;
 import WizardGame2.Level;
 import WizardGame2.Utils;
 
+import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.lang.reflect.InvocationTargetException;
 
 public class Boss extends Enemy {
     public interface Behaviour {
         void attachTo(Boss boss);
+
+        void render(Graphics gfx, BufferedImage sprite, int centerX, int centerY);
 
         void update(Level level, long currentTime);
     }
@@ -43,6 +46,11 @@ public class Boss extends Enemy {
         super(sprite, x, y, hitboxWidth, hitboxHeight, health, score, attackDamage);
         this.behaviour = behaviour;
         behaviour.attachTo(this);
+    }
+
+    @Override
+    public void render(Graphics gfx, int centerX, int centerY) {
+        behaviour.render(gfx, getSprite(), centerX, centerY);
     }
 
     @Override
