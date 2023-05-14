@@ -2,6 +2,7 @@ package WizardGame2.GameObjects.BossBehaviours;
 
 import WizardGame2.GameObjects.Boss;
 import WizardGame2.Level;
+
 import static WizardGame2.Utils.isClose;
 
 import java.awt.*;
@@ -19,8 +20,10 @@ public class MateiBehaviour implements Boss.Behaviour {
 
         State toggle() {
             switch (this) {
-                case RUNNING: return FLYING;
-                case FLYING: return RUNNING;
+                case RUNNING:
+                    return FLYING;
+                case FLYING:
+                    return RUNNING;
             }
 
             return null;
@@ -40,7 +43,7 @@ public class MateiBehaviour implements Boss.Behaviour {
 
     private int spriteX, spriteY;
 
-    private static final int[] OFFSETS = new int[] { -150, -75, 0, 75, 150 };
+    private static final int[] OFFSETS = new int[]{-150, -75, 0, 75, 150};
 
     private final Random random = new Random();
 
@@ -58,19 +61,14 @@ public class MateiBehaviour implements Boss.Behaviour {
 
     @Override
     public void render(Graphics gfx, BufferedImage sprite, int centerX, int centerY) {
-        switch (currentState) {
-            case RUNNING:
-                gfx.drawImage(sprite, boss.getX() - centerX, boss.getY() - centerY, null);
-                break;
+        var oldColor = gfx.getColor();
+        gfx.setColor(SHADOW_COLOR);
+        gfx.fillOval(boss.getX() - centerX, boss.getY() - centerY + 34, 64, 32);
+        gfx.setColor(oldColor);
 
-            case FLYING:
-                var oldColor = gfx.getColor();
-                gfx.setColor(SHADOW_COLOR);
-                gfx.fillOval(boss.getX() - centerX, boss.getY() - centerY, 64, 32);
-                gfx.setColor(oldColor);
-                break;
+        if (currentState == State.RUNNING) {
+            gfx.drawImage(sprite, boss.getX() - centerX, boss.getY() - centerY, null);
         }
-
     }
 
     @Override
