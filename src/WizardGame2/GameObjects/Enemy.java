@@ -12,6 +12,8 @@ public class Enemy extends LivingGameObject implements Player.PositionObserver {
 
     private final int attackDamage;
 
+    private final boolean isFlying;
+
     @SuppressWarnings("unused")
     public static class Data {
         String name;
@@ -30,6 +32,8 @@ public class Enemy extends LivingGameObject implements Player.PositionObserver {
          */
         String behaviour;
 
+        boolean isFlying;
+
         public Data() {}
 
         public String getName() {
@@ -45,18 +49,21 @@ public class Enemy extends LivingGameObject implements Player.PositionObserver {
                     ", y=" + y +
                     ", score = " + score +
                     ", damage = " + damage +
+                    ", behaviour = " + behaviour +
+                    ", isFlying = " + isFlying +
                     '}';
         }
     }
 
     public static Enemy fromData(SpriteSheet spriteSheet, Data data, int x, int y) {
-        return new Enemy(spriteSheet.crop(data.x, data.y), x, y, 32, 32, data.health, data.score, data.damage);
+        return new Enemy(spriteSheet.crop(data.x, data.y), x, y, 32, 32, data.health, data.score, data.damage, data.isFlying);
     }
 
-    public Enemy(BufferedImage sprite, int x, int y, int hitboxWidth, int hitboxHeight, double health, int score, int attackDamage) {
+    public Enemy(BufferedImage sprite, int x, int y, int hitboxWidth, int hitboxHeight, double health, int score, int attackDamage, boolean isFlying) {
         super(sprite, x, y, hitboxWidth, hitboxHeight, health);
         this.scoreValue = score;
         this.attackDamage = attackDamage;
+        this.isFlying = isFlying;
     }
 
     public int getScoreValue() {
@@ -70,6 +77,15 @@ public class Enemy extends LivingGameObject implements Player.PositionObserver {
     @Override
     public void update(Level level, long currentTime) {
         moveToTarget(level, playerX, playerY);
+    }
+
+    @Override
+    public boolean collidesWith(GameObject other) {
+        if (isFlying && !(other instanceof Player)) {
+            return false;
+        }
+
+        return super.collidesWith(other);
     }
 
     public void moveToTarget(Level level, int targetX, int targetY) {

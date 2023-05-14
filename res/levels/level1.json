@@ -60,7 +60,8 @@
       "x": 9,
       "y": 0,
       "score": 55,
-      "damage": 1
+      "damage": 1,
+      "isFlying": true
     },
     {
       "name": "ghost",
@@ -68,7 +69,8 @@
       "x": 8,
       "y": 0,
       "score": 55,
-      "damage": 1
+      "damage": 1,
+      "isFlying": true
     }
   ],
 
