@@ -85,10 +85,11 @@
     {
       "name": "Adrian, The Crimson Undead",
       "health": 1000,
-      "x": 3,
+      "x": 2,
       "y": 1,
       "score": 6200,
-      "damage": 1
+      "damage": 1,
+      "behaviour": "WizardGame2.GameObjects.BossBehaviours.AdrianBehaviour"
     }
   ],
 
