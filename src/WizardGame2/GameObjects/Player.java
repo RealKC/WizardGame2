@@ -3,6 +3,7 @@ package WizardGame2.GameObjects;
 import WizardGame2.Graphics.SpriteSheet;
 import WizardGame2.Items.Inventory;
 import WizardGame2.Items.Item;
+import WizardGame2.Items.ItemFactory;
 import WizardGame2.Keyboard;
 import WizardGame2.Level;
 import WizardGame2.Scenes.LevelScene;
@@ -228,6 +229,10 @@ public class Player extends LivingGameObject {
         return camera;
     }
 
+    public boolean hasItem(ItemFactory itemFactory) {
+        return inventory.hasItem(itemFactory);
+    }
+
     @Override
     public void render(Graphics gfx, int centerX, int centerY) {
         super.render(gfx, centerX, centerY);
@@ -359,6 +364,14 @@ public class Player extends LivingGameObject {
 
     public Stats getStats() {
         return stats;
+    }
+
+    public boolean canPickUpMoreActiveItems() {
+        return inventory.activeItemCount() < 3;
+    }
+
+    public boolean canPickUpMorePassiveItems() {
+        return inventory.passiveItemCount() < 3;
     }
 
     /**
