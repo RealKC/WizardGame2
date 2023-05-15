@@ -1,5 +1,6 @@
 package WizardGame2.Scenes;
 
+import WizardGame2.Assets;
 import WizardGame2.Game;
 
 import java.awt.*;
@@ -37,6 +38,6 @@ public class MainMenuScene implements Scene {
             button.unregisterListeners();
         }
 
-        return LevelScene.getInstance();
+        return new LevelSelectScene(Assets.getInstance().getLevelDatas());
     }
 }

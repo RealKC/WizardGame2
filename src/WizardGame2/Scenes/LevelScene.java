@@ -41,10 +41,16 @@ public class LevelScene implements Scene, Player.LevelUpObserver {
 
     private static LevelScene instance;
 
+    public static LevelScene initializeInstance(LevelData levelData) {
+        assert instance == null;
+
+        instance = new LevelScene(levelData);
+
+        return instance;
+    }
+
     public static LevelScene getInstance() {
-        if (instance == null) {
-            instance = new LevelScene();
-        }
+        assert instance != null;
 
         return instance;
     }
@@ -53,7 +59,7 @@ public class LevelScene implements Scene, Player.LevelUpObserver {
         instance = null;
     }
 
-    LevelScene() {
+    LevelScene(LevelData levelData) {
         Timer timeTicker = new Timer();
         timeTicker.scheduleAtFixedRate(new TimerTask() {
             @Override
@@ -69,7 +75,7 @@ public class LevelScene implements Scene, Player.LevelUpObserver {
         player.getCamera().setCameraHeight(Game.getInstance().getWindowHeight());
         player.setLevelUpObserver(this);
 
-        level = Level.fromData(assets.getLevelDatas().get(0));
+        level = Level.fromData(levelData);
         player.addPositionObserver(level);
 
         player.getCamera().setMapWidth(level.getWidth());
