@@ -95,6 +95,10 @@ public class Bullet extends GameObject {
         }
     }
 
+    public void setPierceLimit(int value) {
+        enemiesToHitUntilRemoval = value;
+    }
+
     /**
      * This method returns whether a bullet should be removed or not, and it allows one to
      * implement piercing bullets.
