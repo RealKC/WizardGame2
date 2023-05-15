@@ -94,10 +94,6 @@ public class LevelScene implements Scene, Player.LevelUpObserver {
         player.update(level, currentTime);
 
         if (firstUpdate) {
-            var itemFactories = Assets.getInstance().getItemFactories();
-            player.addActiveItem(itemFactories.get(0).makeItem());
-            player.addActiveItem(itemFactories.get(1).makeItem());
-            player.addActiveItem(itemFactories.get(2).makeItem());
             var boss = level.spawnBoss(7 * 60);
             enemies.add(boss);
             player.addPositionObserver(boss);
