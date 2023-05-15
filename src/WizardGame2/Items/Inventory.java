@@ -2,6 +2,7 @@ package WizardGame2.Items;
 
 import WizardGame2.Assets;
 import WizardGame2.GameObjects.Player;
+import WizardGame2.Utils;
 
 import java.awt.*;
 import java.util.ArrayList;
@@ -99,6 +100,20 @@ public class Inventory {
     }
 
     public void addActiveItem(Item item) {
+        if (activeItems.size() == 3) {
+            Utils.warn("Tried adding '%s' but activeItems is full", item);
+
+            return;
+        }
+
+        for (var activeItem : activeItems) {
+            if (activeItem.getName().equals(item.getName())) {
+                Utils.warn("Tried adding '%s' but it was already in the inventory", item);
+
+                return;
+            }
+        }
+
         activeItems.add(item);
     }
 
