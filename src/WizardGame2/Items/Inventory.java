@@ -78,7 +78,35 @@ public class Inventory {
 
     }
 
+    public boolean hasItem(ItemFactory itemFactory) {
+        if (itemFactory == null) {
+            return false;
+        }
+
+        for (var activeItem : activeItems) {
+            if (activeItem.getName().equals(itemFactory.getName())) {
+                return true;
+            }
+        }
+
+        for (var passiveItem : passiveItems) {
+            if (passiveItem.getName().equals(itemFactory.getName())) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
     public void addActiveItem(Item item) {
         activeItems.add(item);
+    }
+
+    public int activeItemCount() {
+        return activeItems.size();
+    }
+
+    public int passiveItemCount() {
+        return passiveItems.size();
     }
 }
