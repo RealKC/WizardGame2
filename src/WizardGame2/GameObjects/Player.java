@@ -1,6 +1,8 @@
 package WizardGame2.GameObjects;
 
+import WizardGame2.Assets;
 import WizardGame2.Graphics.SpriteSheet;
+import WizardGame2.Items.Abilities.FireMagic;
 import WizardGame2.Items.Inventory;
 import WizardGame2.Items.Item;
 import WizardGame2.Items.ItemFactory;
@@ -193,6 +195,7 @@ public class Player extends LivingGameObject {
     }
 
     Inventory inventory = new Inventory();
+    Item ability;
 
     private final LevelManager levelManager = new LevelManager();
 
@@ -223,7 +226,12 @@ public class Player extends LivingGameObject {
 
     public Player(SpriteSheet spriteSheet, int x, int y) {
         super(spriteSheet.crop(0, 0), x, y, 32, 32, 100.0);
+
         this.camera = new Camera(x, y);
+        this.ability = new FireMagic(Assets.getInstance().getItems());
+        this.addPositionObserver(ability);
+
+        notifyPositionObservers();
     }
 
     public Camera getCamera() {
@@ -269,6 +277,7 @@ public class Player extends LivingGameObject {
     @Override
     public void update(Level level, long currentTime) {
         inventory.update(currentTime, stats);
+        ability.update(currentTime, stats);
 
         int deltaY = 0, deltaX = 0;
 
