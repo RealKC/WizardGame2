@@ -48,4 +48,17 @@ public class TextButton extends Button {
     void onClicked() {
         onClick.accept();
     }
+
+    @Override
+    public String toString() {
+        return "TextButton (hash = " + hashCode() +") {" +
+                "text='" + text + '\'' +
+                ", textWidth=" + textWidth +
+                ", onClick=" + onClick +
+                '}';
+    }
+
+    public String getText() {
+        return text;
+    }
 }
