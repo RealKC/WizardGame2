@@ -79,4 +79,11 @@ public class Utils {
     public static boolean isClose(int val, int to) {
         return (to - 10 <= val) && (val <= to + 10);
     }
+
+    public static void warn(String format, Object... args) {
+        System.out.print("[WARN] ");
+        System.out.printf(format, args);
+        System.out.println();
+        Thread.dumpStack();
+    }
 }
