@@ -59,6 +59,10 @@ public class PauseMenuScene implements Scene {
 
     @Override
     public Scene nextScene() {
+        for (var button : buttons) {
+            button.unregisterListeners();
+        }
+
         switch (nextScene) {
             case LEVEL:
                 levelScene.setPaused(false);

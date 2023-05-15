@@ -33,6 +33,10 @@ public class MainMenuScene implements Scene {
 
     @Override
     public Scene nextScene() {
+        for (var button : buttons) {
+            button.unregisterListeners();
+        }
+
         return LevelScene.getInstance();
     }
 }

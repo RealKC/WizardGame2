@@ -163,6 +163,10 @@ public class LevelUpScene implements Scene {
 
     @Override
     public Scene nextScene() {
+        for (var button : buttons) {
+            button.unregisterListeners();
+        }
+
         levelScene.setPaused(false);
         return levelScene;
     }
