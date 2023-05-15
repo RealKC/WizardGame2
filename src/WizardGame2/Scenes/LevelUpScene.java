@@ -1,11 +1,14 @@
 package WizardGame2.Scenes;
 
+import WizardGame2.Assets;
 import WizardGame2.Game;
 import WizardGame2.GameObjects.Player;
+import WizardGame2.Items.ItemFactory;
 import WizardGame2.Utils;
 
 import java.awt.*;
 import java.text.DecimalFormat;
+import java.util.HashSet;
 import java.util.Random;
 
 public class LevelUpScene implements Scene {
@@ -103,6 +106,55 @@ public class LevelUpScene implements Scene {
         }
     }
 
+    private final HashSet<ItemFactory> pickedItemFactories = new HashSet<>();
+
+    private class ItemGrantingButton extends Button {
+        final ItemFactory itemFactory;
+
+        final Player player;
+
+        final String text;
+
+        int textWidth = -1;
+
+        public ItemGrantingButton(Rectangle bounds, Player player, ItemFactory itemFactory) {
+            super(bounds);
+
+            this.player = player;
+            this.itemFactory = itemFactory;
+            this.text = itemFactory.getName();
+        }
+
+        @Override
+        public void render(Graphics gfx) {
+            var oldColor = gfx.getColor();
+            gfx.setColor(Color.BLACK);
+            gfx.drawRect(bounds.x, bounds.y, bounds.width, bounds.height);
+            gfx.setColor(buttonColor);
+            gfx.fillRect(bounds.x, bounds.y, bounds.width, bounds.height);
+
+            gfx.drawImage(itemFactory.getItemData().sprite, bounds.x + 4, bounds.y + 4, null);
+
+            if (textWidth < 0) {
+                var fontMetrics = gfx.getFontMetrics();
+                var stringBounds = fontMetrics.getStringBounds(text, gfx);
+                textWidth = (int) stringBounds.getWidth();
+            }
+
+            Utils.drawTextWithOutline(gfx, text,
+                    bounds.x + 4 + itemFactory.getItemData().sprite.getWidth() + bounds.width / 2 - textWidth / 2,
+                    bounds.y + bounds.height - 5);
+
+            gfx.setColor(oldColor);
+        }
+
+        @Override
+        void onClicked() {
+            player.addActiveItem(itemFactory.makeItem());
+            sceneUpdate = SceneUpdate.NEXT_SCENE;
+        }
+    }
+
     private final Button[] buttons;
     private int textWidth = -1;
     private final int centerX;
@@ -122,14 +174,53 @@ public class LevelUpScene implements Scene {
         final int buttonWidth = 350;
 
         int yOffset = 150;
+
+        var player = levelScene.getPlayer();
+
         for (int i = 0; i < buttons.length; ++i) {
-            buttons[i] = new StatIncreaseButton(
-                    new Rectangle(centerX - buttonWidth / 2, yOffset, buttonWidth, 38),
-                    levelScene.getPlayer().getStats()
-            );
+            var bounds = new Rectangle(centerX - buttonWidth / 2, yOffset, buttonWidth, 38);
+            if (random.nextInt() % 2 == 0) {
+                buttons[i] = new StatIncreaseButton(bounds, player.getStats());
+            } else {
+                var item = pickItem(player);
+
+                if (item != null) {
+                    buttons[i] = new ItemGrantingButton(bounds, player, item);
+                } else {
+                    buttons[i] = new StatIncreaseButton(bounds, player.getStats());
+                }
+            }
 
             yOffset += 50;
         }
+    }
+
+    ItemFactory pickItem(Player player) {
+        // FIXME: boolean active = random.nextBoolean();
+        // FIXME: Implement picking passive items too
+
+        ItemFactory itemFactory;
+
+        var itemFactories = Assets.getInstance().getItemFactories();
+
+        int attemptCount = 0;
+        final int maxAttempts = 16;
+
+        do {
+            if (attemptCount >= maxAttempts) {
+                return null;
+            }
+
+            do {
+                int idx = Math.abs(random.nextInt() % itemFactories.size());
+                itemFactory = itemFactories.get(idx);
+                attemptCount++;
+            } while (pickedItemFactories.contains(itemFactory));
+
+            pickedItemFactories.add(itemFactory);
+        } while (player.hasItem(itemFactory));
+
+        return itemFactory;
     }
 
     @Override
