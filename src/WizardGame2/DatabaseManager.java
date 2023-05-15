@@ -2,6 +2,7 @@ package WizardGame2;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
@@ -133,5 +134,22 @@ WHERE level < ?
         } catch (SQLException e) {
             Utils.logException(getClass(), e, "failed to set last beat level");
         }
+    }
+
+    public int getNextPlayableLevel() {
+        try {
+            var stmt = conn.createStatement();
+            ResultSet rs = stmt.executeQuery("""
+SELECT level
+FROM lastFinishedLevel
+WHERE id == 1
+""");
+
+            return rs.getInt("level") + 1;
+        } catch (SQLException e) {
+            Utils.logException(getClass(), e, "failed to get last beat level");
+        }
+
+        return 1;
     }
 }
