@@ -8,4 +8,12 @@ public abstract class ItemFactory {
     }
 
     public abstract Item makeItem();
+
+    public String getName() {
+        return itemData.name;
+    }
+
+    public ItemData getItemData() {
+        return itemData;
+    }
 }
