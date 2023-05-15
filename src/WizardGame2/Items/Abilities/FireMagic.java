@@ -9,16 +9,14 @@ import WizardGame2.Scenes.LevelScene;
 import java.awt.*;
 
 public class FireMagic extends Item {
-    final double distance = 48;
-    double angle = 0.0;
-
-
     private static final Color COLOR = new Color(215, 82, 10, 255);
+
+    private double angleOffset = 0.0;
 
     public FireMagic(SpriteSheet spriteSheet) {
         super("Fire Ball", 900, spriteSheet.crop(0, 0), 7);
 
-        setCooldown(210);
+        setCooldown(140);
     }
 
     @Override
@@ -27,11 +25,21 @@ public class FireMagic extends Item {
             return;
         }
 
-        int x = playerX + (int) (distance * Math.cos(angle));
-        int y = playerY + (int) (distance * Math.sin(angle));
+        var bullet = new Bullet(COLOR, playerX, playerY, 16, 16, Bullet.MovementType.RADIAL, 7, bulletAngle(), 10);
+        bullet.setPierceLimit(10);
 
-        angle += Math.PI / 6.0;
+        LevelScene.getInstance().getBullets().add(bullet);
+    }
 
-        LevelScene.getInstance().getBullets().add(new Bullet(COLOR, x, y, 16, 16, Bullet.MovementType.RADIAL, 7, angle, 10));
+    private double bulletAngle() {
+        double bulletAngle = (angleOffset + playerAngle);
+
+        if (angleOffset == 0.0) {
+            angleOffset = Math.PI;
+        } else {
+            angleOffset = 0.0;
+        }
+
+        return bulletAngle;
     }
 }
