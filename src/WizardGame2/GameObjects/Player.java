@@ -272,7 +272,7 @@ public class Player extends LivingGameObject {
         gfx.setColor(oldColor);
     }
 
-    private static final int STEP = 2;
+    private static final int STEP = 3;
 
     @Override
     public void update(Level level, long currentTime) {
