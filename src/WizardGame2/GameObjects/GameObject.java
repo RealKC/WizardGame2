@@ -168,6 +168,10 @@ public abstract class GameObject {
         return Direction.NONE;
     }
 
+    public int distanceTo(GameObject other) {
+        return (int) Math.sqrt(Math.pow(other.x - x, 2) + Math.pow(other.y - y, 2));
+    }
+
     public int getX() {
         return x;
     }
