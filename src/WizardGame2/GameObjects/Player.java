@@ -154,7 +154,7 @@ public class Player extends LivingGameObject {
         private double magicPower = 1;
         private double critChance = 0.1;
         private double speedBoost = 1;
-        private int pickupRange = 25;
+        private int pickupRange = 64;
         private double haste = 1;
 
         public double getHaste() {
@@ -367,7 +367,7 @@ public class Player extends LivingGameObject {
 
         while (i < experienceObjects.size()) {
             var experienceObject = experienceObjects.get(i);
-            if (this.collidesWith(experienceObject)) {
+            if (this.collidesWith(experienceObject) || this.distanceTo(experienceObject) <= stats.pickupRange / 2) {
                 levelManager.addExperience(experienceObject.getValue());
                 experienceObjects.remove(i);
             } else {
