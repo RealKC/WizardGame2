@@ -247,12 +247,25 @@ public class Player extends LivingGameObject {
         super.render(gfx, centerX, centerY);
         inventory.render(gfx);
 
+        // Render the player's healthbar
+        var oldColor = gfx.getColor();
+
+        gfx.setColor(Color.BLACK);
+        final int yOffset = 5;
+        final int height = 4;
+        gfx.fillRect(getX() - centerX, getY() - yOffset - centerY, getHitboxWidth(), height);
+        gfx.setColor(Color.RED);
+        var width = getCurrentHp() / getMaxHp() * getHitboxWidth();
+        gfx.fillRect(getX() - centerX, getY() - yOffset - centerY, (int) width, height);
+        gfx.setColor(oldColor);
+
+        // Render the player's level indicator
         var oldFont = gfx.getFont();
         gfx.setFont(levelFont);
         Utils.drawTextWithOutline(gfx, "lvl " + levelManager.level, 132, 40);
         gfx.setFont(oldFont);
-        // Render an aiming direction indicator
 
+        // Render an aiming direction indicator
         boolean angleIsRight = (0 <= movementAngle && movementAngle < Math.PI / 2)
                 || (0.75 * Math.PI <= movementAngle && movementAngle < Math.PI);
         int factor = angleIsRight ? 1 : 0;
@@ -265,8 +278,8 @@ public class Player extends LivingGameObject {
         double indicatorX = spriteCenterX + radius * Math.cos(movementAngle);
         double indicatorY = spriteCenterY + radius * Math.sin(movementAngle);
 
-        var oldColor = gfx.getColor();
-        gfx.setColor(Color.RED);
+        oldColor = gfx.getColor();
+        gfx.setColor(Color.ORANGE);
         final int INDICATOR_RADIUS = 5;
         gfx.fillOval((int) (indicatorX) - centerX - factor * INDICATOR_RADIUS, (int) (indicatorY) - centerY - factor * INDICATOR_RADIUS, INDICATOR_RADIUS, INDICATOR_RADIUS);
         gfx.setColor(oldColor);
