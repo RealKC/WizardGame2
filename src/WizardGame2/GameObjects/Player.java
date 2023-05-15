@@ -19,11 +19,6 @@ import java.util.Random;
  * This class implements the player character of the game
  */
 public class Player extends LivingGameObject {
-    private static final int STEP = 2;
-
-    Inventory inventory = new Inventory();
-    private int stoppedCounter = 0;
-
     /**
      * This class implements a camera that ensures the player character is centered on the screen, except for when it
      * reaches the edges of the map.
@@ -146,27 +141,6 @@ public class Player extends LivingGameObject {
         }
     }
 
-    private final LevelManager levelManager = new LevelManager();
-
-    private LevelUpObserver levelUpObserver = null;
-
-    private final Camera camera;
-    private final ArrayList<PositionObserver> positionObservers = new ArrayList<>();
-    private long lastCleanupAt = 0;
-
-    private double movementAngle;
-
-
-    /**
-     * i-frames are frames in which the player is invincible. They exist in order to make sure the player does not die
-     * too quickly.
-     */
-    private int currentIFrames = 0;
-
-    private static final int MAX_IFRAMES = 30;
-
-    private static final Font levelFont = new Font(Font.MONOSPACED, Font.PLAIN, 25);
-
     /**
      * Stats are multipliers applied to various player abilities in order to make the player stronger
      */
@@ -218,6 +192,33 @@ public class Player extends LivingGameObject {
         }
     }
 
+    Inventory inventory = new Inventory();
+
+    private final LevelManager levelManager = new LevelManager();
+
+    private LevelUpObserver levelUpObserver = null;
+
+    private final Camera camera;
+
+
+    private final ArrayList<PositionObserver> positionObservers = new ArrayList<>();
+    private long lastCleanupAt = 0;
+
+
+    private int stoppedCounter = 0;
+    private double movementAngle;
+
+
+    /**
+     * i-frames are frames in which the player is invincible. They exist in order to make sure the player does not die
+     * too quickly.
+     */
+    private int currentIFrames = 0;
+
+    private static final int MAX_IFRAMES = 30;
+
+    private static final Font levelFont = new Font(Font.MONOSPACED, Font.PLAIN, 25);
+
     final Stats stats = new Stats();
 
     public Player(SpriteSheet spriteSheet, int x, int y) {
@@ -262,6 +263,8 @@ public class Player extends LivingGameObject {
         gfx.fillOval((int) (indicatorX) - centerX - factor * INDICATOR_RADIUS, (int) (indicatorY) - centerY - factor * INDICATOR_RADIUS, INDICATOR_RADIUS, INDICATOR_RADIUS);
         gfx.setColor(oldColor);
     }
+
+    private static final int STEP = 2;
 
     @Override
     public void update(Level level, long currentTime) {
