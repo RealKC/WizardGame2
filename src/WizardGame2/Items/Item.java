@@ -10,7 +10,7 @@ public abstract class Item implements Player.PositionObserver {
     private final BufferedImage sprite;
     private final int attackSpeed;
 
-    private static final int cooldown = 330;
+    private int cooldown = 330;
 
     private int timeUntilNextActivation;
 
@@ -23,6 +23,10 @@ public abstract class Item implements Player.PositionObserver {
         this.sprite = sprite;
         this.attackSpeed = speed;
         timeUntilNextActivation = 0;
+    }
+
+    protected void setCooldown(int value) {
+        cooldown = value;
     }
 
     public abstract void update(long currentTime, Player.Stats stats);
