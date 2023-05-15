@@ -48,7 +48,7 @@ public class DefendereMagiItem extends Item {
     }
 
     @Override
-    void update(long currentTime, Player.Stats stats) {
+    public void update(long currentTime, Player.Stats stats) {
         area.setPosition(playerX, playerY);
 
         if (area.playerStats == null) {

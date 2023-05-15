@@ -19,7 +19,7 @@ public class IgnisRespiratioItem extends Item {
     }
 
     @Override
-    void update(long currentTime, Player.Stats stats) {
+    public void update(long currentTime, Player.Stats stats) {
 
     }
 }

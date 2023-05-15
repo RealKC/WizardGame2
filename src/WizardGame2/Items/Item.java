@@ -25,7 +25,7 @@ public abstract class Item implements Player.PositionObserver {
         timeUntilNextActivation = 0;
     }
 
-    abstract void update(long currentTime, Player.Stats stats);
+    public abstract void update(long currentTime, Player.Stats stats);
 
     public String getName() {
         return name;
