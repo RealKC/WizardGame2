@@ -419,6 +419,10 @@ public class Player extends LivingGameObject {
         addPositionObserver(item);
     }
 
+    public void addPassiveItem(Item item) {
+        inventory.addPassiveItem(item);
+    }
+
     private void notifyPositionObservers() {
         for (var positionObserver : positionObservers) {
             positionObserver.notifyAboutNewPosition(getX(), getY(), movementAngle);
