@@ -100,7 +100,7 @@ VALUES (?, ?, ?)
 SELECT obtainedAt, value, level
 FROM scores
 WHERE level = ?
-ORDER BY value
+ORDER BY value DESC
 LIMIT 10
 """);
             stmt.setString(1, level);
