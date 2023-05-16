@@ -57,7 +57,7 @@
     {
       "name": "floating-skull",
       "health": 25,
-      "x": 9,
+      "x": 8,
       "y": 0,
       "score": 55,
       "damage": 1,
@@ -66,7 +66,7 @@
     {
       "name": "ghost",
       "health": 200,
-      "x": 8,
+      "x": 7,
       "y": 0,
       "score": 55,
       "damage": 1,
@@ -82,7 +82,8 @@
       "y": 1,
       "score": 5000,
       "damage": 1,
-      "behaviour": "WizardGame2.GameObjects.BossBehaviours.MateiBehaviour"
+      "behaviour": "WizardGame2.GameObjects.BossBehaviours.MateiBehaviour",
+      "finalBoss": false
     },
     {
       "name": "Adrian, The Crimson Undead",
@@ -91,7 +92,8 @@
       "y": 1,
       "score": 6200,
       "damage": 1,
-      "behaviour": "WizardGame2.GameObjects.BossBehaviours.AdrianBehaviour"
+      "behaviour": "WizardGame2.GameObjects.BossBehaviours.AdrianBehaviour",
+      "finalBoss": true
     }
   ],
 

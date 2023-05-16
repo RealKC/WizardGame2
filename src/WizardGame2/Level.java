@@ -20,9 +20,9 @@ public class Level implements Player.PositionObserver {
     BufferedImage texture;
     LevelData data;
 
-    int playerX, playerY;
+    Boss currentBoss = null;
 
-    boolean hasBeenWon = false;
+    int playerX, playerY;
 
     private final Random random = new Random();
 
@@ -64,7 +64,7 @@ public class Level implements Player.PositionObserver {
     }
 
     public boolean hasBeenWon() {
-        return hasBeenWon;
+        return currentBoss != null && currentBoss.isFinalBoss() && currentBoss.isDead();
     }
 
     public int getId() {
@@ -112,11 +112,34 @@ public class Level implements Player.PositionObserver {
             }
         }
 
+        System.out.printf("currentBoss %s", currentBoss);
+        if (currentBoss != null) {
+            System.out.printf(" is dead? %b", currentBoss.isDead());
+        }
+        System.out.println();
+
+        if (currentBoss == null || currentBoss.isDead()){
+            var boss = spawnBoss(seconds);
+            if (boss != null) {
+                currentBoss = boss;
+            }
+            enemies.add(boss);
+        }
         return enemies;
     }
 
-    public Enemy spawnBoss(int seconds) {
-        return Boss.fromData(Assets.getInstance().getCharacters(), data.pickBoss(seconds), playerX, playerY - 200);
+    public Boss spawnBoss(int seconds) {
+        var bossData = data.pickBoss(seconds);
+
+        if (bossData == null) {
+            return null;
+        }
+
+        var boss = Boss.fromData(Assets.getInstance().getCharacters(), bossData, playerX, playerY - 200);
+
+        currentBoss = boss;
+
+        return boss;
     }
 
     @Override

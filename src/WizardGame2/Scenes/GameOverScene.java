@@ -24,6 +24,8 @@ public class GameOverScene implements Scene {
         this.gameResult = gameResult;
         canvasWidth = Game.getInstance().getWindowWidth();
         canvasHeight = Game.getInstance().getWindowHeight();
+
+        levelScene.setPaused(true);
     }
 
     @Override

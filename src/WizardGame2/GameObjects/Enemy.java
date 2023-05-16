@@ -34,6 +34,8 @@ public class Enemy extends LivingGameObject implements Player.PositionObserver {
 
         boolean isFlying;
 
+        boolean finalBoss;
+
         public Data() {}
 
         public String getName() {
@@ -51,6 +53,7 @@ public class Enemy extends LivingGameObject implements Player.PositionObserver {
                     ", damage = " + damage +
                     ", behaviour = " + behaviour +
                     ", isFlying = " + isFlying +
+                    ", finalBoss = " + finalBoss +
                     '}';
         }
     }

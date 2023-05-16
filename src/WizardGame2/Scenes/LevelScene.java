@@ -23,11 +23,6 @@ public class LevelScene implements Scene, Player.LevelUpObserver {
      */
     private int secondsPassed = 0;
 
-    /**
-     * Hack alert!
-     */
-    boolean firstUpdate = true;
-
     private enum NextScene {
         NONE,
         PAUSE_MENU,
@@ -92,20 +87,23 @@ public class LevelScene implements Scene, Player.LevelUpObserver {
             player.takeDamage(1000000000);
         }
 
+        if (Keyboard.isKeyPressed(KeyEvent.VK_F7)) {
+            secondsPassed = 7 * 60 - 5;
+        }
+
+        if (Keyboard.isKeyPressed(KeyEvent.VK_F8)) {
+            secondsPassed = 14 * 60 - 5;
+        }
+
+        if (level.hasBeenWon()) {
+            nextScene = NextScene.GAME_OVER;
+        }
+
         if (nextScene != NextScene.NONE) {
             return SceneUpdate.NEXT_SCENE;
         }
 
-
         player.update(level, currentTime);
-
-        if (firstUpdate) {
-            var boss = level.spawnBoss(7 * 60);
-            enemies.add(boss);
-            player.addPositionObserver(boss);
-
-            firstUpdate = false;
-        }
 
         for (var enemy : enemies) {
             enemy.update(level, currentTime);

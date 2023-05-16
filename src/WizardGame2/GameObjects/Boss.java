@@ -23,6 +23,8 @@ public class Boss extends Enemy {
 
     private final Behaviour behaviour;
 
+    private final boolean isFinalBoss;
+
     public static Boss fromData(SpriteSheet spriteSheet, Enemy.Data data, int x, int y) {
         assert data.behaviour != null;
 
@@ -43,13 +45,19 @@ public class Boss extends Enemy {
 
         var sprite = Utils.scale(spriteSheet.crop(data.x, data.y), size);
 
-        return new Boss(sprite, x, y, size, size, data.health, data.score, data.damage, behaviour);
+        return new Boss(sprite, x, y, size, size, data.health, data.score, data.damage, behaviour, data.finalBoss);
     }
 
-    private Boss(BufferedImage sprite, int x, int y, int hitboxWidth, int hitboxHeight, double health, int score, int attackDamage, Behaviour behaviour) {
+    private Boss(BufferedImage sprite, int x, int y, int hitboxWidth, int hitboxHeight, double health, int score, int attackDamage, Behaviour behaviour, boolean finalBoss) {
         super(sprite, x, y, hitboxWidth, hitboxHeight, health, score, attackDamage, false);
+
+        this.isFinalBoss = finalBoss;
         this.behaviour = behaviour;
         behaviour.attachTo(this);
+    }
+
+    public boolean isFinalBoss() {
+        return isFinalBoss;
     }
 
     @Override
