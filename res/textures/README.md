@@ -13,3 +13,8 @@ by Lanea Zimmerman licensed under CC-BY 3.0
   - tree at 0, 1: [Tiny 16: Basic](https://opengameart.org/content/tiny-16-basic) by Lanea Zimmerman licensed under CC-BY 3.0
   - boulder at 0, 2: from Dungeon Crawl 32x32 Tiles (see above)
   - fence at 0, 3: drawn by me
+* [level-select-background.png](./level-select-background.png) and [main-menu-background.png](main-menu-background.png)
+generated using [cooltext.com](https://cooltext.com)
+* [outer-magic-circle.png](./outer-magic-circle.png) and [inner-magic-circle.png](./inner-magic-circle.png) from
+[Wikimedia](https://commons.m.wikimedia.org/wiki/File:Magic_Circle.png) under [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/deed.en)
+split into two circles by my friend [@Kime78](https://github.com/Kime78)

@@ -7,6 +7,7 @@ import WizardGame2.Items.ItemFactory;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
+import java.awt.image.BufferedImage;
 import java.io.*;
 import java.net.URI;
 import java.net.URISyntaxException;
@@ -24,6 +25,11 @@ import java.util.function.BiConsumer;
 public class Assets {
     private static Assets instance = null;
 
+    private final BufferedImage mainMenuBackground;
+    private final BufferedImage levelSelectBackground;
+    private final BufferedImage innerMagicCircle;
+    private final BufferedImage outerMagicCircle;
+
     private final SpriteSheet characters;
     private final SpriteSheet obstacles;
     private final SpriteSheet items;
@@ -33,6 +39,11 @@ public class Assets {
     private final ArrayList<ItemFactory> passiveItemFactories;
 
     private Assets() {
+        mainMenuBackground = ImageLoader.loadImage("/textures/main-menu-background.png");
+        levelSelectBackground = ImageLoader.loadImage("/textures/level-select-background.png");
+        innerMagicCircle = ImageLoader.loadImage("/textures/inner-magic-circle.png");
+        outerMagicCircle = ImageLoader.loadImage("/textures/outer-magic-circle.png");
+
         characters = new SpriteSheet(ImageLoader.loadImage("/textures/characters.png"));
         items = new SpriteSheet(ImageLoader.loadImage("/textures/items-spritesheet.png"));
         obstacles = new SpriteSheet(ImageLoader.loadImage("/textures/obstacles.png"));
@@ -138,6 +149,10 @@ public class Assets {
         return instance;
     }
 
+    public BufferedImage getMainMenuBackground() {
+        return mainMenuBackground;
+    }
+
     public SpriteSheet getCharacters() {
         return characters;
     }
@@ -160,5 +175,17 @@ public class Assets {
 
     public ArrayList<LevelData> getLevelDatas() {
         return levelDatas;
+    }
+
+    public BufferedImage getLevelSelectBackground() {
+        return levelSelectBackground;
+    }
+
+    public BufferedImage getInnerMagicCircle() {
+        return innerMagicCircle;
+    }
+
+    public BufferedImage getOuterMagicCircle() {
+        return outerMagicCircle;
     }
 }

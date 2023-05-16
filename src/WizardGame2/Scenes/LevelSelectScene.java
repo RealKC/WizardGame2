@@ -1,26 +1,29 @@
 package WizardGame2.Scenes;
 
-import WizardGame2.DatabaseManager;
-import WizardGame2.Game;
-import WizardGame2.LevelData;
-import WizardGame2.Utils;
+import WizardGame2.*;
 
 import java.awt.*;
 import java.util.ArrayList;
 
 public class LevelSelectScene implements Scene {
     private final Button[] buttons;
-    private int textWidth = -1;
-    private final int centerX;
 
     private LevelScene levelScene = null;
 
-    private static final Font FONT = new Font(Font.MONOSPACED, Font.BOLD, 30);
+    private double angle = Math.toRadians(0.0);
+
+    enum NextScene {
+        NONE,
+        LEVEL,
+        MAIN_MENU,
+    }
+
+    private NextScene nextScene = NextScene.NONE;
 
     public LevelSelectScene(ArrayList<LevelData> levelDatas) {
-        buttons = new Button[levelDatas.size()];
+        buttons = new Button[levelDatas.size() + 1];
 
-        centerX = Game.getInstance().getWindowWidth() / 2;
+        int centerX = Game.getInstance().getWindowWidth() / 2;
 
         final int buttonWidth = 350;
 
@@ -28,37 +31,36 @@ public class LevelSelectScene implements Scene {
 
         int bound = Math.min(levelDatas.size(), DatabaseManager.getInstance().getNextPlayableLevel() + 1);
 
-        for (int i = 0; i < bound; ++i) {
+        int i;
+        for (i = 0; i < bound; ++i) {
             var bounds = new Rectangle(centerX - buttonWidth / 2, yOffset, buttonWidth, 38);
+            yOffset += 40;
+
             final var levelData = levelDatas.get(i);
 
-            //noinspection CodeBlock2Expr
-            buttons[i] = new TextButton(bounds, levelDatas.get(i).getName(), () -> {
+            buttons[i] = new TextButton(bounds, (i + 1) + ". " + levelDatas.get(i).getName(), () -> {
                 levelScene = LevelScene.initializeInstance(levelData);
+                nextScene = NextScene.LEVEL;
             });
         }
+
+        var bounds = new Rectangle(centerX - buttonWidth / 2, yOffset, buttonWidth, 38);
+        buttons[i] = new TextButton(bounds, "Back", () -> nextScene = NextScene.MAIN_MENU);
     }
 
     @Override
     public SceneUpdate update(long currentTime) {
-        return levelScene == null ? SceneUpdate.STAY : SceneUpdate.NEXT_SCENE;
+        return nextScene == NextScene.NONE ? SceneUpdate.STAY : SceneUpdate.NEXT_SCENE;
     }
 
     @Override
     public void render(Graphics gfx) {
-        String text = "Pick a level";
+        var assets = Assets.getInstance();
 
-        var oldFont = gfx.getFont();
-        gfx.setFont(FONT);
+        gfx.drawImage(Utils.rotateImage(assets.getOuterMagicCircle(), angle), 100, 0, null);
+        angle += Math.toRadians(0.1);
 
-        if (textWidth < 0) {
-            var fontMetrics = gfx.getFontMetrics();
-            var stringBounds = fontMetrics.getStringBounds(text, gfx);
-            textWidth = (int) stringBounds.getWidth();
-        }
-
-        Utils.drawTextWithOutline(gfx, text, centerX - textWidth / 2, 100);
-        gfx.setFont(oldFont);
+        gfx.drawImage(assets.getLevelSelectBackground(), 0, 0, null);
 
         for (var button : buttons) {
             button.render(gfx);
@@ -67,6 +69,16 @@ public class LevelSelectScene implements Scene {
 
     @Override
     public Scene nextScene() {
-        return levelScene;
+        switch (nextScene) {
+            case LEVEL -> {
+                return levelScene;
+            }
+            case MAIN_MENU -> {
+                return new MainMenuScene();
+            }
+            default -> {
+                return null;
+            }
+        }
     }
 }
