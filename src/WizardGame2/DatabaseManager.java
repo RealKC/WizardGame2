@@ -102,7 +102,7 @@ VALUES (?, ?, ?)
         }
     }
 
-    public ArrayList<ScoreEntry> getTop10ScoreEntriesFor(String level) {
+    public ArrayList<ScoreEntry> getTopScoresFor(String level) {
         try {
             var stmt = conn.prepareStatement("""
 SELECT obtainedAt, value, level
