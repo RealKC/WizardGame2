@@ -112,18 +112,12 @@ public class Level implements Player.PositionObserver {
             }
         }
 
-        System.out.printf("currentBoss %s", currentBoss);
-        if (currentBoss != null) {
-            System.out.printf(" is dead? %b", currentBoss.isDead());
-        }
-        System.out.println();
-
         if (currentBoss == null || currentBoss.isDead()){
             var boss = spawnBoss(seconds);
             if (boss != null) {
                 currentBoss = boss;
+                enemies.add(boss);
             }
-            enemies.add(boss);
         }
         return enemies;
     }
