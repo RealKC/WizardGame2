@@ -438,7 +438,9 @@ public class Player extends LivingGameObject {
 
         int i = 0;
         while (i < positionObservers.size()) {
-            if (positionObservers.get(i).canBeRemoved()) {
+            if (positionObservers.get(i) == null) {
+                positionObservers.remove(i);
+            } else if (positionObservers.get(i).canBeRemoved()) {
                 positionObservers.remove(i);
             } else {
                 i++;
