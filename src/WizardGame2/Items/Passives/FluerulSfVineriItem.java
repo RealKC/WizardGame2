@@ -8,7 +8,7 @@ public class FluerulSfVineriItem extends PassiveItem {
     final double speedBost;
 
     protected FluerulSfVineriItem(String name, int id, BufferedImage sprite, double speedBost) {
-        super(name, id, sprite, 0);
+        super(name, id, sprite);
         this.speedBost = speedBost;
     }
 

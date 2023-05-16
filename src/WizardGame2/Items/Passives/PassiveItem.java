@@ -6,8 +6,8 @@ import WizardGame2.Items.Item;
 import java.awt.image.BufferedImage;
 
 public abstract class PassiveItem extends Item {
-    protected PassiveItem(String name, int id, BufferedImage sprite, int speed) {
-        super(name, id, sprite, speed);
+    protected PassiveItem(String name, int id, BufferedImage sprite) {
+        super(name, id, sprite, 0);
     }
 
     private boolean firstUpdate = true;
