@@ -121,6 +121,22 @@ public class Inventory {
         return activeItems.size();
     }
 
+    public void addPassiveItem(Item item) {
+        if (passiveItems.size() == 3) {
+            Utils.warn("Tried adding '%s' but passiveItems is full", item);
+        }
+
+        for (var passiveItem : passiveItems) {
+            if (passiveItem.getName().equals(item.getName())) {
+                Utils.warn("Tried adding '%s' but it was already in the inventory", item);
+
+                return;
+            }
+        }
+
+        passiveItems.add(item);
+    }
+
     public int passiveItemCount() {
         return passiveItems.size();
     }
