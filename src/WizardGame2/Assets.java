@@ -30,6 +30,7 @@ public class Assets {
 
     private final ArrayList<LevelData> levelDatas;
     private final ArrayList<ItemFactory> itemFactories;
+    private final ArrayList<ItemFactory> passiveItemFactories;
 
     private Assets() {
         characters = new SpriteSheet(ImageLoader.loadImage("/textures/characters.png"));
@@ -38,6 +39,7 @@ public class Assets {
 
         levelDatas = new ArrayList<>(3);
         itemFactories = new ArrayList<>(16);
+        passiveItemFactories = new ArrayList<>(9);
 
         GsonBuilder gsonBuilder = new GsonBuilder();
         gsonBuilder.registerTypeAdapter(EnemyDistribution.class, new EnemyDistribution.Deserializer());
@@ -64,6 +66,20 @@ public class Assets {
                 var itemFactory = (ItemFactory) itemFactoryClass.getDeclaredConstructor().newInstance();
                 itemFactory.setItemData(itemData);
                 itemFactories.add(itemFactory);
+            } catch (Exception e) {
+                System.out.printf("[ASSETS] Caught exception while processing '%s', %s: %s\n", path, e.getClass().getName(), e.getMessage());
+            }
+        });
+
+        iterateOverResourceFolder("/passive-items/", (path, reader) -> {
+            var rawItemData = gson.fromJson(reader, ItemData.Raw.class);
+            var itemData = ItemData.fromRaw(getItems(), rawItemData);
+
+            try {
+                var itemFactoryClass = Class.forName(rawItemData.getItemFactoryName());
+                var itemFactory = (ItemFactory) itemFactoryClass.getDeclaredConstructor().newInstance();
+                itemFactory.setItemData(itemData);
+                passiveItemFactories.add(itemFactory);
             } catch (Exception e) {
                 System.out.printf("[ASSETS] Caught exception while processing '%s', %s: %s\n", path, e.getClass().getName(), e.getMessage());
             }
