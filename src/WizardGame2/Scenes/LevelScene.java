@@ -54,6 +54,14 @@ public class LevelScene implements Scene, Player.LevelUpObserver {
         instance = null;
     }
 
+    public static LevelScene restartLevel() {
+        var data = instance.level.getData();
+        data.reset();
+        instance = null;
+
+        return initializeInstance(data);
+    }
+
     LevelScene(LevelData levelData) {
         Timer timeTicker = new Timer();
         timeTicker.scheduleAtFixedRate(new TimerTask() {
