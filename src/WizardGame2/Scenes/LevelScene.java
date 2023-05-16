@@ -224,6 +224,14 @@ public class LevelScene implements Scene, Player.LevelUpObserver {
         return player;
     }
 
+    public int getScore() {
+        return score;
+    }
+
+    public String getName() {
+        return level.getName();
+    }
+
     /**
      * Gets all the bullets in the game
      */
