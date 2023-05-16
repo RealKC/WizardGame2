@@ -13,6 +13,8 @@ public class ItemData {
         private int x, y;
         private String itemFactoryName;
 
+        private double extraValue;
+
         public Raw() {
         }
 
@@ -25,15 +27,17 @@ public class ItemData {
     public final float baseAttackDamage;
     public final float baseAttackSpeed;
     public final String name;
+    public final double extraValue;
 
     public static ItemData fromRaw(SpriteSheet spriteSheet, Raw raw) {
-        return new ItemData(spriteSheet.crop(raw.x, raw.y), raw.baseAttack, raw.speed, raw.name);
+        return new ItemData(spriteSheet.crop(raw.x, raw.y), raw.baseAttack, raw.speed, raw.name, raw.extraValue);
     }
 
-    private ItemData(BufferedImage sprite, float baseAttackDamage, float baseAttackSpeed, String name) {
+    private ItemData(BufferedImage sprite, float baseAttackDamage, float baseAttackSpeed, String name, double extraValue) {
         this.sprite = sprite;
         this.baseAttackDamage = baseAttackDamage;
         this.baseAttackSpeed = baseAttackSpeed;
         this.name = name;
+        this.extraValue = extraValue;
     }
 }
