@@ -1,0 +1,7 @@
+{
+  "name": "Colier cu Safir",
+  "x": 1,
+  "y": 1,
+  "itemFactoryName": "WizardGame2.Items.Passives.ColierCuSafirFactory",
+  "extraValue": 1.5
+}
