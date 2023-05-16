@@ -26,6 +26,14 @@ public class DatabaseManager {
         public int getScore() {
             return score;
         }
+
+        @Override
+        public String toString() {
+            return "ScoreEntry{" +
+                    "obtainedAt='" + obtainedAt + '\'' +
+                    ", score=" + score +
+                    '}';
+        }
     }
 
     private static DatabaseManager instance = null;
