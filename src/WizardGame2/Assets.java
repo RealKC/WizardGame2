@@ -154,6 +154,10 @@ public class Assets {
         return itemFactories;
     }
 
+    public ArrayList<ItemFactory> getPassiveItemFactories() {
+        return passiveItemFactories;
+    }
+
     public ArrayList<LevelData> getLevelDatas() {
         return levelDatas;
     }

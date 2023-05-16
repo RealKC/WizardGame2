@@ -117,12 +117,15 @@ public class LevelUpScene implements Scene {
 
         int textWidth = -1;
 
-        public ItemGrantingButton(Rectangle bounds, Player player, ItemFactory itemFactory) {
+        private final boolean isActiveItem;
+
+        public ItemGrantingButton(Rectangle bounds, Player player, ItemFactory itemFactory, boolean isActiveItem) {
             super(bounds);
 
             this.player = player;
             this.itemFactory = itemFactory;
             this.text = itemFactory.getName();
+            this.isActiveItem = isActiveItem;
         }
 
         @Override
@@ -150,7 +153,12 @@ public class LevelUpScene implements Scene {
 
         @Override
         void onClicked() {
-            player.addActiveItem(itemFactory.makeItem());
+            if (isActiveItem) {
+                player.addActiveItem(itemFactory.makeItem());
+            } else {
+                player.addPassiveItem(itemFactory.makeItem());
+            }
+
             sceneUpdate = SceneUpdate.NEXT_SCENE;
         }
     }
@@ -179,13 +187,19 @@ public class LevelUpScene implements Scene {
 
         for (int i = 0; i < buttons.length; ++i) {
             var bounds = new Rectangle(centerX - buttonWidth / 2, yOffset, buttonWidth, 38);
-            if (random.nextInt() % 2 == 0) {
+
+            var grantStat = (!player.canPickUpMoreActiveItems() && !player.canPickUpMorePassiveItems())
+                    || (random.nextInt() % 2 == 0);
+
+            if (grantStat) {
                 buttons[i] = new StatIncreaseButton(bounds, player.getStats());
             } else {
-                var item = pickItem(player);
+                boolean active = random.nextBoolean();
+
+                var item = pickItem(player, active);
 
                 if (item != null) {
-                    buttons[i] = new ItemGrantingButton(bounds, player, item);
+                    buttons[i] = new ItemGrantingButton(bounds, player, item, active);
                 } else {
                     buttons[i] = new StatIncreaseButton(bounds, player.getStats());
                 }
@@ -195,13 +209,11 @@ public class LevelUpScene implements Scene {
         }
     }
 
-    ItemFactory pickItem(Player player) {
-        // FIXME: boolean active = random.nextBoolean();
-        // FIXME: Implement picking passive items too
-
+    ItemFactory pickItem(Player player, boolean active) {
         ItemFactory itemFactory;
 
-        var itemFactories = Assets.getInstance().getItemFactories();
+        var assets = Assets.getInstance();
+        var itemFactories = active ? assets.getItemFactories() : assets.getPassiveItemFactories();
 
         int attemptCount = 0;
         final int maxAttempts = 16;
