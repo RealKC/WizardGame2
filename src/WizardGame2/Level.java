@@ -136,6 +136,10 @@ public class Level implements Player.PositionObserver {
         return boss;
     }
 
+    public LevelData getData() {
+        return data;
+    }
+
     @Override
     public void notifyAboutNewPosition(int x, int y, double movementAngle) {
         playerX = x;
