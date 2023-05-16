@@ -25,6 +25,8 @@ public class LevelData {
     private Map<Integer, Wave> waves;
     private Integer[] waveNumbers;
 
+    private int bossLevel = 0;
+
     public int getId() {
         return id;
     }
@@ -168,11 +170,17 @@ public class LevelData {
             return null;
         }
 
-        if (seconds < endTime) {
+        if (seconds < endTime && bossLevel == 0) {
+            bossLevel = 1;
             return bosses[0];
         }
 
-        return bosses[1];
+        if (bossLevel == 1 && endTime <= seconds) {
+            bossLevel = 2;
+            return bosses[1];
+        }
+
+        return null;
     }
 
     public int waveNumberForTime(int seconds) {
