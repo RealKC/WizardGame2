@@ -2,6 +2,7 @@ package WizardGame2;
 
 import java.awt.*;
 import java.awt.font.GlyphVector;
+import java.awt.geom.AffineTransform;
 import java.awt.image.BufferedImage;
 
 public class Utils {
@@ -85,5 +86,17 @@ public class Utils {
         System.out.printf(format, args);
         System.out.println();
         Thread.dumpStack();
+    }
+
+    public static BufferedImage rotateImage(BufferedImage image, double angle) {
+        BufferedImage rotated = new BufferedImage(image.getWidth(), image.getHeight(), image.getType());
+        Graphics2D g2d = rotated.createGraphics();
+        AffineTransform transform = new AffineTransform();
+        transform.rotate(angle, (double) image.getWidth() / 2, (double) image.getHeight() / 2);
+        g2d.setTransform(transform);
+        g2d.drawImage(image, 0, 0, null);
+        g2d.dispose();
+
+        return rotated;
     }
 }
