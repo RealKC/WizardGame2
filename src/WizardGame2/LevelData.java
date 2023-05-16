@@ -183,6 +183,10 @@ public class LevelData {
         return null;
     }
 
+    public void reset() {
+        bossLevel = 0;
+    }
+
     public int waveNumberForTime(int seconds) {
         for (int i = 0; i < waveNumbers.length - 1; ++i) {
             if (waveNumbers[i] <= seconds && seconds < waveNumbers[i + 1]) {
