@@ -159,6 +159,29 @@
     "496x396": "PT8"
   },
   "enemies": [],
-  "bosses": [],
+
+  "bosses": [
+    {
+      "name": "Cezar, the Tătărașiborn Guardian",
+      "health": 1500,
+      "x": 1,
+      "y": 1,
+      "score": 5000,
+      "damage": 1,
+      "behaviour": "WizardGame2.GameObjects.BossBehaviours.CezarBehaviour",
+      "finalBoss": false
+    },
+    {
+      "name": "Denis, the Cosmicbane",
+      "health": 1500,
+      "x": 2,
+      "y": 1,
+      "score": 6200,
+      "damage": 1,
+      "behaviour": "WizardGame2.GameObjects.BossBehaviours.DenisBehaviour",
+      "finalBoss": true
+    }
+  ],
+
   "waves": {}
 }
