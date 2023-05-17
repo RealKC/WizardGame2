@@ -68,6 +68,10 @@ public class LevelSelectScene implements Scene {
 
     @Override
     public Scene nextScene() {
+        for (var button : buttons) {
+            button.unregisterListeners();
+        }
+
         switch (nextScene) {
             case LEVEL -> {
                 return levelScene;
