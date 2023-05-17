@@ -361,6 +361,10 @@ public class Player extends LivingGameObject {
         maybeCleanupObservers(currentTime);
     }
 
+    public void addExperience(int xp) {
+        levelManager.addExperience(xp);
+    }
+
     private void pickupAnyXp() {
         var experienceObjects = LevelScene.getInstance().getExperienceObjects();
         int i = 0;
