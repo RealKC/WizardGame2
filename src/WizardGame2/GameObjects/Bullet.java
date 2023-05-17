@@ -71,11 +71,10 @@ public class Bullet extends GameObject {
     @Override
     public void update(Level level, long currentTime) {
         switch (movementType) {
-            case NONE: {
+            case NONE -> {
                 // Intentional NOOP
-                break;
             }
-            case RADIAL: {
+            case RADIAL -> {
                 // Based on: https://github.com/RealKC/WizardGame/blob/master/src/Levels/Bullet.cpp#L52-L60
                 // This code acts as if the bullet is a stationary point on a growing circle, the angle determined by
                 // the intersecting lines (originX, originY) -> (x, y) and the X axis never changes, but the distance
@@ -87,10 +86,8 @@ public class Bullet extends GameObject {
 
                 moveTo((int) newX, (int) newY);
 
-                break;
             }
-            case SPIRAL: {
-                break;
+            case SPIRAL -> {
             }
         }
     }

@@ -107,23 +107,17 @@ public abstract class GameObject {
         NONE;
 
         boolean hasHorizontalCollision() {
-            switch (this) {
-                case RIGHT:
-                case LEFT:
-                    return true;
-                default:
-                    return false;
-            }
+            return switch (this) {
+                case RIGHT, LEFT -> true;
+                default -> false;
+            };
         }
 
         boolean hasVerticalCollision() {
-            switch (this) {
-                case UP:
-                case DOWN:
-                    return true;
-                default:
-                    return false;
-            }
+            return switch (this) {
+                case UP, DOWN -> true;
+                default -> false;
+            };
         }
     }
 

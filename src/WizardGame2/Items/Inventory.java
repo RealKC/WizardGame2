@@ -28,8 +28,7 @@ public class Inventory {
         gfx.setColor(borderColor);
 
         Stroke oldStroke = null;
-        if (gfx instanceof Graphics2D) {
-            var gfx2d = (Graphics2D) gfx;
+        if (gfx instanceof Graphics2D gfx2d) {
             oldStroke = gfx2d.getStroke();
             gfx2d.setStroke(new BasicStroke(3.0f));
         }

@@ -15,10 +15,10 @@ import java.util.Random;
  * This class implements the behaviour associated with a level
  */
 public class Level implements Player.PositionObserver {
-    ArrayList<Obstacle> obstacles;
+    private final ArrayList<Obstacle> obstacles;
 
-    BufferedImage texture;
-    LevelData data;
+    private final BufferedImage texture;
+    private final LevelData data;
 
     Boss currentBoss = null;
 

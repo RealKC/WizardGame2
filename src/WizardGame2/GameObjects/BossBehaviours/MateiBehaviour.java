@@ -7,7 +7,6 @@ import static WizardGame2.Utils.isClose;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
-import java.util.Objects;
 import java.util.Random;
 
 @SuppressWarnings("unused")
@@ -19,14 +18,11 @@ public class MateiBehaviour implements Boss.Behaviour {
         FLYING;
 
         State toggle() {
-            switch (this) {
-                case RUNNING:
-                    return FLYING;
-                case FLYING:
-                    return RUNNING;
-            }
+            return switch (this) {
+                case RUNNING -> FLYING;
+                case FLYING -> RUNNING;
+            };
 
-            return null;
         }
     }
 

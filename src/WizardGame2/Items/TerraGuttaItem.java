@@ -9,7 +9,7 @@ import java.awt.image.BufferedImage;
 import java.util.Random;
 
 public class TerraGuttaItem extends Item {
-    double attackDamage;
+    private final double attackDamage;
 
     final Random random = new Random();
 

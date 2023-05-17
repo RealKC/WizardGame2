@@ -32,10 +32,10 @@ public class GameOverScene implements Scene {
             this.y = y;
         }
 
-        Font font;
-        String text;
+        private final Font font;
+        private final String text;
         int width = -1;
-        int x, y;
+        private final int x, y;
 
         void render(Graphics gfx) {
             var oldFont = gfx.getFont();

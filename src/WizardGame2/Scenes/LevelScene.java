@@ -221,19 +221,19 @@ public class LevelScene implements Scene, Player.LevelUpObserver {
     @Override
     public Scene nextScene() {
         switch (nextScene) {
-            case LEVEL_UP: {
+            case LEVEL_UP -> {
                 nextScene = NextScene.NONE;
                 return new LevelUpScene(this);
             }
-
-            case PAUSE_MENU:
+            case PAUSE_MENU -> {
                 return new PauseMenuScene(this);
-
-            case GAME_OVER:
+            }
+            case GAME_OVER -> {
                 return new GameOverScene(this, level.hasBeenWon() ? GameOverScene.GameResult.WON : GameOverScene.GameResult.LOST);
-
-            case NONE:
+            }
+            case NONE -> {
                 return null;
+            }
         }
 
         return null;

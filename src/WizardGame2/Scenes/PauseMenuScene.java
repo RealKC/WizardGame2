@@ -64,13 +64,15 @@ public class PauseMenuScene implements Scene {
         }
 
         switch (nextScene) {
-            case LEVEL:
+            case LEVEL -> {
                 levelScene.setPaused(false);
                 return levelScene;
-            case MAIN_MENU:
+            }
+            case MAIN_MENU -> {
                 levelScene.onLevelLeave();
                 LevelScene.reset();
                 return new MainMenuScene();
+            }
         }
 
         return null;

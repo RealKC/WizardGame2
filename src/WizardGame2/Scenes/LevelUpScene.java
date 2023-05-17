@@ -29,29 +29,22 @@ public class LevelUpScene implements Scene {
             HST;
 
             double value() {
-                switch (this) {
-                    case HP:
-                        return 15;
-                    case ATK:
-                        return 5;
-                    case CRIT:
-                        return 0.5;
-                    case SPD:
-                        return 1;
-                    case PCK:
-                        return 10;
-                    case HST:
-                        return 0.25;
-                }
+                return switch (this) {
+                    case HP -> 15;
+                    case ATK -> 5;
+                    case CRIT -> 0.5;
+                    case SPD -> 1;
+                    case PCK -> 10;
+                    case HST -> 0.25;
+                };
 
-                return 0;
             }
         }
 
-        Stat stat;
+        private final Stat stat;
         int textWidth = -1;
-        String text;
-        Player.Stats playerStats;
+        private final String text;
+        private final Player.Stats playerStats;
 
         public StatIncreaseButton(Rectangle bounds, Player.Stats stats) {
             super(bounds);
@@ -84,24 +77,12 @@ public class LevelUpScene implements Scene {
         void onClicked() {
             sceneUpdate = SceneUpdate.NEXT_SCENE;
             switch (stat) {
-                case HP:
-                    playerStats.increaseMaxHP(stat.value());
-                    break;
-                case ATK:
-                    playerStats.increaseMagicPower(stat.value());
-                    break;
-                case CRIT:
-                    playerStats.increaseCritChance(stat.value());
-                    break;
-                case SPD:
-                    playerStats.increaseSpeedBost(stat.value());
-                    break;
-                case PCK:
-                    playerStats.increasePickupRange((int) stat.value());
-                    break;
-                case HST:
-                    playerStats.increaseHaste(stat.value());
-                    break;
+                case HP -> playerStats.increaseMaxHP(stat.value());
+                case ATK -> playerStats.increaseMagicPower(stat.value());
+                case CRIT -> playerStats.increaseCritChance(stat.value());
+                case SPD -> playerStats.increaseSpeedBost(stat.value());
+                case PCK -> playerStats.increasePickupRange((int) stat.value());
+                case HST -> playerStats.increaseHaste(stat.value());
             }
         }
     }

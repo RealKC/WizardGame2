@@ -228,8 +228,8 @@ public class Player extends LivingGameObject {
         }
     }
 
-    Inventory inventory = new Inventory();
-    Item ability = null;
+    private final Inventory inventory = new Inventory();
+    private Item ability = null;
 
     private final LevelManager levelManager = new LevelManager();
 

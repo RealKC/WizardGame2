@@ -8,7 +8,7 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 
 public class PistolCarpatiItem extends Item {
-    private double attackDamage;
+    private final double attackDamage;
 
     private static final Color COLOR = new Color(0, 0, 0, 255);
 
