@@ -104,6 +104,10 @@ public class LevelScene implements Scene, Player.LevelUpObserver {
             secondsPassed = 14 * 60 - 5;
         }
 
+        if (Keyboard.isKeyPressed(KeyEvent.VK_F11)) {
+            DatabaseManager.getInstance().setLastBeatLevel(level.getId());
+        }
+
         if (level.hasBeenWon()) {
             nextScene = NextScene.GAME_OVER;
         }
