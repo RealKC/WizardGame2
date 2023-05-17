@@ -1,5 +1,6 @@
 package WizardGame2;
 
+import WizardGame2.GameObjects.Player;
 import WizardGame2.Graphics.ImageLoader;
 import WizardGame2.Graphics.SpriteSheet;
 import WizardGame2.Items.ItemData;
@@ -38,6 +39,7 @@ public class Assets {
     private final ArrayList<LevelData> levelDatas;
     private final ArrayList<ItemFactory> itemFactories;
     private final ArrayList<ItemFactory> passiveItemFactories;
+    private final ArrayList<Player.Data> characterStats;
 
     private Assets() {
         mainMenuBackground = ImageLoader.loadImage("/textures/main-menu-background.png");
@@ -52,6 +54,7 @@ public class Assets {
         levelDatas = new ArrayList<>(3);
         itemFactories = new ArrayList<>(16);
         passiveItemFactories = new ArrayList<>(9);
+        characterStats = new ArrayList<>(3);
 
         GsonBuilder gsonBuilder = new GsonBuilder();
         gsonBuilder.registerTypeAdapter(EnemyDistribution.class, new EnemyDistribution.Deserializer());
@@ -59,6 +62,14 @@ public class Assets {
 
         loadMaps(gson);
         loadItems(gson);
+        loadCharacters(gson);
+    }
+
+    private void loadCharacters(Gson gson) {
+        iterateOverResourceFolder("/characters/", (path, reader) -> {
+            Player.Data characterData = gson.fromJson(reader, Player.Data.class);
+            characterStats.add(characterData);
+        });
     }
 
     private void loadMaps(Gson gson) {
@@ -178,6 +189,10 @@ public class Assets {
 
     public ArrayList<LevelData> getLevelDatas() {
         return levelDatas;
+    }
+
+    public ArrayList<Player.Data> getCharacterStats() {
+        return characterStats;
     }
 
     public BufferedImage getLevelSelectBackground() {

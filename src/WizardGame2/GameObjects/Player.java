@@ -147,15 +147,21 @@ public class Player extends LivingGameObject {
      * Stats are multipliers applied to various player abilities in order to make the player stronger
      */
     public class Stats {
-        private Stats() {}
+        private Stats(Data data) {
+            this.magicPower = data.magicPower;
+            this.critChance = data.critChance;
+            this.speedBoost = data.speedBoost;
+            this.pickupRange = data.pickupRange;
+            this.haste = data.haste;
+        }
 
         private final Random random = new Random();
 
-        private double magicPower = 1;
-        private double critChance = 0.1;
-        private double speedBoost = 1;
-        private int pickupRange = 64;
-        private double haste = 1;
+        private double magicPower;
+        private double critChance;
+        private double speedBoost;
+        private int pickupRange;
+        private double haste;
 
         public double getHaste() {
             return haste;
@@ -194,6 +200,20 @@ public class Player extends LivingGameObject {
         }
     }
 
+    @SuppressWarnings("unused")
+    public static class Data {
+        private int x, y;
+
+        private double hitPoints;
+        private double magicPower;
+        private double critChance;
+        private double speedBoost;
+        private int pickupRange;
+        private double haste;
+
+        public Data() {}
+    }
+
     Inventory inventory = new Inventory();
     Item ability;
 
@@ -222,12 +242,13 @@ public class Player extends LivingGameObject {
 
     private static final Font levelFont = new Font(Font.MONOSPACED, Font.PLAIN, 25);
 
-    final Stats stats = new Stats();
+    final Stats stats;
 
-    public Player(SpriteSheet spriteSheet, int x, int y) {
-        super(spriteSheet.crop(0, 0), x, y, 32, 32, 100.0);
+    public Player(SpriteSheet spriteSheet, int x, int y, Data data) {
+        super(spriteSheet.crop(data.x, data.y), x, y, 32, 32, data.hitPoints);
 
         this.camera = new Camera(x, y);
+        this.stats = new Stats(data);
         this.ability = new FireMagic(Assets.getInstance().getItems());
         this.addPositionObserver(ability);
 

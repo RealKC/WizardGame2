@@ -1,0 +1,10 @@
+{
+  "x": 1,
+  "y": 0,
+  "hitPoints": 100,
+  "magicPower": 1,
+  "critChance": 0.1,
+  "speedBoost": 1,
+  "pickupRange": 64,
+  "haste": 1
+}

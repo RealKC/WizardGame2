@@ -75,7 +75,7 @@ public class LevelScene implements Scene, Player.LevelUpObserver {
 
         level = Level.fromData(levelData);
 
-        player = new Player(assets.getCharacters(), level.getWidth() / 2, level.getHeight() / 2);
+        player = new Player(assets.getCharacters(), level.getWidth() / 2, level.getHeight() / 2, assets.getCharacterStats().get(0));
         player.getCamera().setCameraWidth(Game.getInstance().getWindowWidth());
         player.getCamera().setCameraHeight(Game.getInstance().getWindowHeight());
         player.setLevelUpObserver(this);
