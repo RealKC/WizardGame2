@@ -70,6 +70,8 @@ public class Assets {
             Player.Data characterData = gson.fromJson(reader, Player.Data.class);
             characterStats.add(characterData);
         });
+
+        characterStats.sort(Comparator.comparingInt(Player.Data::getId));
     }
 
     private void loadMaps(Gson gson) {

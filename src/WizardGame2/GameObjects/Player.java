@@ -205,6 +205,10 @@ public class Player extends LivingGameObject {
     public static class Data {
         private int x, y;
 
+        private String name;
+
+        private int id;
+
         private double hitPoints;
         private double magicPower;
         private double critChance;
@@ -214,6 +218,14 @@ public class Player extends LivingGameObject {
         private String ability;
 
         public Data() {}
+
+        public String getName() {
+            return name;
+        }
+
+        public int getId() {
+            return id;
+        }
     }
 
     Inventory inventory = new Inventory();

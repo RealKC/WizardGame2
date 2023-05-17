@@ -57,22 +57,44 @@ public class DatabaseManager {
         try {
             var stmt = conn.createStatement();
             stmt.executeUpdate("""
-CREATE TABLE IF NOT EXISTS scores(
-    id INTEGER PRIMARY KEY AUTOINCREMENT,
-    obtainedAt TEXT NOT NULL,
-    value INTEGER NOT NULL,
-    level STRING NOT NULL
-);
+                    CREATE TABLE IF NOT EXISTS scores(
+                        id INTEGER PRIMARY KEY AUTOINCREMENT,
+                        obtainedAt TEXT NOT NULL,
+                        value INTEGER NOT NULL,
+                        level STRING NOT NULL
+                    );
 
-CREATE TABLE IF NOT EXISTS lastFinishedLevel(
-    id INTEGER UNIQUE,
-    level INTEGER
-);
+                    CREATE TABLE IF NOT EXISTS lastFinishedLevel(
+                        id INTEGER UNIQUE,
+                        level INTEGER
+                    );
 
-INSERT OR IGNORE INTO lastFinishedLevel(id, level)
-VALUES (1, 0);
-""");
+                    INSERT OR IGNORE INTO lastFinishedLevel(id, level)
+                    VALUES (1, 0);
+
+                    CREATE TABLE IF NOT EXISTS characters(
+                        name TEXT UNIQUE,
+                        unlocked INTEGER
+                    );
+                    """);
             stmt.close();
+
+            var prepStmt = conn.prepareStatement("""
+                    INSERT OR IGNORE INTO characters(name, unlocked)
+                    VALUES(?, ?);
+                    """);
+            var characterStats = Assets.getInstance().getCharacterStats();
+
+            for (var character : characterStats) {
+                prepStmt.setString(1, character.getName());
+                prepStmt.setInt(2, 0);
+                prepStmt.executeUpdate();
+            }
+
+            prepStmt.close();
+
+            // Mircea (which is character with the lowest id) is automatically unlocked
+            unlockCharacter(characterStats.get(0).getName());
         } catch (SQLException e) {
             Utils.logException(getClass(), e, "failed to initialize tables");
         }
@@ -86,12 +108,27 @@ VALUES (1, 0);
         return instance;
     }
 
+    public void unlockCharacter(String name) {
+        try {
+            var prepStmt = conn.prepareStatement("""
+                    UPDATE characters
+                    SET unlocked = 1
+                    WHERE name = ?
+                    """);
+            prepStmt.setString(1, name);
+            prepStmt.executeUpdate();
+            prepStmt.close();
+        } catch (SQLException e) {
+            Utils.logException(getClass(), e, "failed to unlock character");
+        }
+    }
+
     public void addNewScoreEntry(String level, String time, int score) {
         try {
             var stmt = conn.prepareStatement("""
-INSERT INTO scores(obtainedAt, value, level)
-VALUES (?, ?, ?)
-""");
+                    INSERT INTO scores(obtainedAt, value, level)
+                    VALUES (?, ?, ?)
+                    """);
             stmt.setString(1, time);
             stmt.setInt(2, score);
             stmt.setString(3, level);
@@ -105,12 +142,12 @@ VALUES (?, ?, ?)
     public ArrayList<ScoreEntry> getTopScoresFor(String level) {
         try {
             var stmt = conn.prepareStatement("""
-SELECT obtainedAt, value, level
-FROM scores
-WHERE level = ?
-ORDER BY value DESC
-LIMIT 10
-""");
+                    SELECT obtainedAt, value, level
+                    FROM scores
+                    WHERE level = ?
+                    ORDER BY value DESC
+                    LIMIT 10
+                    """);
             stmt.setString(1, level);
             var rs = stmt.executeQuery();
 
@@ -133,10 +170,10 @@ LIMIT 10
     public void setLastBeatLevel(int level) {
         try {
             var stmt = conn.prepareStatement("""
-UPDATE lastFinishedLevel
-SET level = ?
-WHERE level < ?
-""");
+                    UPDATE lastFinishedLevel
+                    SET level = ?
+                    WHERE level < ?
+                    """);
             stmt.setInt(1, level);
             stmt.setInt(2, level);
             stmt.executeUpdate();
@@ -149,10 +186,10 @@ WHERE level < ?
         try {
             var stmt = conn.createStatement();
             ResultSet rs = stmt.executeQuery("""
-SELECT level
-FROM lastFinishedLevel
-WHERE id == 1
-""");
+                    SELECT level
+                    FROM lastFinishedLevel
+                    WHERE id == 1
+                    """);
             return rs.getInt("level") + 1;
         } catch (SQLException e) {
             Utils.logException(getClass(), e, "failed to get last beat level");
