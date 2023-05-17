@@ -88,28 +88,30 @@ public class LevelScene implements Scene, Player.LevelUpObserver {
 
     @Override
     public SceneUpdate update(long currentTime) {
+        if (Main.IS_DEBUG_BUILD) {
+            if (Keyboard.isKeyPressed(KeyEvent.VK_F12)) {
+                player.takeDamage(1000000000);
+            }
+
+            if (Keyboard.isKeyPressed(KeyEvent.VK_F7)) {
+                secondsPassed = 7 * 60 - 5;
+            }
+
+            if (Keyboard.isKeyPressed(KeyEvent.VK_F8)) {
+                secondsPassed = 14 * 60 - 5;
+            }
+
+            if (Keyboard.isKeyPressed(KeyEvent.VK_F11)) {
+                DatabaseManager.getInstance().setLastBeatLevel(level.getId());
+            }
+
+            if (Keyboard.isKeyPressed(KeyEvent.VK_F10)) {
+                player.addExperience(500);
+            }
+        }
+
         if (Keyboard.isKeyPressed(KeyEvent.VK_ESCAPE)) {
             nextScene = NextScene.PAUSE_MENU;
-        }
-
-        if (Keyboard.isKeyPressed(KeyEvent.VK_F12)) {
-            player.takeDamage(1000000000);
-        }
-
-        if (Keyboard.isKeyPressed(KeyEvent.VK_F7)) {
-            secondsPassed = 7 * 60 - 5;
-        }
-
-        if (Keyboard.isKeyPressed(KeyEvent.VK_F8)) {
-            secondsPassed = 14 * 60 - 5;
-        }
-
-        if (Keyboard.isKeyPressed(KeyEvent.VK_F11)) {
-            DatabaseManager.getInstance().setLastBeatLevel(level.getId());
-        }
-
-        if (Keyboard.isKeyPressed(KeyEvent.VK_F10)) {
-            player.addExperience(500);
         }
 
         if (level.hasBeenWon()) {
