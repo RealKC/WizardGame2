@@ -2,6 +2,8 @@
   "name": "Curtea lui Mircea",
   "id": 1,
 
+  "unlocks": "Mihai",
+
   "tiles": {
     "M": "/textures/field.png"
   },

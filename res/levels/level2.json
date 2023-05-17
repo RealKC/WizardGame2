@@ -2,6 +2,8 @@
   "name": "Bulevardul Magheru",
   "id": 2,
 
+  "unlocks": "Eduard",
+
   "tiles": {
     "T": "/textures/top-road.png",
     "M": "/textures/middle-road.png",
