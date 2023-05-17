@@ -69,6 +69,10 @@ public class Inventory {
         for (var activeItem : activeItems) {
             activeItem.update(currentTime, stats);
         }
+
+        for (var passiveItem : passiveItems) {
+            passiveItem.update(currentTime, stats);
+        }
     }
 
     public void upgradeActiveItem(int id) {
