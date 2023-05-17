@@ -13,6 +13,7 @@ import WizardGame2.Utils;
 
 import java.awt.*;
 import java.awt.event.KeyEvent;
+import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Random;
@@ -210,12 +211,13 @@ public class Player extends LivingGameObject {
         private double speedBoost;
         private int pickupRange;
         private double haste;
+        private String ability;
 
         public Data() {}
     }
 
     Inventory inventory = new Inventory();
-    Item ability;
+    Item ability = null;
 
     private final LevelManager levelManager = new LevelManager();
 
@@ -249,7 +251,22 @@ public class Player extends LivingGameObject {
 
         this.camera = new Camera(x, y);
         this.stats = new Stats(data);
-        this.ability = new FireMagic(Assets.getInstance().getItems());
+
+        var itemsSpritesheet = Assets.getInstance().getItems();
+
+        try {
+            var abilityClass = Class.forName(data.ability);
+            this.ability = (Item) abilityClass.getDeclaredConstructor(SpriteSheet.class).newInstance(itemsSpritesheet);
+        } catch (ClassNotFoundException e) {
+            Utils.logException(getClass(), e, "failed to load the ability '%s', setting ability to FireMagic...", data.ability);
+        }  catch (InvocationTargetException | InstantiationException | IllegalAccessException | NoSuchMethodException e) {
+            Utils.logException(getClass(), e, "failed to invoke constructor of '%s', setting ability to FireMagic...", data.ability);
+        }
+
+        if (this.ability == null) {
+            this.ability = new FireMagic(Assets.getInstance().getItems());
+        }
+
         this.addPositionObserver(ability);
 
         notifyPositionObservers();

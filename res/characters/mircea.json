@@ -6,5 +6,6 @@
   "critChance": 0.1,
   "speedBoost": 1,
   "pickupRange": 64,
-  "haste": 1
+  "haste": 1,
+  "ability": "WizardGame2.Items.Abilities.FireMagic"
 }
