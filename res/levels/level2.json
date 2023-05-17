@@ -1,0 +1,22 @@
+{
+  "name": "Bulevardul Magheru",
+  "id": 2,
+
+  "tiles": {
+    "T": "/textures/top-road.png",
+    "M": "/textures/middle-road.png",
+    "B": "/textures/bottom-road.png"
+  },
+  "tileWidth": 800,
+  "tileHeight": 600,
+  "tileColumns": 4,
+  "tileRows": 3,
+
+  "pattern": "TTTT\nMMMM\nBBBB",
+
+  "obstacles": {},
+  "obstaclePositions": {},
+  "enemies": [],
+  "bosses": [],
+  "waves": {}
+}
