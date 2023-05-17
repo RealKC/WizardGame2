@@ -229,6 +229,7 @@ public class LevelUpScene implements Scene {
                 attemptCount++;
             } while (pickedItemFactories.contains(itemFactory));
 
+            attemptCount++;
             pickedItemFactories.add(itemFactory);
         } while (player.hasItem(itemFactory));
 
