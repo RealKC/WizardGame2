@@ -1,0 +1,20 @@
+{
+  "name": "Calea Victoriei",
+  "id": 3,
+
+  "tiles": {
+    "T": "/textures/calea-victoriei.png"
+  },
+  "tileWidth": 800,
+  "tileHeight": 600,
+  "tileColumns": 6,
+  "tileRows": 1,
+
+  "pattern": "TTTTTT",
+
+  "obstacles": {},
+  "obstaclePositions": {},
+  "enemies": [],
+  "bosses": [],
+  "waves": {}
+}
