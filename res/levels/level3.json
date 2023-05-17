@@ -14,7 +14,31 @@
 
   "obstacles": {},
   "obstaclePositions": {},
+
   "enemies": [],
-  "bosses": [],
+    "bosses": [
+    {
+      "name": "Cristian, the Necromancer of Neamț",
+      "health": 1500,
+      "x": 1,
+      "y": 1,
+      "score": 5000,
+      "damage": 1,
+      "behaviour": "WizardGame2.GameObjects.BossBehaviours.CrisitanPhase1Behaviour",
+      "finalBoss": false
+    },
+    {
+      "name": "Cristian, the Necromancer of Neamț",
+      "health": 1500,
+      "x": 2,
+      "y": 1,
+      "score": 6200,
+      "damage": 1,
+      "behaviour": "WizardGame2.GameObjects.BossBehaviours.CrisitanPhase2Behaviour",
+      "finalBoss": true
+    }
+  ],
+
+
   "waves": {}
 }
