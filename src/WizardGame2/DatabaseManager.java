@@ -65,7 +65,7 @@ CREATE TABLE IF NOT EXISTS scores(
 );
 
 CREATE TABLE IF NOT EXISTS lastFinishedLevel(
-    id INTEGER,
+    id INTEGER UNIQUE,
     level INTEGER
 );
 
@@ -139,6 +139,7 @@ WHERE level < ?
 """);
             stmt.setInt(1, level);
             stmt.setInt(2, level);
+            stmt.executeUpdate();
         } catch (SQLException e) {
             Utils.logException(getClass(), e, "failed to set last beat level");
         }
@@ -152,7 +153,6 @@ SELECT level
 FROM lastFinishedLevel
 WHERE id == 1
 """);
-
             return rs.getInt("level") + 1;
         } catch (SQLException e) {
             Utils.logException(getClass(), e, "failed to get last beat level");
