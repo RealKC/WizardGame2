@@ -27,7 +27,7 @@ public class LevelSelectScene implements Scene {
 
         int yOffset = 150;
 
-        int bound = Math.min(levelDatas.size(), DatabaseManager.getInstance().getNextPlayableLevel() + 1);
+        int bound = Math.min(levelDatas.size(), DatabaseManager.getInstance().getNextPlayableLevel());
         buttons = new Button[bound + 1];
 
         int i;
