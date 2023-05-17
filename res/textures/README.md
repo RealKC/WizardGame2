@@ -13,6 +13,8 @@ by Lanea Zimmerman licensed under CC-BY 3.0
   - tree at 0, 1: [Tiny 16: Basic](https://opengameart.org/content/tiny-16-basic) by Lanea Zimmerman licensed under CC-BY 3.0
   - boulder at 0, 2: from Dungeon Crawl 32x32 Tiles (see above)
   - fence at 0, 3: drawn by me
+  - cars from [Isometric Vehicles 3](https://opengameart.org/content/isometric-vehicles-3) by Racoon Media/@eracoon
+    ([open game art account](https://opengameart.org/users/eracoon))
 * [level-select-background.png](./level-select-background.png) and [main-menu-background.png](main-menu-background.png)
 generated using [cooltext.com](https://cooltext.com)
 * [outer-magic-circle.png](./outer-magic-circle.png) and [inner-magic-circle.png](./inner-magic-circle.png) from
