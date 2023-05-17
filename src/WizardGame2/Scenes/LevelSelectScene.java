@@ -21,8 +21,6 @@ public class LevelSelectScene implements Scene {
     private NextScene nextScene = NextScene.NONE;
 
     public LevelSelectScene(ArrayList<LevelData> levelDatas) {
-        buttons = new Button[levelDatas.size() + 1];
-
         int centerX = Game.getInstance().getWindowWidth() / 2;
 
         final int buttonWidth = 350;
@@ -30,6 +28,7 @@ public class LevelSelectScene implements Scene {
         int yOffset = 150;
 
         int bound = Math.min(levelDatas.size(), DatabaseManager.getInstance().getNextPlayableLevel() + 1);
+        buttons = new Button[bound + 1];
 
         int i;
         for (i = 0; i < bound; ++i) {
