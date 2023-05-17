@@ -13,6 +13,7 @@ import java.net.URI;
 import java.net.URISyntaxException;
 import java.nio.file.*;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.Objects;
 import java.util.function.BiConsumer;
@@ -65,6 +66,8 @@ public class Assets {
             LevelData.Raw rawLevelData = gson.fromJson(reader, LevelData.Raw.class);
             levelDatas.add(LevelData.fromRaw(rawLevelData));
         });
+
+        levelDatas.sort(Comparator.comparingInt(LevelData::getId));
     }
 
     private void loadItems(Gson gson) {
