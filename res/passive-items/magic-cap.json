@@ -1,0 +1,7 @@
+{
+  "name": "Cape of Great Magic",
+  "x": 4,
+  "y": 1,
+  "itemFactoryName": "WizardGame2.Items.Passives.GlassesInfirmaFactory",
+  "extraValue": 0.2
+}
