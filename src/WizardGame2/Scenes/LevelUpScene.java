@@ -208,6 +208,10 @@ public class LevelUpScene implements Scene {
                 int idx = Math.abs(random.nextInt() % itemFactories.size());
                 itemFactory = itemFactories.get(idx);
                 attemptCount++;
+
+                if (attemptCount >= maxAttempts) {
+                    break;
+                }
             } while (pickedItemFactories.contains(itemFactory));
 
             attemptCount++;
