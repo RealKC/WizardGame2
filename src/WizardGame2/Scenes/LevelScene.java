@@ -107,6 +107,7 @@ public class LevelScene implements Scene, Player.LevelUpObserver {
 
             if (Keyboard.isKeyPressed(KeyEvent.VK_F11)) {
                 DatabaseManager.getInstance().setLastBeatLevel(level.getId());
+                level.setHasBeenWon(true);
             }
 
             if (Keyboard.isKeyPressed(KeyEvent.VK_F10)) {
