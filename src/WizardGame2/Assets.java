@@ -29,6 +29,7 @@ public class Assets {
 
     private final BufferedImage mainMenuBackground;
     private final BufferedImage levelSelectBackground;
+    private final BufferedImage characterSelectBackground;
     private final BufferedImage innerMagicCircle;
     private final BufferedImage outerMagicCircle;
 
@@ -46,6 +47,7 @@ public class Assets {
         levelSelectBackground = ImageLoader.loadImage("/textures/level-select-background.png");
         innerMagicCircle = ImageLoader.loadImage("/textures/inner-magic-circle.png");
         outerMagicCircle = ImageLoader.loadImage("/textures/outer-magic-circle.png");
+        characterSelectBackground = ImageLoader.loadImage("/textures/character-select-background.png");
 
         characters = new SpriteSheet(ImageLoader.loadImage("/textures/characters.png"));
         items = new SpriteSheet(ImageLoader.loadImage("/textures/items-spritesheet.png"));
@@ -207,5 +209,9 @@ public class Assets {
 
     public BufferedImage getOuterMagicCircle() {
         return outerMagicCircle;
+    }
+
+    public BufferedImage getCharacterSelectBackground() {
+        return characterSelectBackground;
     }
 }

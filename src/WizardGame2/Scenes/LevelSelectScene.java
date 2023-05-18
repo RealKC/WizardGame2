@@ -8,7 +8,7 @@ import java.util.ArrayList;
 public class LevelSelectScene implements Scene {
     private final Button[] buttons;
 
-    private LevelScene levelScene = null;
+    private Scene followingScene;
 
     private double angle = Math.toRadians(0.0);
 
@@ -37,8 +37,8 @@ public class LevelSelectScene implements Scene {
 
             final var levelData = levelDatas.get(i);
 
-            buttons[i] = new TextButton(bounds, (i + 1) + ". " + levelDatas.get(i).getName(), () -> {
-                levelScene = LevelScene.initializeInstance(levelData);
+            buttons[i] = new TextButton(bounds, (i + 1) + ". " + levelData.getName(), () -> {
+                followingScene = new CharacterSelectScene(levelData, Assets.getInstance().getCharacterStats());
                 nextScene = NextScene.LEVEL;
             });
         }
@@ -74,7 +74,7 @@ public class LevelSelectScene implements Scene {
 
         switch (nextScene) {
             case LEVEL -> {
-                return levelScene;
+                return followingScene;
             }
             case MAIN_MENU -> {
                 return new MainMenuScene();

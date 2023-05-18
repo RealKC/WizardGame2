@@ -14,6 +14,7 @@ public class LevelScene implements Scene, Player.LevelUpObserver {
     private final Level level;
 
     private final Player player;
+    private final Player.Data characterData;
     private final ArrayList<Enemy> enemies = new ArrayList<>();
     private final ArrayList<Bullet> bullets = new ArrayList<>();
     private final ArrayList<ExperienceObject> experienceObjects = new ArrayList<>();
@@ -36,10 +37,10 @@ public class LevelScene implements Scene, Player.LevelUpObserver {
 
     private static LevelScene instance;
 
-    public static LevelScene initializeInstance(LevelData levelData) {
+    public static LevelScene initializeInstance(LevelData levelData, Player.Data characterData) {
         assert instance == null;
 
-        instance = new LevelScene(levelData);
+        instance = new LevelScene(levelData, characterData);
 
         return instance;
     }
@@ -57,12 +58,15 @@ public class LevelScene implements Scene, Player.LevelUpObserver {
     public static LevelScene restartLevel() {
         var data = instance.level.getData();
         data.reset();
+        var characterData = instance.characterData;
         instance = null;
 
-        return initializeInstance(data);
+        return initializeInstance(data, characterData);
     }
 
-    LevelScene(LevelData levelData) {
+    LevelScene(LevelData levelData, Player.Data characterData) {
+        this.characterData = characterData;
+
         Timer timeTicker = new Timer();
         timeTicker.scheduleAtFixedRate(new TimerTask() {
             @Override
@@ -75,7 +79,7 @@ public class LevelScene implements Scene, Player.LevelUpObserver {
 
         level = Level.fromData(levelData);
 
-        player = new Player(assets.getCharacters(), level.getWidth() / 2, level.getHeight() / 2, assets.getCharacterStats().get(0));
+        player = new Player(assets.getCharacters(), level.getWidth() / 2, level.getHeight() / 2, characterData);
         player.getCamera().setCameraWidth(Game.getInstance().getWindowWidth());
         player.getCamera().setCameraHeight(Game.getInstance().getWindowHeight());
         player.setLevelUpObserver(this);
