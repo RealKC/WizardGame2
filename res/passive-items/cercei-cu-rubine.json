@@ -1,0 +1,7 @@
+{
+  "name": "Cercei cu Rubine",
+  "x": 7,
+  "y": 0,
+  "itemFactoryName": "WizardGame2.Items.Passives.CerceiCuRubineFactory",
+  "extraValue": 2.5
+}
