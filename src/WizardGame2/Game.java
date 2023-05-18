@@ -145,9 +145,27 @@ public class Game implements Runnable {
         gfx.clearRect(0, 0, wnd.getWindowWidth(), wnd.getWindowHeight());
 
         sceneManager.render(gfx);
+        drawDebugRibbon(gfx);
         bs.show();
 
         gfx.dispose();
+    }
+
+    private void drawDebugRibbon(Graphics gfx) {
+        if (!Main.IS_DEBUG_BUILD) {
+            return;
+        }
+
+        var oldFont = gfx.getFont();
+        var oldColor = gfx.getColor();
+
+        gfx.setColor(Color.red);
+        gfx.setFont(new Font(Font.MONOSPACED, Font.BOLD, 35));
+
+        gfx.drawString("DEBUG BUILD", 550, 30);
+
+        gfx.setFont(oldFont);
+        gfx.setColor(oldColor);
     }
 }
 
