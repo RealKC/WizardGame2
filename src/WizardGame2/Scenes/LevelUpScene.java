@@ -160,7 +160,7 @@ public class LevelUpScene implements Scene {
         centerX = Game.getInstance().getWindowWidth() / 2;
         canvasWidth = Game.getInstance().getWindowWidth();
         canvasHeight = Game.getInstance().getWindowHeight();
-        final int buttonWidth = 350;
+        final int buttonWidth = 400;
 
         int yOffset = 150;
 
