@@ -50,6 +50,7 @@ public abstract class LivingGameObject extends GameObject {
 
     protected void increaseMaxHP(double delta) {
         maxHitPoints += delta;
+        hitPoints += delta;
     }
 
     protected double getCurrentHp() {
