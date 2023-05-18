@@ -123,6 +123,25 @@ public class DatabaseManager {
         }
     }
 
+    public boolean isCharacterUnlocked(String name) {
+        try {
+            var stmt = conn.prepareStatement("""
+SELECT unlocked
+FROM characters
+WHERE name = ?
+""");
+            stmt.setString(1, name);
+
+            ResultSet rs = stmt.executeQuery();
+
+            return rs.getInt("unlocked") != 0;
+        } catch (SQLException e) {
+            Utils.logException(getClass(), e, "failed to get character '%s'", name);
+        }
+
+        return true;
+    }
+
     public void addNewScoreEntry(String level, String time, int score) {
         try {
             var stmt = conn.prepareStatement("""
