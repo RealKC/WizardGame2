@@ -234,6 +234,13 @@ public class LevelScene implements Scene, Player.LevelUpObserver {
                 return new PauseMenuScene(this);
             }
             case GAME_OVER -> {
+                if (level.hasBeenWon()) {
+                    var unlockedCharacter = level.getData().getUnlocks();
+                    if (unlockedCharacter != null) {
+                        DatabaseManager.getInstance().unlockCharacter(unlockedCharacter);
+                    }
+                }
+
                 return new GameOverScene(this, level.hasBeenWon() ? GameOverScene.GameResult.WON : GameOverScene.GameResult.LOST);
             }
             case NONE -> {
