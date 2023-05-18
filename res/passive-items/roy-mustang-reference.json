@@ -1,0 +1,8 @@
+{
+  "name": "Mănușile Alchimistului Focului",
+  "x": 3,
+  "y": 1,
+  "itemFactoryName": "WizardGame2.Items.Passives.RoyMustangFactory",
+  "extraValue": 7,
+  "baseAttack": 32
+}
