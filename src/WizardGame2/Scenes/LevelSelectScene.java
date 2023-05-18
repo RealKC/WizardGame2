@@ -22,18 +22,22 @@ public class LevelSelectScene implements Scene {
 
     public LevelSelectScene(ArrayList<LevelData> levelDatas) {
         int centerX = Game.getInstance().getWindowWidth() / 2;
+        int centerY = Game.getInstance().getWindowHeight() / 2;
 
         final int buttonWidth = 350;
+        final int buttonHeight = 38;
+        final int buttonVPadding = 12;
 
-        int yOffset = 150;
+        int levelSelectButtonCount = Math.min(levelDatas.size(), DatabaseManager.getInstance().getNextPlayableLevel());
 
-        int bound = Math.min(levelDatas.size(), DatabaseManager.getInstance().getNextPlayableLevel());
-        buttons = new Button[bound + 1];
+        int yOffset = centerY - (levelSelectButtonCount + 1) * (buttonHeight + buttonVPadding) / 2;
+
+        buttons = new Button[levelSelectButtonCount + 1];
 
         int i;
-        for (i = 0; i < bound; ++i) {
-            var bounds = new Rectangle(centerX - buttonWidth / 2, yOffset, buttonWidth, 38);
-            yOffset += 40;
+        for (i = 0; i < levelSelectButtonCount; ++i) {
+            var bounds = new Rectangle(centerX - buttonWidth / 2, yOffset, buttonWidth, buttonHeight);
+            yOffset += buttonHeight + buttonVPadding;
 
             final var levelData = levelDatas.get(i);
 
@@ -43,7 +47,7 @@ public class LevelSelectScene implements Scene {
             });
         }
 
-        var bounds = new Rectangle(centerX - buttonWidth / 2, yOffset, buttonWidth, 38);
+        var bounds = new Rectangle(centerX - buttonWidth / 2, yOffset, buttonWidth, buttonHeight);
         buttons[i] = new TextButton(bounds, "Back", () -> nextScene = NextScene.MAIN_MENU);
     }
 
