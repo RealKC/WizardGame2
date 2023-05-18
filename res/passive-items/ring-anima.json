@@ -1,0 +1,8 @@
+{
+  "name": "Ring of Anima",
+  "x": 6,
+  "y": 1,
+  "itemFactoryName": "WizardGame2.Items.Passives.RingAnimaFactory",
+  "speed": 20,
+  "extraValue": 2
+}
