@@ -1,0 +1,13 @@
+{
+  "name": "Eduard",
+  "id": 1,
+  "x": 1,
+  "y": 0,
+  "hitPoints": 30,
+  "magicPower": 1.3,
+  "critChance": 0.35,
+  "speedBoost": 1.1,
+  "pickupRange": 100,
+  "haste": 1.5,
+  "ability": "WizardGame2.Items.Abilities.FireMagic"
+}
