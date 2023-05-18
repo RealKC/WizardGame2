@@ -2,6 +2,6 @@
   "name": "Cape of Great Magic",
   "x": 4,
   "y": 1,
-  "itemFactoryName": "WizardGame2.Items.Passives.GlassesInfirmaFactory",
+  "itemFactoryName": "WizardGame2.Items.Passives.MagicCapeFactory",
   "extraValue": 0.2
 }
