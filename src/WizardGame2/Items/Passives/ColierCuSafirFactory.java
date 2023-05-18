@@ -1,5 +1,6 @@
 package WizardGame2.Items.Passives;
 
+import WizardGame2.Items.IDAllocator;
 import WizardGame2.Items.Item;
 import WizardGame2.Items.ItemFactory;
 
@@ -7,6 +8,6 @@ import WizardGame2.Items.ItemFactory;
 public class ColierCuSafirFactory extends ItemFactory {
     @Override
     public Item makeItem() {
-         return new ColierCuSafirItem(itemData.name, 41, itemData.sprite, itemData.extraValue);
+         return new ColierCuSafirItem(itemData.name, IDAllocator.nextId(), itemData.sprite, itemData.extraValue);
     }
 }

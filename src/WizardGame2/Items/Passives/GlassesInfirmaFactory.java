@@ -1,5 +1,6 @@
 package WizardGame2.Items.Passives;
 
+import WizardGame2.Items.IDAllocator;
 import WizardGame2.Items.Item;
 import WizardGame2.Items.ItemFactory;
 
@@ -7,6 +8,6 @@ import WizardGame2.Items.ItemFactory;
 public class GlassesInfirmaFactory extends ItemFactory {
     @Override
     public Item makeItem() {
-         return new GlassesInfirmaItem(itemData.name, 42, itemData.sprite, itemData.extraValue);
+         return new GlassesInfirmaItem(itemData.name, IDAllocator.nextId(), itemData.sprite, itemData.extraValue);
     }
 }

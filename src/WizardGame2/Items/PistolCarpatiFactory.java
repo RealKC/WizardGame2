@@ -5,6 +5,6 @@ public class PistolCarpatiFactory extends ItemFactory {
 
     @Override
     public Item makeItem() {
-        return new PistolCarpatiItem(itemData.name, 1, itemData.sprite, (int)itemData.baseAttackSpeed, itemData.baseAttackDamage);
+        return new PistolCarpatiItem(itemData.name, IDAllocator.nextId(), itemData.sprite, (int)itemData.baseAttackSpeed, itemData.baseAttackDamage);
     }
 }

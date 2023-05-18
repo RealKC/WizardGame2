@@ -4,6 +4,6 @@ package WizardGame2.Items;
 public class TerraGuttaFactory extends ItemFactory {
     @Override
     public Item makeItem() {
-        return new TerraGuttaItem(itemData.name, 1, itemData.sprite, (int)itemData.baseAttackSpeed, itemData.baseAttackDamage);
+        return new TerraGuttaItem(itemData.name, IDAllocator.nextId(), itemData.sprite, (int)itemData.baseAttackSpeed, itemData.baseAttackDamage);
     }
 }
