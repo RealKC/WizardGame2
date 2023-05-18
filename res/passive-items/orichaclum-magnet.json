@@ -1,0 +1,7 @@
+{
+  "name": "Orichalcum Magnet",
+  "x": 3,
+  "y": 1,
+  "itemFactoryName": "WizardGame2.Items.Passives.OrichalcumMagnetFactory",
+  "extraValue": 236
+}
