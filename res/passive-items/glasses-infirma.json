@@ -1,6 +1,6 @@
 {
-  "name": "Glasses",
-  "x": 7,
+  "name": "Glasses of Infirma Aspectu",
+  "x": 8,
   "y": 1,
   "itemFactoryName": "WizardGame2.Items.Passives.GlassesInfirmaFactory",
   "extraValue": 0.2
