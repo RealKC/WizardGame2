@@ -53,6 +53,14 @@ public abstract class LivingGameObject extends GameObject {
         hitPoints += delta;
     }
 
+    protected void healBy(double delta) {
+        if (hitPoints + delta <= maxHitPoints) {
+            hitPoints += delta;
+        } else {
+            hitPoints = maxHitPoints;
+        }
+    }
+
     protected double getCurrentHp() {
         return hitPoints;
     }

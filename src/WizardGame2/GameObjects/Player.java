@@ -180,6 +180,10 @@ public class Player extends LivingGameObject {
             Player.this.increaseMaxHP(delta);
         }
 
+        public void healBy(double delta) {
+            Player.this.healBy(delta);
+        }
+
         public void increaseMagicPower(double delta) {
             magicPower += delta;
         }
