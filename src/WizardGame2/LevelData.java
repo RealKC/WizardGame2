@@ -16,6 +16,7 @@ import java.util.Map;
 public class LevelData {
     private String name;
     private int id;
+    private int nextLevel;
     private String unlocks;
     private BufferedImage texture;
 
@@ -32,6 +33,10 @@ public class LevelData {
         return id;
     }
 
+    public int getNextLevel() {
+        return nextLevel;
+    }
+
     public static class Wave {
         EnemyDistribution distribution;
         String[] enemies;
@@ -45,6 +50,7 @@ public class LevelData {
     public static class Raw {
         private String name;
         private int id;
+        private int nextLevel;
         private String unlocks;
         private Map<Character, String> tiles;
         private String pattern;
@@ -81,6 +87,7 @@ public class LevelData {
         mapData.waves = rawMapData.waves;
         mapData.waveNumbers = new Integer[rawMapData.waves.size()];
         mapData.unlocks = rawMapData.unlocks;
+        mapData.nextLevel = rawMapData.nextLevel;
         rawMapData.waves.keySet().toArray(mapData.waveNumbers);
 
         int textureWidth = rawMapData.tileWidth * rawMapData.tileColumns;

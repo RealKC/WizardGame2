@@ -24,6 +24,10 @@ public class LevelScene implements Scene, Player.LevelUpObserver {
      */
     private int secondsPassed = 0;
 
+    public Player.Data getCharacterData() {
+        return characterData;
+    }
+
     private enum NextScene {
         NONE,
         PAUSE_MENU,
@@ -261,6 +265,10 @@ public class LevelScene implements Scene, Player.LevelUpObserver {
 
     public String getName() {
         return level.getName();
+    }
+
+    public int getNextLevel() {
+        return level.getData().getNextLevel();
     }
 
     /**

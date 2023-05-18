@@ -1,12 +1,11 @@
 package WizardGame2.Scenes;
 
-import WizardGame2.DatabaseManager;
-import WizardGame2.Game;
-import WizardGame2.Utils;
+import WizardGame2.*;
 
 import java.awt.*;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 
 public class GameOverScene implements Scene {
     private final LevelScene levelScene;
@@ -59,19 +58,22 @@ public class GameOverScene implements Scene {
 
     private enum NextScene {
         NONE,
+        NEXT,
         RETRY,
         MENU,
     }
 
     NextScene nextScene = NextScene.NONE;
+    int nextLevel = -1;
 
     private final TextButton[] buttons = new TextButton[2];
 
     public GameOverScene(LevelScene levelScene, GameResult gameResult) {
         this.levelScene = levelScene;
         this.gameResult = gameResult;
-        canvasWidth = Game.getInstance().getWindowWidth();
-        canvasHeight = Game.getInstance().getWindowHeight();
+        this.nextLevel = levelScene.getNextLevel();
+        this.canvasWidth = Game.getInstance().getWindowWidth();
+        this.canvasHeight = Game.getInstance().getWindowHeight();
 
         levelScene.setPaused(true);
 
@@ -82,8 +84,17 @@ public class GameOverScene implements Scene {
         score = new Line(processNewScore(levelScene.getScore()), NORMAL_FONT, x, yOffset);
         yOffset += 40;
 
-        buttons[0] = new TextButton(new Rectangle(x - 200, yOffset, 150, 40), "Retry", () -> nextScene = NextScene.RETRY);
-        buttons[1] = new TextButton(new Rectangle(x, yOffset, 150, 40), "Main Menu", () -> nextScene = NextScene.MENU);
+
+        int mainMenuX = x;
+        if (nextLevel == -1) {
+            mainMenuX -= 75;
+        } else if (gameResult == GameResult.WON) {
+            buttons[0] = new TextButton(new Rectangle(x - 200, yOffset, 150, 40), "Next lvl", () -> nextScene = NextScene.NEXT);
+        } else {
+            buttons[0] = new TextButton(new Rectangle(x - 200, yOffset, 150, 40), "Retry", () -> nextScene = NextScene.RETRY);
+        }
+
+        buttons[1] = new TextButton(new Rectangle(mainMenuX, yOffset, 150, 40), "Main Menu", () -> nextScene = NextScene.MENU);
         yOffset += 80;
 
         scoreLines = new Line[4];
@@ -91,7 +102,7 @@ public class GameOverScene implements Scene {
         yOffset += 40;
 
         var topScores = DatabaseManager.getInstance().getTopScoresFor(levelScene.getName());
-        for (int i = 1; i < 4; ++i) {
+        for (int i = 1; i < Math.min(4, topScores.size()); ++i) {
             var top = topScores.get(i);
             scoreLines[i] = new Line(i + "# " + top.getScore() + " on " + top.getObtainedAt(), NORMAL_FONT, x, yOffset);
             yOffset += 40;
@@ -112,9 +123,7 @@ public class GameOverScene implements Scene {
 
         if (topScores.isEmpty()) {
             isHighScore = true;
-        }
-
-        if (score > topScores.get(0).getScore()) {
+        } else if (score > topScores.get(0).getScore()) {
             isHighScore = true;
         }
 
@@ -143,10 +152,18 @@ public class GameOverScene implements Scene {
         score.render(gfx);
 
         for (var line : scoreLines) {
+            if (line == null) {
+                continue;
+            }
+
             line.render(gfx);
         }
 
         for (var button : buttons) {
+            if (button == null) {
+                continue;
+            }
+
             button.render(gfx);
         }
     }
@@ -154,10 +171,30 @@ public class GameOverScene implements Scene {
     @Override
     public Scene nextScene() {
         for (var button : buttons) {
+            if (button == null) {
+                continue;
+            }
+
             button.unregisterListeners();
         }
 
         switch (nextScene) {
+            case NEXT -> {
+                ArrayList<LevelData> levelDatas = Assets.getInstance().getLevelDatas();
+                LevelData nextLevelData = null;
+
+                for (var lvlData : levelDatas) {
+                    if (lvlData.getId() == nextLevel) {
+                        nextLevelData = lvlData;
+                        break;
+                    }
+                }
+
+                var characterData = levelScene.getCharacterData();
+
+                LevelScene.reset();
+                return LevelScene.initializeInstance(nextLevelData, characterData);
+            }
             case RETRY -> {
                 return LevelScene.restartLevel();
             }

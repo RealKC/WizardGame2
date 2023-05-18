@@ -1,6 +1,7 @@
 {
   "name": "Calea Victoriei",
   "id": 3,
+  "nextLevel": -1,
 
   "tiles": {
     "T": "/textures/calea-victoriei.png"

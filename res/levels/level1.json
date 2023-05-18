@@ -1,6 +1,7 @@
 {
   "name": "Curtea lui Mircea",
   "id": 1,
+  "nextLevel": 2,
 
   "unlocks": "Mihai",
 
