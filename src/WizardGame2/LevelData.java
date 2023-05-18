@@ -16,6 +16,7 @@ import java.util.Map;
 public class LevelData {
     private String name;
     private int id;
+    private String unlocks;
     private BufferedImage texture;
 
     private Map<Point, Obstacle.Data> obstacles;
@@ -44,6 +45,7 @@ public class LevelData {
     public static class Raw {
         private String name;
         private int id;
+        private String unlocks;
         private Map<Character, String> tiles;
         private String pattern;
 
@@ -78,6 +80,7 @@ public class LevelData {
         mapData.bosses = rawMapData.bosses;
         mapData.waves = rawMapData.waves;
         mapData.waveNumbers = new Integer[rawMapData.waves.size()];
+        mapData.unlocks = rawMapData.unlocks;
         rawMapData.waves.keySet().toArray(mapData.waveNumbers);
 
         int textureWidth = rawMapData.tileWidth * rawMapData.tileColumns;
@@ -147,6 +150,10 @@ public class LevelData {
 
     public Map<Point, Obstacle.Data> getObstacles() {
         return obstacles;
+    }
+
+    public String getUnlocks() {
+        return unlocks;
     }
 
     public Enemy.Data pickRandomEnemy(int waveNr) throws EnemyException {
