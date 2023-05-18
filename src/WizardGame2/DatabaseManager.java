@@ -109,6 +109,11 @@ public class DatabaseManager {
     }
 
     public void unlockCharacter(String name) {
+        if (name == null) {
+            Utils.warn("called with a null name");
+            return;
+        }
+
         try {
             var prepStmt = conn.prepareStatement("""
                     UPDATE characters
@@ -119,7 +124,7 @@ public class DatabaseManager {
             prepStmt.executeUpdate();
             prepStmt.close();
         } catch (SQLException e) {
-            Utils.logException(getClass(), e, "failed to unlock character");
+            Utils.logException(getClass(), e, "failed to unlock character '%s'", name);
         }
     }
 
