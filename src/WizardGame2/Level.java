@@ -24,6 +24,8 @@ public class Level implements Player.PositionObserver {
 
     int playerX, playerY;
 
+    boolean forcefulVictory = false;
+
     private final Random random = new Random();
 
     public static Level fromData(LevelData levelData) {
@@ -64,7 +66,7 @@ public class Level implements Player.PositionObserver {
     }
 
     public boolean hasBeenWon() {
-        return currentBoss != null && currentBoss.isFinalBoss() && currentBoss.isDead();
+        return (currentBoss != null && currentBoss.isFinalBoss() && currentBoss.isDead()) || (Main.IS_DEBUG_BUILD && forcefulVictory);
     }
 
     public int getId() {
@@ -144,5 +146,9 @@ public class Level implements Player.PositionObserver {
     public void notifyAboutNewPosition(int x, int y, double movementAngle) {
         playerX = x;
         playerY = y;
+    }
+
+    public void setHasBeenWon(boolean b) {
+        forcefulVictory = b;
     }
 }
