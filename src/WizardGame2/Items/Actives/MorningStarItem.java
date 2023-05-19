@@ -18,7 +18,7 @@ public class MorningStarItem extends Item {
         private double angle = 0.0;
 
         Ball(double attackDamage) {
-            super(COLOR, 0, 0, 40, 40, MovementType.NONE, 1, 0, attackDamage);
+            super(COLOR, 0, 0, 40, 40, MovementType.NONE, 1, 0, attackDamage, Target.ENEMY);
         }
 
         @Override

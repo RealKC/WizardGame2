@@ -26,7 +26,7 @@ public class FireMagic extends Item {
             return;
         }
 
-        var bullet = new Bullet(COLOR, playerX, playerY, 16, 16, Bullet.MovementType.RADIAL, 7, bulletAngle(), 10);
+        var bullet = new Bullet(COLOR, playerX, playerY, 16, 16, Bullet.MovementType.RADIAL, 7, bulletAngle(), 10, Bullet.Target.ENEMY);
         bullet.setPierceLimit(10);
 
         LevelScene.getInstance().getBullets().add(bullet);

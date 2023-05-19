@@ -31,6 +31,6 @@ public class VortexMercuriusItem extends Item {
         double angle = random.nextDouble(Math.PI * 2);
 
         LevelScene.getInstance().getBullets().add(new Bullet(COLOR, playerX, playerY, 15, 15,
-                Bullet.MovementType.RADIAL, 12, angle, stats.applyAttackModifiers(attackDamage)));
+                Bullet.MovementType.RADIAL, 12, angle, stats.applyAttackModifiers(attackDamage), Bullet.Target.ENEMY));
     }
 }

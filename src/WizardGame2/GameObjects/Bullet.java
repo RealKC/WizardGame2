@@ -15,7 +15,13 @@ public class Bullet extends GameObject {
         SPIRAL,
     }
 
+    public enum Target {
+        PLAYER,
+        ENEMY,
+    }
+
     private final MovementType movementType;
+    private final Target target;
     private final double speed;
     private double distance = 0;
     private double angle;
@@ -29,10 +35,11 @@ public class Bullet extends GameObject {
     protected final Color color;
 
     public Bullet(BufferedImage sprite, int x, int y, int hitboxWidth, int hitboxHeight,
-                  MovementType movementType, double speed, double angle, double attackDamage) {
+                  MovementType movementType, double speed, double angle, double attackDamage, Target target) {
         super(sprite, x, y, hitboxWidth, hitboxHeight);
-        originX = x;
-        originY = y;
+        this.target = target;
+        this.originX = x;
+        this.originY = y;
         this.movementType = movementType;
         this.speed = speed;
         this.angle = angle;
@@ -41,10 +48,11 @@ public class Bullet extends GameObject {
     }
 
     public Bullet(Color color, int x, int y, int hitboxWidth, int hitboxHeight,
-                  MovementType movementType, double speed, double angle, double attackDamage) {
+                  MovementType movementType, double speed, double angle, double attackDamage, Target target) {
         super(null, x, y, hitboxWidth, hitboxHeight);
-        originX = x;
-        originY = y;
+        this.target = target;
+        this.originX = x;
+        this.originY = y;
         this.movementType = movementType;
         this.speed = speed;
         this.angle = angle;
@@ -100,6 +108,10 @@ public class Bullet extends GameObject {
                 moveTo((int) newX, (int) newY);
             }
         }
+    }
+
+    public Target getTarget() {
+        return target;
     }
 
     public void setPierceLimit(int value) {

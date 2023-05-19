@@ -26,7 +26,7 @@ public class LightningMagic extends Item {
         }
 
         for (int i = 0; i < 4; ++i) {
-            var bullet = new Bullet(COLOR, playerX, playerY, 4, 24, Bullet.MovementType.RADIAL, 7, angle + i * Math.toRadians(45.0), 10);
+            var bullet = new Bullet(COLOR, playerX, playerY, 4, 24, Bullet.MovementType.RADIAL, 7, angle + i * Math.toRadians(45.0), 10, Bullet.Target.ENEMY);
             bullet.setPierceLimit(10);
             LevelScene.getInstance().getBullets().add(bullet);
         }

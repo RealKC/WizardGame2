@@ -45,7 +45,7 @@ public class SwordMagic extends Item {
 
         updateCooldown();
 
-        var bullet = new Bullet(COLOR, playerX, playerY, 16, 16, Bullet.MovementType.RADIAL, 7, playerAngle, 20);
+        var bullet = new Bullet(COLOR, playerX, playerY, 16, 16, Bullet.MovementType.RADIAL, 7, playerAngle, 20, Bullet.Target.ENEMY);
         bullet.setPierceLimit(15);
         LevelScene.getInstance().getBullets().add(bullet);
     }

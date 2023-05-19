@@ -25,6 +25,6 @@ public class BaltagulVitorieiItem extends Item {
         }
 
         LevelScene.getInstance().getBullets().add(new Bullet(COLOR, playerX, playerY, 15, 15,
-                Bullet.MovementType.SPIRAL, 2, 0.0, stats.applyAttackModifiers(attackDamage)));
+                Bullet.MovementType.SPIRAL, 2, 0.0, stats.applyAttackModifiers(attackDamage), Bullet.Target.ENEMY));
     }
 }

@@ -46,7 +46,7 @@ public class AdrianBehaviour implements Boss.Behaviour {
                 int y = boss.getY() + boss.getHitboxHeight() / 2 + 128 * (int) Math.sin(angle);
 
                 LevelScene.getInstance().getBullets().add(new Bullet(BULLET_COLOR, x, y, 16, 16,
-                        Bullet.MovementType.RADIAL, 7, angle, 5));
+                        Bullet.MovementType.RADIAL, 7, angle, 5, Bullet.Target.ENEMY));
             }
         }
     }

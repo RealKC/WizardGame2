@@ -39,6 +39,6 @@ public class TerraGuttaItem extends Item {
         int y = playerY + (int) (radius * Math.sin(angle)) - 300;
 
         levelScene.getBullets().add(new Bullet(COLOR, x, y, 30, 30,
-                Bullet.MovementType.RADIAL, 5, 0.5 * Math.PI, stats.applyAttackModifiers(attackDamage)));
+                Bullet.MovementType.RADIAL, 5, 0.5 * Math.PI, stats.applyAttackModifiers(attackDamage), Bullet.Target.ENEMY));
     }
 }

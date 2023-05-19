@@ -152,36 +152,37 @@ public class LevelScene implements Scene, Player.LevelUpObserver {
         int i = 0;
         while (i < bullets.size()) {
             int j = 0;
-
             Bullet bullet = bullets.get(i);
-            while (j < enemies.size()) {
-                Enemy enemy = enemies.get(j);
-                Enemy.Died died = Enemy.Died.NO;
-                if (enemy.collidesWith(bullet)) {
+            if (bullet.getTarget() == Bullet.Target.ENEMY){
+                while (j < enemies.size()) {
+                    Enemy enemy = enemies.get(j);
+                    Enemy.Died died = Enemy.Died.NO;
+                    if (bullet.collidesWith(enemy)) {
 
-                    died = enemy.takeDamage(bullet.getAttackDamage());
-                    if (died == Enemy.Died.YES) {
-                        experienceObjects.add(new ExperienceObject(
-                                Assets.getInstance().getObstacles(),
-                                enemy.getX(),
-                                enemy.getY(),
-                                enemy.getHitboxWidth(),
-                                enemy.getHitboxHeight(),
-                                enemy.getScoreValue()
-                        ));
+                        died = enemy.takeDamage(bullet.getAttackDamage());
+                        if (died == Enemy.Died.YES) {
+                            experienceObjects.add(new ExperienceObject(
+                                    Assets.getInstance().getObstacles(),
+                                    enemy.getX(),
+                                    enemy.getY(),
+                                    enemy.getHitboxWidth(),
+                                    enemy.getHitboxHeight(),
+                                    enemy.getScoreValue()
+                            ));
 
-                        score += enemy.getScoreValue();
-                        enemies.remove(j);
+                            score += enemy.getScoreValue();
+                            enemies.remove(j);
+                        }
+
+                        if (bullet.shouldBeRemovedAfterThisHit()) {
+                            bullets.remove(i);
+                            break;
+                        }
                     }
 
-                    if (bullet.shouldBeRemovedAfterThisHit()) {
-                        bullets.remove(i);
-                        break;
+                    if (died == Enemy.Died.NO) {
+                        j++;
                     }
-                }
-
-                if (died == Enemy.Died.NO) {
-                    j++;
                 }
             }
 

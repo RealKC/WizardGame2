@@ -14,9 +14,8 @@ import WizardGame2.Utils;
 import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.lang.reflect.InvocationTargetException;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Random;
+import java.util.*;
+import java.util.function.Consumer;
 
 /**
  * This class implements the player character of the game
@@ -439,6 +438,19 @@ public class Player extends LivingGameObject {
         }
 
         maybeCleanupObservers(currentTime);
+    }
+
+    public void addDebuff(long duration, Consumer<Stats> apply, Consumer<Stats> undo) {
+        apply.accept(stats);
+
+        var debuffTimer = new Timer();
+        debuffTimer.schedule(new TimerTask() {
+            @Override
+            public void run() {
+                undo.accept(stats);
+                System.out.println("triggered");
+            }
+        }, duration);
     }
 
     public void addExperience(int xp) {

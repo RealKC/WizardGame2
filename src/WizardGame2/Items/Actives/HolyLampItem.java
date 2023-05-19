@@ -26,7 +26,7 @@ public class HolyLampItem extends Item {
         double angle = 0.0;
 
         HolyLight(double attackDamage) {
-            super(COLOR, 0, 0, 24, 24, MovementType.NONE, 0.0, 0.0, attackDamage);
+            super(COLOR, 0, 0, 24, 24, MovementType.NONE, 0.0, 0.0, attackDamage, Target.ENEMY);
         }
 
         void setPosition(int x, int y, double angle) {

@@ -18,7 +18,7 @@ public class DefendereMagiItem extends Item {
         private Player.Stats playerStats;
 
         DefendereMagiArea(double attackDamage) {
-            super(COLOR, 0, 0, BASE_DIAMATER, BASE_DIAMATER, MovementType.NONE, 0.0, 0.0, attackDamage);
+            super(COLOR, 0, 0, BASE_DIAMATER, BASE_DIAMATER, MovementType.NONE, 0.0, 0.0, attackDamage, Target.ENEMY);
         }
 
         @Override

@@ -30,7 +30,7 @@ public class CirculusGlacieiItem extends Item {
 
         for (int i = 0; i < 6; i++) {
             levelScene.getBullets().add(new Bullet(COLOR, playerX, playerY, 15, 15,
-                    Bullet.MovementType.RADIAL, 12, angle, stats.applyAttackModifiers(attackDamage)));
+                    Bullet.MovementType.RADIAL, 12, angle, stats.applyAttackModifiers(attackDamage), Bullet.Target.ENEMY));
 
             angle += Math.toRadians(60.0);
         }

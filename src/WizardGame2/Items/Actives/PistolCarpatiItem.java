@@ -27,6 +27,6 @@ public class PistolCarpatiItem extends Item {
         var levelScene = LevelScene.getInstance();
         assert levelScene != null;
         levelScene.getBullets().add(new Bullet(COLOR, playerX, playerY, 30, 30,
-                Bullet.MovementType.RADIAL, 12, playerAngle, stats.applyAttackModifiers(attackDamage)));
+                Bullet.MovementType.RADIAL, 12, playerAngle, stats.applyAttackModifiers(attackDamage), Bullet.Target.ENEMY));
     }
 }
