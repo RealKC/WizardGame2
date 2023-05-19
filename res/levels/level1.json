@@ -3,7 +3,7 @@
   "id": 1,
   "nextLevel": 2,
 
-  "unlocks": "Mihai",
+  "unlocks": "Mihai, the Fullmetal Wizard",
 
   "tiles": {
     "M": "/textures/field.png"
