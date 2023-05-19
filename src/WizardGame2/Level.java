@@ -128,7 +128,6 @@ public class Level implements Player.PositionObserver {
         }
 
         int minibossIndex = data.minibossIndexForTime(seconds);
-        System.out.println("secpas " + seconds + " minibossIndex " + minibossIndex);
         if (!spawnedMinibosses.contains(minibossIndex)) {
             int radius = 155 + random.nextInt(10);
             double angle = random.nextDouble() * Math.PI;
@@ -140,7 +139,6 @@ public class Level implements Player.PositionObserver {
 
 
             var miniboss =  data.getMiniboss(minibossIndex);
-            System.out.println("spawnign miniboss " + miniboss);
             if (miniboss != null) {
                 enemies.add(Enemy.newBuilder(Assets.getInstance().getCharacters(), miniboss)
                         .isMiniBoss(true)
