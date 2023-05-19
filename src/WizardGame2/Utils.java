@@ -72,7 +72,7 @@ public class Utils {
     }
 
     public static <T> void logException(Class<T> clazz, Exception e, String message, Object... args) {
-        System.out.printf("[in %s] %s: %s", clazz.getName(), String.format(message, args), e);
+        System.out.printf("[in %s] %s: %s\n", clazz == null ? "???" : clazz.getName(), String.format(message, args), e);
         e.printStackTrace();
     }
 
