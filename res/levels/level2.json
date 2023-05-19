@@ -161,30 +161,92 @@
     "464x396": "PT7",
     "496x396": "PT8"
   },
-  "enemies": [],
+  "enemies": [
+    {
+      "name": "floating-skull",
+      "health": 25,
+      "x": 8,
+      "y": 0,
+      "score": 55,
+      "damage": 1,
+      "isFlying": true
+    },
+    {
+      "name": "floating-skull-2",
+      "health": 50,
+      "x": 0,
+      "y": 1,
+      "score": 100,
+      "damage": 3,
+      "isFlying": true
+    },
+    {
+      "name": "ghost",
+      "health": 200,
+      "x": 7,
+      "y": 0,
+      "score": 55,
+      "damage": 1,
+      "isFlying": true
+    },
+    {
+      "name": "zombie",
+      "health": 100,
+      "x": 4,
+      "y": 1,
+      "score": 70,
+      "damage": 2
+    },
+    {
+      "name": "shadow",
+      "health": 150,
+      "x": 5,
+      "y": 1,
+      "score": 69,
+      "damage": 3,
+      "isFlying": true
+    }
+  ],
 
   "bosses": [
     {
       "name": "Cezar, the Tătărașiborn Guardian",
       "health": 1500,
-      "x": 1,
-      "y": 1,
+      "x": 0,
+      "y": 2,
       "score": 5000,
-      "damage": 1,
+      "damage": 8,
       "behaviour": "WizardGame2.GameObjects.BossBehaviours.CezarBehaviour",
       "finalBoss": false
     },
     {
       "name": "Denis, the Cosmicbane",
       "health": 1500,
-      "x": 2,
-      "y": 1,
+      "x": 1,
+      "y": 2,
       "score": 6200,
-      "damage": 1,
+      "damage": 15,
       "behaviour": "WizardGame2.GameObjects.BossBehaviours.DenisBehaviour",
       "finalBoss": true
     }
   ],
 
-  "waves": {}
+  "waves": {
+    "0": {
+      "distribution": "0.5;0.5",
+      "enemies": ["ghost", "floating-skull"]
+    },
+    "60": {
+      "distribution": "0.5;0.25;0.25",
+      "enemies": ["ghost", "floating-skull", "floating-skull-2"]
+    },
+    "240": {
+      "distribution": "0.3;0.25;0.25;0.2",
+      "enemies": ["ghost", "floating-skull", "floating-skull-2", "shadow"]
+    },
+    "600": {
+      "distribution": "0.25;0.25;0.25;0.25",
+      "enemies": ["ghost", "floating-skull", "floating-skull-2", "shadow"]
+    }
+  }
 }

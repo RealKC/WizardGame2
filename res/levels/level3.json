@@ -2,7 +2,6 @@
   "name": "Calea Victoriei",
   "id": 3,
   "nextLevel": -1,
-
   "tiles": {
     "T": "/textures/calea-victoriei.png"
   },
@@ -10,9 +9,7 @@
   "tileHeight": 600,
   "tileColumns": 6,
   "tileRows": 1,
-
   "pattern": "TTTTTT",
-
   "obstacles": {
     "BT1": {
       "x": 0,
@@ -38,7 +35,6 @@
       "x": 2,
       "y": 3
     },
-
     "RT1": {
       "x": 0,
       "y": 4
@@ -63,7 +59,6 @@
       "x": 2,
       "y": 5
     },
-
     "GT1": {
       "x": 0,
       "y": 6
@@ -88,8 +83,6 @@
       "x": 2,
       "y": 7
     },
-
-
     "PT1": {
       "x": 0,
       "y": 8
@@ -157,31 +150,109 @@
     "464x396": "PT7",
     "496x396": "PT8"
   },
-
-  "enemies": [],
+  "enemies": [
+    {
+      "name": "floating-skull-2",
+      "health": 50,
+      "x": 0,
+      "y": 1,
+      "score": 100,
+      "damage": 3,
+      "isFlying": true
+    },
+    {
+      "name": "shadow",
+      "health": 150,
+      "x": 5,
+      "y": 1,
+      "score": 69,
+      "damage": 3,
+      "isFlying": true
+    },
+    {
+      "name": "skeleton2",
+      "health": 125,
+      "x": 5,
+      "y": 0,
+      "score": 15,
+      "damage": 1
+    },
+    {
+      "name": "floating-skull",
+      "health": 25,
+      "x": 8,
+      "y": 0,
+      "score": 55,
+      "damage": 1,
+      "isFlying": true
+    },
+    {
+      "name": "zombie",
+      "health": 100,
+      "x": 4,
+      "y": 1,
+      "score": 70,
+      "damage": 2
+    },
+    {
+      "name": "skeleton-knight",
+      "health": 150,
+      "x": 6,
+      "y": 1,
+      "score": 100,
+      "damage": 5
+    },
+    {
+      "name": "skeleton-mage",
+      "health": 100,
+      "x": 7,
+      "y": 1,
+      "score": 100,
+      "damage": 4
+    }
+  ],
   "bosses": [
     {
       "name": "Cristian, the Necromancer of Neamț",
       "health": 1500,
-      "x": 1,
-      "y": 1,
+      "x": 2,
+      "y": 2,
       "score": 5000,
       "damage": 1,
-      "behaviour": "WizardGame2.GameObjects.BossBehaviours.CrisitanPhase1Behaviour",
+      "behaviour": "WizardGame2.GameObjects.BossBehaviours.CristianPhase1Behaviour",
       "finalBoss": false
     },
     {
       "name": "Cristian, the Necromancer of Neamț",
       "health": 1500,
       "x": 2,
-      "y": 1,
+      "y": 2,
       "score": 6200,
       "damage": 1,
-      "behaviour": "WizardGame2.GameObjects.BossBehaviours.CrisitanPhase2Behaviour",
+      "behaviour": "WizardGame2.GameObjects.BossBehaviours.CristianPhase2Behaviour",
       "finalBoss": true
     }
   ],
-
-
-  "waves": {}
+  "waves": {
+    "0": {
+      "distribution": "0.5;0.5",
+      "enemies": ["shadow", "floating-skull-2"]
+    },
+    "60": {
+      "distribution": "0.5;0.25;0.25",
+      "enemies": ["shadow", "skeleton2", "floating-skull"]
+    },
+    "240": {
+      "distribution": "0.3;0.25;0.25;0.2",
+      "enemies": ["skeleton-mage", "floating-skull", "floating-skull-2", "shadow"]
+    },
+    "600": {
+      "distribution": "0.25;0.25;0.25;0.25",
+      "enemies": ["skeleton-knight", "floating-skull", "floating-skull-2", "shadow"]
+    },
+    "720": {
+      "distribution": "0.16;0.14;0.14;0.14;0.14;0.14;0.14",
+      "enemies": ["skeleton-knight", "floating-skull", "floating-skull-2", "shadow", "skeleton-mage", "zombie", "skeleton2"]
+    }
+  }
 }
