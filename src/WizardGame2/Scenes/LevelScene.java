@@ -299,13 +299,18 @@ public class LevelScene implements Scene, Player.LevelUpObserver {
 
         secondsPassed++;
 
-        if (level != null) {
-            ArrayList<Enemy> enemies = level.maybeSpawn(secondsPassed);
+        try {
+            if (level != null) {
+                ArrayList<Enemy> enemies = level.maybeSpawn(secondsPassed);
 
-            if (enemies != null) {
-                this.enemies.addAll(enemies);
-                player.addPositionObservers(enemies);
+                if (enemies != null) {
+                    this.enemies.addAll(enemies);
+                    player.addPositionObservers(enemies);
+                }
             }
+        } catch (ArrayIndexOutOfBoundsException e) {
+            // ignore this specific type of exception, since it kills our timer otherwise
+            // and it can only happen when there's no enemies anyway
         }
     }
 
