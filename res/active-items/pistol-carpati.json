@@ -4,5 +4,5 @@
   "speed": 22,
   "x": 0,
   "y": 0,
-  "itemFactoryName": "WizardGame2.Items.PistolCarpatiFactory"
+  "itemFactoryName": "WizardGame2.Items.Actives.PistolCarpatiFactory"
 }

@@ -1,7 +1,8 @@
-package WizardGame2.Items;
+package WizardGame2.Items.Actives;
 
 import WizardGame2.GameObjects.Bullet;
 import WizardGame2.GameObjects.Player;
+import WizardGame2.Items.Item;
 import WizardGame2.Scenes.LevelScene;
 
 import java.awt.*;

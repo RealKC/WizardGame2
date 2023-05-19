@@ -1,7 +1,8 @@
-package WizardGame2.Items;
+package WizardGame2.Items.Actives;
 
 import WizardGame2.GameObjects.Bullet;
 import WizardGame2.GameObjects.Player;
+import WizardGame2.Items.Item;
 import WizardGame2.Scenes.LevelScene;
 
 import java.awt.*;
@@ -46,7 +47,6 @@ public class IgnisRespiratioItem extends Item {
             var oldColor = gfx.getColor();
             gfx.setColor(color);
             if (gfx instanceof Graphics2D gfx2d) {
-                System.out.println("angle: " + angle);
                 var arc = new Arc2D.Double(getX() - centerX, getY() - centerY, WIDTH, HEIGHT, angle - 16.0, 32.0, Arc2D.PIE);
                 gfx2d.fill(arc);
             }

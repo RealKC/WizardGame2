@@ -4,5 +4,5 @@
   "speed": 15,
   "x": 3,
   "y": 0,
-  "itemFactoryName": "WizardGame2.Items.IgnisRespiratioFactory"
+  "itemFactoryName": "WizardGame2.Items.Actives.IgnisRespiratioFactory"
 }
