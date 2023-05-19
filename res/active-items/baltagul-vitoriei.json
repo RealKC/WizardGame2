@@ -1,0 +1,8 @@
+{
+  "name": "Baltagul Vitoriei",
+  "baseAttack": 15,
+  "speed": 7,
+  "x": 6,
+  "y": 0,
+  "itemFactoryName": "WizardGame2.Items.Actives.BaltagulVitorieiFactory"
+}
