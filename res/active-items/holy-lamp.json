@@ -1,0 +1,8 @@
+{
+  "name": "Holy Lamp",
+  "baseAttack": 8,
+  "speed": 15,
+  "x": 8,
+  "y": 0,
+  "itemFactoryName": "WizardGame2.Items.Actives.HolyLampFactory"
+}
