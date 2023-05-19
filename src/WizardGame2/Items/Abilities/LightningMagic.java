@@ -9,13 +9,14 @@ import WizardGame2.Scenes.LevelScene;
 
 import java.awt.*;
 
+@SuppressWarnings("unused")
 public class LightningMagic extends Item {
     private static final Color COLOR = new Color(241, 241, 10, 255);
 
     private double angle = 0.0;
 
     public LightningMagic(SpriteSheet spriteSheet) {
-        super("Carpathian Lightning", IDAllocator.nextId(), spriteSheet.crop(0, 0), 3);
+        super("Carpathian Lightning", IDAllocator.nextId(), spriteSheet.crop(1, 2), 3);
     }
 
     @Override

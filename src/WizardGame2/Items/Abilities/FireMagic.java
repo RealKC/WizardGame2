@@ -15,7 +15,7 @@ public class FireMagic extends Item {
     private double angleOffset = 0.0;
 
     public FireMagic(SpriteSheet spriteSheet) {
-        super("Fire Ball", IDAllocator.nextId(), spriteSheet.crop(0, 0), 7);
+        super("Fire Ball", IDAllocator.nextId(), spriteSheet.crop(0, 2), 7);
 
         setCooldown(140);
     }

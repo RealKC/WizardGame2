@@ -300,6 +300,7 @@ public class Player extends LivingGameObject {
     public void render(Graphics gfx, int centerX, int centerY) {
         super.render(gfx, centerX, centerY);
         inventory.render(gfx);
+        drawAbility(gfx);
 
         // Render the player's healthbar
         var oldColor = gfx.getColor();
@@ -316,7 +317,7 @@ public class Player extends LivingGameObject {
         // Render the player's level indicator
         var oldFont = gfx.getFont();
         gfx.setFont(levelFont);
-        Utils.drawTextWithOutline(gfx, "lvl " + levelManager.level, 132, 40);
+        Utils.drawTextWithOutline(gfx, "lvl " + levelManager.level, 164, 40);
         gfx.setFont(oldFont);
 
         // Render an aiming direction indicator
@@ -336,6 +337,31 @@ public class Player extends LivingGameObject {
         gfx.setColor(Color.ORANGE);
         final int INDICATOR_RADIUS = 5;
         gfx.fillOval((int) (indicatorX) - centerX - factor * INDICATOR_RADIUS, (int) (indicatorY) - centerY - factor * INDICATOR_RADIUS, INDICATOR_RADIUS, INDICATOR_RADIUS);
+        gfx.setColor(oldColor);
+    }
+
+    private void drawAbility(Graphics gfx) {
+        Color oldColor = gfx.getColor();
+        gfx.setColor(Inventory.borderColor);
+
+        Stroke oldStroke = null;
+        if (gfx instanceof Graphics2D gfx2d) {
+            oldStroke = gfx2d.getStroke();
+            gfx2d.setStroke(new BasicStroke(3.0f));
+        }
+
+        // Manually computed offsets
+        int x = 12;
+        int y = 12 + 32 / 2;
+        int width = ability.getSprite().getWidth();
+        int height = ability.getSprite().getHeight();
+
+        gfx.drawRect(x - 2, y - 2, width + 4, height + 4);
+        gfx.drawImage(ability.getSprite(), x, y, null);
+
+        if (oldStroke != null) {
+            ((Graphics2D) gfx).setStroke(oldStroke);
+        }
         gfx.setColor(oldColor);
     }
 
