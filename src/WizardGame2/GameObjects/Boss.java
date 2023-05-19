@@ -2,6 +2,7 @@ package WizardGame2.GameObjects;
 
 import WizardGame2.Graphics.SpriteSheet;
 import WizardGame2.Level;
+import WizardGame2.OSTManager;
 import WizardGame2.Utils;
 
 import java.awt.*;
@@ -33,6 +34,8 @@ public class Boss extends Enemy {
         this.isFinalBoss = finalBoss;
         this.behaviour = behaviour;
         behaviour.attachTo(this);
+
+        OSTManager.getInstance().playBossMusic();
     }
 
     public boolean isFinalBoss() {
@@ -46,6 +49,17 @@ public class Boss extends Enemy {
         }
 
         return super.collidesWith(other);
+    }
+
+    @Override
+    public Died takeDamage(double amount) {
+        Died died = super.takeDamage(amount);
+
+        if (died == Died.YES) {
+            OSTManager.getInstance().stopMusic();
+        }
+
+        return died;
     }
 
     @Override

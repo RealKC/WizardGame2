@@ -2,6 +2,7 @@ package WizardGame2.Scenes;
 
 import WizardGame2.Assets;
 import WizardGame2.Game;
+import WizardGame2.OSTManager;
 import WizardGame2.Utils;
 
 import java.awt.*;
@@ -16,6 +17,8 @@ public class MainMenuScene implements Scene {
     public MainMenuScene() {
         buttons[0] = new TextButton(new Rectangle(Game.getInstance().getWindowWidth() / 2 - 100, 200, 200, 30), "Play", () -> shouldSwitchScenes = true);
         buttons[1] = new TextButton(new Rectangle(Game.getInstance().getWindowWidth() / 2 - 100, 300, 200, 30), "Exit", () -> Game.getInstance().exit());
+
+        OSTManager.getInstance().playMenuMusic();
     }
 
     @Override

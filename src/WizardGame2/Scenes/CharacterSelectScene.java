@@ -72,6 +72,8 @@ public class CharacterSelectScene implements Scene {
 
     @Override
     public Scene nextScene() {
+        OSTManager.getInstance().stopMusic();
+
         for (var button : buttons) {
             button.unregisterListeners();
         }
