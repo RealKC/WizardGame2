@@ -9,5 +9,5 @@
   "speedBoost": 1.1,
   "pickupRange": 100,
   "haste": 1.5,
-  "ability": "WizardGame2.Items.Abilities.FireMagic"
+  "ability": "WizardGame2.Items.Abilities.LightningMagic"
 }
