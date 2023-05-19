@@ -18,7 +18,7 @@ public class Bullet extends GameObject {
     private final MovementType movementType;
     private final double speed;
     private double distance = 0;
-    private final double angle;
+    private double angle;
 
     private final double attackDamage;
 
@@ -88,6 +88,16 @@ public class Bullet extends GameObject {
 
             }
             case SPIRAL -> {
+                // Based on the code for the RADIAL case, but slightly modified
+                var newDistance = speed + distance;
+                var newAngle = angle + Math.toRadians(6.0);
+                var newX = originX + newDistance * cos(newAngle);
+                var newY = originY + newDistance * sin(newAngle);
+
+                distance  = newDistance;
+                angle = newAngle;
+
+                moveTo((int) newX, (int) newY);
             }
         }
     }
