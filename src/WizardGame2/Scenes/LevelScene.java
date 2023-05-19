@@ -101,6 +101,11 @@ public class LevelScene implements Scene, Player.LevelUpObserver {
                 player.takeDamage(1000000000);
             }
 
+            if (Keyboard.isKeyPressed(KeyEvent.VK_F6)) {
+                secondsPassed += 20;
+                System.out.println("seconds passed: " + secondsPassed);
+            }
+
             if (Keyboard.isKeyPressed(KeyEvent.VK_F7)) {
                 secondsPassed = 7 * 60 - 5;
             }
