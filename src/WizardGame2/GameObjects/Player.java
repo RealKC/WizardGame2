@@ -195,6 +195,14 @@ public class Player extends LivingGameObject {
             speedBoost += delta;
         }
 
+        public void setSpeedBoost(double v) {
+            speedBoost = v;
+        }
+
+        public double getSpeedBoost() {
+            return speedBoost;
+        }
+
         public void increasePickupRange(int delta) {
             pickupRange += delta;
         }
@@ -389,8 +397,8 @@ public class Player extends LivingGameObject {
             deltaX += STEP;
         }
 
-        deltaX = (int) (stats.speedBoost * deltaX);
-        deltaY = (int) (stats.speedBoost * deltaY);
+        deltaX = stats.speedBoost < 0.5 ? 1 : (int) Math.ceil(stats.speedBoost * deltaX);
+        deltaY = stats.speedBoost < 0.5 ? 1 : (int) Math.ceil(stats.speedBoost * deltaY);
 
         moveBy(deltaX, deltaY);
 
