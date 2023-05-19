@@ -21,34 +21,13 @@ public class Boss extends Enemy {
         }
     }
 
+    static final int SIZE = 64;
+
     private final Behaviour behaviour;
 
     private final boolean isFinalBoss;
 
-    public static Boss fromData(SpriteSheet spriteSheet, Enemy.Data data, int x, int y) {
-        assert data.behaviour != null;
-
-        Behaviour behaviour = null;
-        try {
-            var behaviourClass = Class.forName(data.behaviour);
-            behaviour = (Behaviour) behaviourClass.getDeclaredConstructor().newInstance();
-        } catch (ClassNotFoundException e) {
-            Utils.logException(Boss.class, e, "failed to load '%s' behaviour class", data.behaviour);
-        } catch (NoSuchMethodException e) {
-            Utils.logException(Boss.class, e, "'%s' does not have a no-parameter constructor", data.behaviour);
-        } catch (InvocationTargetException | InstantiationException | IllegalAccessException e) {
-            Utils.logException(Boss.class, e, "failed to invoke constructor");
-        }
-        assert behaviour != null;
-
-        final int size = 64;
-
-        var sprite = Utils.scale(spriteSheet.crop(data.x, data.y), size);
-
-        return new Boss(sprite, x, y, size, size, data.health, data.score, data.damage, behaviour, data.finalBoss);
-    }
-
-    private Boss(BufferedImage sprite, int x, int y, int hitboxWidth, int hitboxHeight, double health, int score, int attackDamage, Behaviour behaviour, boolean finalBoss) {
+    Boss(BufferedImage sprite, int x, int y, int hitboxWidth, int hitboxHeight, double health, int score, int attackDamage, Behaviour behaviour, boolean finalBoss) {
         super(sprite, x, y, hitboxWidth, hitboxHeight, health, score, attackDamage, false);
 
         this.isFinalBoss = finalBoss;

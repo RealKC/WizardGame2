@@ -108,7 +108,9 @@ public class Level implements Player.PositionObserver {
 
                 Enemy.Data enemyData = data.pickRandomEnemy(data.waveNumberForTime(seconds));
 
-                enemies.add(Enemy.fromData(Assets.getInstance().getCharacters(), enemyData, x, y));
+                enemies.add(Enemy.newBuilder(Assets.getInstance().getCharacters(), enemyData)
+                        .atCoordinates(x, y)
+                        .build());
             } catch (EnemyException e) {
                 Utils.logException(this.getClass(), e, "got exception trying to spawn the #%dth enemy", i);
             }
@@ -131,7 +133,10 @@ public class Level implements Player.PositionObserver {
             return null;
         }
 
-        var boss = Boss.fromData(Assets.getInstance().getCharacters(), bossData, playerX, playerY - 200);
+        var boss = (Boss) Enemy.newBuilder(Assets.getInstance().getCharacters(), bossData)
+                .atCoordinates(playerX, playerY - 200)
+                .isBoss(true)
+                .build();
 
         currentBoss = boss;
 

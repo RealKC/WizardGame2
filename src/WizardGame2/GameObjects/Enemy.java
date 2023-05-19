@@ -2,10 +2,71 @@ package WizardGame2.GameObjects;
 
 import WizardGame2.Graphics.SpriteSheet;
 import WizardGame2.Level;
+import WizardGame2.Utils;
 
 import java.awt.image.BufferedImage;
+import java.lang.reflect.InvocationTargetException;
 
 public class Enemy extends LivingGameObject implements Player.PositionObserver {
+    /**
+     * A builder class to encapsulate the complex ways of creating an enemy
+     */
+    public static class Builder {
+        private final Data data;
+        private final SpriteSheet spriteSheet;
+
+        private int x, y;
+
+        private boolean isBoss = false;
+
+        private Builder(SpriteSheet spriteSheet, Data data) {
+            this.data = data;
+            this.spriteSheet = spriteSheet;
+        }
+
+        public Builder atCoordinates(int x, int y) {
+            this.x = x;
+            this.y = y;
+
+            return this;
+        }
+
+        public Builder isBoss(boolean b) {
+            this.isBoss = b;
+
+            return this;
+        }
+
+        public Enemy build() {
+            var sprite = isBoss ? Utils.scale(spriteSheet.crop(data.x, data.y), Boss.SIZE) : spriteSheet.crop(data.x, data.y);
+
+            if (isBoss) {
+                assert data.behaviour != null;
+
+                Boss.Behaviour behaviour = null;
+                try {
+                    var behaviourClass = Class.forName(data.behaviour);
+                    behaviour = (Boss.Behaviour) behaviourClass.getDeclaredConstructor().newInstance();
+                } catch (ClassNotFoundException e) {
+                    Utils.logException(Boss.class, e, "failed to load '%s' behaviour class", data.behaviour);
+                } catch (NoSuchMethodException e) {
+                    Utils.logException(Boss.class, e, "'%s' does not have a no-parameter constructor", data.behaviour);
+                } catch (InvocationTargetException | InstantiationException | IllegalAccessException e) {
+                    Utils.logException(Boss.class, e, "failed to invoke constructor");
+                }
+                assert behaviour != null;
+
+                return new Boss(sprite, x, y, Boss.SIZE, Boss.SIZE, data.health, data.score, data.damage, behaviour, data.finalBoss);
+            } else {
+                return new Enemy(spriteSheet.crop(data.x, data.y), x, y, 32, 32, data.health, data.score, data.damage, data.isFlying);
+            }
+        }
+    }
+
+    public static Builder newBuilder(SpriteSheet spriteSheet, Data data) {
+        return new Builder(spriteSheet, data);
+    }
+
     protected int playerX, playerY;
 
     private final int scoreValue;
@@ -56,10 +117,6 @@ public class Enemy extends LivingGameObject implements Player.PositionObserver {
                     ", finalBoss = " + finalBoss +
                     '}';
         }
-    }
-
-    public static Enemy fromData(SpriteSheet spriteSheet, Data data, int x, int y) {
-        return new Enemy(spriteSheet.crop(data.x, data.y), x, y, 32, 32, data.health, data.score, data.damage, data.isFlying);
     }
 
     public Enemy(BufferedImage sprite, int x, int y, int hitboxWidth, int hitboxHeight, double health, int score, int attackDamage, boolean isFlying) {
