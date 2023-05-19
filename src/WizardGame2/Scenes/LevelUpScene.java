@@ -196,6 +196,16 @@ public class LevelUpScene implements Scene {
         var assets = Assets.getInstance();
         var itemFactories = active ? assets.getItemFactories() : assets.getPassiveItemFactories();
 
+        if (!player.canPickUpMoreActiveItems()) {
+            if (!player.canPickUpMorePassiveItems()) {
+                return null;
+            } else {
+                itemFactories = assets.getPassiveItemFactories();
+            }
+        } else if (!player.canPickUpMorePassiveItems()) {
+            itemFactories = assets.getItemFactories();
+        }
+
         int attemptCount = 0;
         final int maxAttempts = 16;
 
