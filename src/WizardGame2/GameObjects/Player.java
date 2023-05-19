@@ -440,7 +440,7 @@ public class Player extends LivingGameObject {
         maybeCleanupObservers(currentTime);
     }
 
-    public void addDebuff(long duration, Consumer<Stats> apply, Consumer<Stats> undo) {
+    public void addTemporaryStatChange(long duration, Consumer<Stats> apply, Consumer<Stats> undo) {
         apply.accept(stats);
 
         var debuffTimer = new Timer();
