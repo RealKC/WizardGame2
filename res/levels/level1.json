@@ -77,6 +77,13 @@
     }
   ],
 
+  "minibosses": {
+    "240": "skeleton1",
+    "360": "skeleton2",
+    "480": "floating-skull",
+    "720": "ghost"
+  },
+
   "bosses": [
     {
       "name": "Matei, The Profaned",

@@ -208,6 +208,14 @@
     }
   ],
 
+  "minibosses": {
+    "240": "floating-skull",
+    "360": "floating-skull-2",
+    "480": "ghost",
+    "720": "zombie",
+    "780": "shadow"
+  },
+
   "bosses": [
     {
       "name": "Cezar, the Tătărașiborn Guardian",

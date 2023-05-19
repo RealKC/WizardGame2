@@ -9,6 +9,7 @@ import WizardGame2.GameObjects.Player;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.Random;
 
 /**
@@ -27,6 +28,8 @@ public class Level implements Player.PositionObserver {
     boolean forcefulVictory = false;
 
     private final Random random = new Random();
+
+    private final HashSet<Integer> spawnedMinibosses = new HashSet<>();
 
     public static Level fromData(LevelData levelData) {
         var obstacles = new ArrayList<Obstacle>();
@@ -123,6 +126,29 @@ public class Level implements Player.PositionObserver {
                 enemies.add(boss);
             }
         }
+
+        int minibossIndex = data.minibossIndexForTime(seconds);
+        System.out.println("secpas " + seconds + " minibossIndex " + minibossIndex);
+        if (!spawnedMinibosses.contains(minibossIndex)) {
+            int radius = 155 + random.nextInt(10);
+            double angle = random.nextDouble() * Math.PI;
+
+            int x = playerX + (int) (radius * Math.cos(angle));
+            int y = playerY + (int) (radius * Math.sin(angle));
+
+            spawnedMinibosses.add(minibossIndex);
+
+
+            var miniboss =  data.getMiniboss(minibossIndex);
+            System.out.println("spawnign miniboss " + miniboss);
+            if (miniboss != null) {
+                enemies.add(Enemy.newBuilder(Assets.getInstance().getCharacters(), miniboss)
+                        .isMiniBoss(true)
+                        .atCoordinates(x, y)
+                        .build());
+            }
+        }
+
         return enemies;
     }
 

@@ -211,6 +211,17 @@
       "damage": 4
     }
   ],
+
+  "minibosses": {
+    "180": "floating-skull",
+    "240": "shadow",
+    "300": "skeleton2",
+    "360": "floating-skull-2",
+    "480": "zombie",
+    "720": "skeleton-knight",
+    "780": "skeleton-mage"
+  },
+
   "bosses": [
     {
       "name": "Cristian, the Necromancer of Neamț",
@@ -233,6 +244,7 @@
       "finalBoss": true
     }
   ],
+
   "waves": {
     "0": {
       "distribution": "0.5;0.5",

@@ -18,6 +18,7 @@ public class Enemy extends LivingGameObject implements Player.PositionObserver {
         private int x, y;
 
         private boolean isBoss = false;
+        private boolean isMiniBoss = false;
 
         private Builder(SpriteSheet spriteSheet, Data data) {
             this.data = data;
@@ -37,8 +38,14 @@ public class Enemy extends LivingGameObject implements Player.PositionObserver {
             return this;
         }
 
+        public Builder isMiniBoss(boolean b) {
+            this.isMiniBoss = b;
+
+            return this;
+        }
+
         public Enemy build() {
-            var sprite = isBoss ? Utils.scale(spriteSheet.crop(data.x, data.y), Boss.SIZE) : spriteSheet.crop(data.x, data.y);
+            var sprite = (isBoss || isMiniBoss) ? Utils.scale(spriteSheet.crop(data.x, data.y), Boss.SIZE) : spriteSheet.crop(data.x, data.y);
 
             if (isBoss) {
                 assert data.behaviour != null;
@@ -57,9 +64,14 @@ public class Enemy extends LivingGameObject implements Player.PositionObserver {
                 assert behaviour != null;
 
                 return new Boss(sprite, x, y, Boss.SIZE, Boss.SIZE, data.health, data.score, data.damage, behaviour, data.finalBoss);
-            } else {
-                return new Enemy(spriteSheet.crop(data.x, data.y), x, y, 32, 32, data.health, data.score, data.damage, data.isFlying);
             }
+
+            if (isMiniBoss) {
+                return new Enemy(sprite, x, y, Boss.SIZE, Boss.SIZE, data.health * 10, data.score * 10, data.damage * 5, data.isFlying);
+            }
+
+            return new Enemy(sprite, x, y, 32, 32, data.health, data.score, data.damage, data.isFlying);
+
         }
     }
 

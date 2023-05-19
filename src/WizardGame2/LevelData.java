@@ -23,6 +23,7 @@ public class LevelData {
     private Map<Point, Obstacle.Data> obstacles;
 
     private Enemy.Data[] enemies;
+    private Map<Integer, Enemy.Data> minibosses;
     private Enemy.Data[] bosses;
     private Map<Integer, Wave> waves;
     private Integer[] waveNumbers;
@@ -61,6 +62,7 @@ public class LevelData {
         private Map<String, String> obstaclePositions;
 
         private Enemy.Data[] enemies;
+        private Map<String, String> minibosses;
         private Enemy.Data[] bosses;
 
         private Map<Integer, Wave> waves;
@@ -89,6 +91,20 @@ public class LevelData {
         mapData.unlocks = rawMapData.unlocks;
         mapData.nextLevel = rawMapData.nextLevel;
         rawMapData.waves.keySet().toArray(mapData.waveNumbers);
+
+        mapData.minibosses = new HashMap<>();
+
+        for (var entry : rawMapData.minibosses.entrySet()) {
+            Enemy.Data data = null;
+
+            for (var enemy : mapData.enemies) {
+                if (enemy.getName().equals(entry.getValue())) {
+                    data = enemy;
+                }
+            }
+
+            mapData.minibosses.put(Integer.parseInt(entry.getKey()), data);
+        }
 
         int textureWidth = rawMapData.tileWidth * rawMapData.tileColumns;
         int textureHeight = rawMapData.tileHeight * rawMapData.tileRows;
@@ -199,6 +215,23 @@ public class LevelData {
 
     public void reset() {
         bossLevel = 0;
+    }
+
+    public int minibossIndexForTime(int seconds) {
+        int prev = 0;
+
+        for (var key : minibosses.keySet()) {
+            if (seconds < key) {
+                return prev;
+            }
+            prev = key;
+        }
+
+        return prev;
+    }
+
+    public Enemy.Data getMiniboss(int idx) {
+        return minibosses.get(idx);
     }
 
     public int waveNumberForTime(int seconds) {
