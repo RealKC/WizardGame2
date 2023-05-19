@@ -1,0 +1,8 @@
+{
+  "name": "Vortex Mercurius",
+  "baseAttack": 10,
+  "speed": 3,
+  "x": 4,
+  "y": 0,
+  "itemFactoryName": "WizardGame2.Items.Actives.VortexMercuriusFactory"
+}
