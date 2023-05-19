@@ -1,0 +1,13 @@
+{
+  "name": "Mihai, the Fullmetal Wizard",
+  "id": 69,
+  "x": 0,
+  "y": 0,
+  "hitPoints": 150,
+  "magicPower": 0.7,
+  "critChance": 0.20,
+  "speedBoost": 0.9,
+  "pickupRange": 45,
+  "haste": 1.75,
+  "ability": "WizardGame2.Items.Abilities.SwordMagic"
+}
