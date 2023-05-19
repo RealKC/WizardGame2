@@ -8,14 +8,16 @@ import java.awt.image.BufferedImage;
 
 @SuppressWarnings("unused")
 public class DenisBehaviour implements Boss.Behaviour {
+    Boss boss;
+
     @Override
     public void attachTo(Boss boss) {
-
+        this.boss = boss;
     }
 
     @Override
     public void render(Graphics gfx, BufferedImage sprite, int centerX, int centerY) {
-
+        gfx.drawImage(sprite, boss.getX() - centerX, boss.getY(), null);
     }
 
     @Override
