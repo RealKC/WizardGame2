@@ -2,7 +2,7 @@
   "name": "Defendere Magi",
   "baseAttack": 5,
   "speed": 15,
-  "x": 2,
+  "x": 1,
   "y": 0,
   "itemFactoryName": "WizardGame2.Items.Actives.DefendereMagiFactory"
 }

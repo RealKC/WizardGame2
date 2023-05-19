@@ -1,0 +1,8 @@
+{
+  "name": "Circulus Glaciei",
+  "baseAttack": 5,
+  "speed": 6,
+  "x": 2,
+  "y": 0,
+  "itemFactoryName": "WizardGame2.Items.Actives.CirculusGlacieiFactory"
+}
