@@ -3,6 +3,7 @@ package WizardGame2.Items.Abilities;
 import WizardGame2.GameObjects.Bullet;
 import WizardGame2.GameObjects.Player;
 import WizardGame2.Graphics.SpriteSheet;
+import WizardGame2.Items.IDAllocator;
 import WizardGame2.Items.Item;
 import WizardGame2.Scenes.LevelScene;
 
@@ -14,7 +15,7 @@ public class FireMagic extends Item {
     private double angleOffset = 0.0;
 
     public FireMagic(SpriteSheet spriteSheet) {
-        super("Fire Ball", 900, spriteSheet.crop(0, 0), 7);
+        super("Fire Ball", IDAllocator.nextId(), spriteSheet.crop(0, 0), 7);
 
         setCooldown(140);
     }
