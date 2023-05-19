@@ -1,0 +1,7 @@
+{
+  "name": "Morning Star",
+  "baseAttack": 15,
+  "x": 7,
+  "y": 0,
+  "itemFactoryName": "WizardGame2.Items.Actives.MorningStarFactory"
+}
