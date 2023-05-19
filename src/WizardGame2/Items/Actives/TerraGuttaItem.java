@@ -33,8 +33,6 @@ public class TerraGuttaItem extends Item {
         var radius = 130 + random.nextInt(50);
         var angle = Math.PI * random.nextFloat();
 
-        System.out.printf("TerraGutta: %g, %g\n", radius * Math.cos(angle), radius * Math.sin(angle));
-
         int x = playerX + (int) (radius * Math.cos(angle));
         int y = playerY + (int) (radius * Math.sin(angle)) - 300;
 
