@@ -1,0 +1,8 @@
+{
+  "name": "Ignis Respiratio",
+  "baseAttack": 5,
+  "speed": 15,
+  "x": 3,
+  "y": 0,
+  "itemFactoryName": "WizardGame2.Items.IgnisRespiratioFactory"
+}

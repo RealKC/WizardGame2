@@ -26,7 +26,7 @@ public class Bullet extends GameObject {
 
     private int enemiesToHitUntilRemoval = 1;
 
-    private final Color color;
+    protected final Color color;
 
     public Bullet(BufferedImage sprite, int x, int y, int hitboxWidth, int hitboxHeight,
                   MovementType movementType, double speed, double angle, double attackDamage) {

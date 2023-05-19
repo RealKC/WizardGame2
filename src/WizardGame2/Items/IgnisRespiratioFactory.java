@@ -4,6 +4,6 @@ package WizardGame2.Items;
 public class IgnisRespiratioFactory extends ItemFactory {
     @Override
     public Item makeItem() {
-         return new IgnisRespiratioItem(itemData.name, IDAllocator.nextId(), itemData.sprite);
+         return new IgnisRespiratioItem(itemData.name, IDAllocator.nextId(), itemData.sprite, itemData.baseAttackDamage);
     }
 }
