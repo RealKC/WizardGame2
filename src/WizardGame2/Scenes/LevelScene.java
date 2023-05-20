@@ -138,12 +138,15 @@ public class LevelScene implements Scene, Player.LevelUpObserver {
 
         player.update(level, currentTime);
 
-        for (var enemy : enemies) {
+        int idx = 0;
+        while (idx < enemies.size()) {
+            var enemy = enemies.get(idx);
             enemy.update(level, currentTime);
 
             if (player.collidesWith(enemy)) {
                 player.takeDamage(enemy.getAttackDamage());
             }
+            idx++;
         }
 
         if (player.isDead()) {
@@ -293,6 +296,11 @@ public class LevelScene implements Scene, Player.LevelUpObserver {
      */
     public ArrayList<Bullet> getBullets() {
         return bullets;
+    }
+
+    public void addEnemy(Enemy enemy) {
+        enemies.add(enemy);
+        player.addPositionObserver(enemy);
     }
 
     public ArrayList<ExperienceObject> getExperienceObjects() {
