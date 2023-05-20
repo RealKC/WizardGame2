@@ -59,8 +59,8 @@ public class CezarBehaviour extends CommonMovement implements Boss.Behaviour {
     private int counter = 0;
     private static final int switchStates = 500;
     private int cooldown = 0;
-    private static final int cooldownDecrement = 5;
-    private static final int maxCooldown = 300;
+    private static final int cooldownDecrement = 1;
+    private static final int maxCooldown = 400;
 
     private static final int[] OFFSETS = new int[]{-150, -75, -35, 0, 35, 75, 150,};
 
@@ -117,7 +117,7 @@ public class CezarBehaviour extends CommonMovement implements Boss.Behaviour {
             }
             case FIRES_TO_PLAYER -> {
                 double angle;
-                if (boss.getX() == 0 || playerX == 0) {
+                if ((boss.getX() == 0 && playerX == 0) || boss.getX() == playerX) {
                     angle = Math.toRadians(270);
                 } else {
                     angle = Math.PI - Math.atan((boss.getY() - playerY) / (boss.getX() - playerX));
