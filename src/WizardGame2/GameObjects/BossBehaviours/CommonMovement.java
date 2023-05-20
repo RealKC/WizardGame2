@@ -11,7 +11,7 @@ public class CommonMovement {
     private final int[] verticalOffsets;
     private final int[] horizontalOffsets;
 
-    private final Random random = new Random();
+    protected final Random random = new Random();
 
     private Boss boss;
 
