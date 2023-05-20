@@ -169,14 +169,22 @@ public class LevelUpScene implements Scene {
         for (int i = 0; i < buttons.length; ++i) {
             var bounds = new Rectangle(centerX - buttonWidth / 2, yOffset, buttonWidth, 38);
 
-            var grantStat = (!player.canPickUpMoreActiveItems() && !player.canPickUpMorePassiveItems())
-                    || (random.nextInt() % 2 == 0);
+            boolean grantStat = false;
+            boolean active = random.nextBoolean();
+
+            if (!player.canPickUpMoreActiveItems()) {
+                if (!player.canPickUpMorePassiveItems()) {
+                    grantStat = true;
+                } else {
+                    active = false;
+                }
+            } else if (!player.canPickUpMorePassiveItems()) {
+                active = true;
+            }
 
             if (grantStat) {
                 buttons[i] = new StatIncreaseButton(bounds, player.getStats());
             } else {
-                boolean active = random.nextBoolean();
-
                 var item = pickItem(player, active);
 
                 if (item != null) {
@@ -195,16 +203,6 @@ public class LevelUpScene implements Scene {
 
         var assets = Assets.getInstance();
         var itemFactories = active ? assets.getItemFactories() : assets.getPassiveItemFactories();
-
-        if (!player.canPickUpMoreActiveItems()) {
-            if (!player.canPickUpMorePassiveItems()) {
-                return null;
-            } else {
-                itemFactories = assets.getPassiveItemFactories();
-            }
-        } else if (!player.canPickUpMorePassiveItems()) {
-            itemFactories = assets.getItemFactories();
-        }
 
         int attemptCount = 0;
         final int maxAttempts = 16;
