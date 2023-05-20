@@ -111,6 +111,16 @@ public class Enemy extends LivingGameObject implements Player.PositionObserver {
 
         public Data() {}
 
+        public Data(double health, int x, int y, int score, int damage, boolean isFlying) {
+            this.health = health;
+            this.x = x;
+            this.y = y;
+            this.score = score;
+            this.damage = damage;
+            this.isFlying = false;
+            this.finalBoss = isFlying;
+        }
+
         public String getName() {
             return name;
         }
