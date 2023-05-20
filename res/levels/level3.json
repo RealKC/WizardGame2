@@ -225,21 +225,21 @@
   "bosses": [
     {
       "name": "Cristian, the Necromancer of Neamț",
-      "health": 1500,
+      "health": 5000,
       "x": 2,
       "y": 2,
       "score": 5000,
-      "damage": 1,
+      "damage": 5,
       "behaviour": "WizardGame2.GameObjects.BossBehaviours.CristianPhase1Behaviour",
       "finalBoss": false
     },
     {
       "name": "Cristian, the Necromancer of Neamț",
-      "health": 1500,
+      "health": 7500,
       "x": 2,
       "y": 2,
       "score": 6200,
-      "damage": 1,
+      "damage": 5,
       "behaviour": "WizardGame2.GameObjects.BossBehaviours.CristianPhase2Behaviour",
       "finalBoss": true
     }
