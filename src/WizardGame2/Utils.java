@@ -13,14 +13,12 @@ public class Utils {
      * @param x a value which may or may not be in the interval
      * @return x if x is in [min, max], min if x is less than min, or max otherwise
      */
-    public static int clamp(int min, int max, int x) {
-        if (x < min) {
+    public static <T extends Comparable<T>> T clamp(T min, T max, T x) {
+        if (x.compareTo(min) > 0) {
             return min;
         }
 
-        // I find the flow of the function easier to read this way
-        //noinspection ManualMinMaxCalculation
-        if (max < x) {
+        if (max.compareTo(x) < 0) {
             return max;
         }
 
