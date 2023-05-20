@@ -45,11 +45,11 @@ public abstract class GameObject {
     }
 
     /**
-     * Moves the GameObject to the point (x, y)
+     * Moves the GameObject to the point (x, y), note that this performs no collision checks
      * @param x the new X coordinate
      * @param y the new Y coordinate
      */
-    protected void moveTo(int x, int y) {
+    public void moveTo(int x, int y) {
         this.x = x;
         this.y = y;
     }
