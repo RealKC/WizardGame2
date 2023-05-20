@@ -118,10 +118,17 @@ public class Player extends LivingGameObject {
         int level = 1;
 
         static final int[] experienceSteps = new int[] {25, 50, 100, 250, 300, 350, 400, 500, 700};
+        private int nextXPStep = -1;
 
         int currentExperienceStep() {
             if (level >= experienceSteps.length) {
-                return experienceSteps.length - 1;
+                if (nextXPStep < 0) {
+                    nextXPStep = experienceSteps[experienceSteps.length - 1];
+                } else {
+                    nextXPStep *= 2;
+                }
+
+                return nextXPStep;
             }
 
             return level;
