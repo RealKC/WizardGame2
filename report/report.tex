@@ -255,8 +255,8 @@
         jucătorul poate interacționa fizic într-un nivel.
         \item Clasele din pachetul \texttt{Items} reprezintă armele, vrăjile și echipamentul
         jucătorului.
-        \item Clasa \texttt{Level} implementează logica aferentă unui nivel: afișarea sa pe ecran
-        și crearea instanțelor de inamici noi.
+        \item Clasele din pachetul \texttt{Scenes} care implementează logica diferitelor scene ale
+        jocului (meniuri, nivelul în sine).
         \item Clasa \texttt{Game} care aduce toate clasele împreună și folosind șablonul
         \emph{main loop} realizează interactivitatea cu jucătorul.
     \end{itemize}
@@ -350,6 +350,21 @@
     JSON folosind următorul format:
 
     \inputminted[linenos, breaklines]{json}{example-level.json}
+
+    \subsection{Șabloane de proiectare}
+
+    Pentru a asigura o arhitectură extensibilă am folosit diferite șabloane de proiectare.
+
+    \subsubsection{Singleton}
+    \subsubsection{Builder}
+    \subsubsection{Factory}
+    \subsubsection{Observer}
+    \subsubsection{State}
+    \subsubsection{Adapter}
+
+    \subsection{Baza de date}
+
+    \section{Galerie}
 
     \addcontentsline{toc}{section}{Anexa 1}
     \section*{Anexa 1}
