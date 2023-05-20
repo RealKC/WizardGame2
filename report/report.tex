@@ -370,6 +370,26 @@
     \subsubsection{Adapter}
 
     \subsection{Baza de date}
+    \begin{figure}[H]
+        \includegraphics[width=\textwidth]{er-diagram}
+        \centering
+        \caption{Diagrama E-R a bazei de date}
+    \end{figure}
+
+    Jocul folosește o bază de date \texttt{sqlite3}, stocată în directorul în care rulează jocul
+    numită \texttt{saves.db}.
+
+    Baza de date conține trei tabele:
+    \begin{itemize}
+        \item \emph{characters} --- în această tabelă se stochează numele personajelor și dacă acel
+        personaj a fost deblocat sau nu
+        \item \emph{scores} --- în această tabelă se stochează scorurile jucătorului pentru un anumit
+        nivel și când au fost obținute
+        \item \emph{lastFinishedLevel} --- în această tabelă se stochează ultimul nivel completat
+        dintr-o campanie de nivele. Există o singură campanie de nivele în joc.
+    \end{itemize}
+
+    Datorită simplității datelor stocate în baza de date, nu există relații între tabele
 
     \section{Galerie}
 
