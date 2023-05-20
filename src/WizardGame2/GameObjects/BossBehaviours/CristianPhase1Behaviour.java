@@ -7,21 +7,23 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 
 @SuppressWarnings("unused")
-public class CristianPhase1Behaviour implements Boss.Behaviour {
-    Boss boss;
+public class CristianPhase1Behaviour extends CommonCristianBehaviour implements Boss.Behaviour {
+    public CristianPhase1Behaviour() {
+        super(false);
+    }
 
     @Override
     public void attachTo(Boss boss) {
-        this.boss = boss;
+        super.setBoss(boss);
     }
 
     @Override
     public void render(Graphics gfx, BufferedImage sprite, int centerX, int centerY) {
-        gfx.drawImage(sprite, boss.getX() - centerX, boss.getY(), null);
+        gfx.drawImage(sprite, getBoss().getX() - centerX, getBoss().getY(), null);
     }
 
     @Override
     public void update(Level level, long currentTime, int playerX, int playerY) {
-
+        super.update(level, currentTime, playerX, playerY);
     }
 }
