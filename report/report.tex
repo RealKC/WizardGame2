@@ -246,6 +246,40 @@
     În general am urmat simplicitatea în proiectarea interfeței grafice, pentru a nu distrage
     jucătorul de la ce este important.
 
+    \section{Algoritmi utilizați}
+
+    \subsection{Coliziuni}
+    \begin{figure}[H]
+        \includegraphics[width=\linewidth]{collision.png}
+        \caption{Două obiecte care se intersectează si proiecțile lor pe axe. Copyright Lazy Foo' Productions 2004-2023}
+        \centering
+    \end{figure}
+
+    Coliziunile sunt detectate folosind algoritmul \emph{AABB(Axis-Aligned Bounding Box) Collision},
+    care proiectează dreptunghiuri pe segmente și verifică dacă acestea se intersecteaza
+
+    \subsection{Mișcarea inamicilor}
+
+    Mișcarea inamicilor este în general implementat urmărind jucătorul exact și incercându-se
+    apropierea de acesta. Pentru inamicii de tip boss, aceasta este mai complicată și poate
+    implica: generarea unei poziții aleatoare apropiate de jucător către care boss-ul se va deplasa,
+    sau generea unei poziții aleatoare în jurul jucătorului la care boss-ul se va teleporta.
+
+    \subsection{Instanțierea nivelelor}
+
+    Când un nivel este instanțiat, acesta primește o listă de dale cărora le este asignată o cheie,
+    un șablon (de exemplu \texttt{MMM\textbackslash nMMM\textbackslash nMMM}), o listă de obstacole
+    și un dicționar care mapează poziții pe o dală la un anumit obstacol.
+
+    Instanțierea nivelului lipește dalele împreună urmând șablonul și apoi plasează obstacolele în
+    lume bazându-se pe dicționarul primit ca parametru într-un mod repetat pentru fiecare dală.
+
+    \subsection{Crearea inamicilor}
+
+    Pentru crearea inamicilor, un număr aleator de inamici este ales, apoi o poziție apropiată de
+    jucător este aleasă pentru fiecare inamic; Într-un final, toți inamicii generați sunt adăugați
+    în lume.
+
 
     \section{Architectural Design Document}
     \FloatBarrier
