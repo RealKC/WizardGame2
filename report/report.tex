@@ -72,9 +72,7 @@
     echipamentului \ref{sec:exts}.
 
     Completarea unui nivel necesită învingerea boss-ului acelui nivel. Boss-ul apare la
-    minutul 20:00\footnote{Dacă pe parcursul procesului de dezvoltare observ că 20 de
-    minute este prea mult pentru un nivel, timpul va fi scurtat, dar nu la mai puțin de
-    14 minute.} și trebuie învins pentru a progresa la nivelul următor.
+    minutul 14:00 și trebuie învins pentru a progresa la nivelul următor.
 
     Jucătorul își mișcă personajul folosing tastele W (în sus), S (în jos), A (la stânga) și D
     (la dreapta), iar abilitățile sale sunt activate automat, după un timer. Abilitățile care
@@ -84,11 +82,7 @@
     cu cât jucătorul se află mai mult într-un nivel.
 
     Sistemul de save/load al jocului este automat, și nu necesită o interacțiune explicită a
-    jucătorului, dar o idee interesantă ar fi introducerea conceptului de "save slot". Acesta ar
-    permite jucătorului să asocieze un save cu un "slot", permițându-i astfel să reia jocul de la
-    început fără să ia acțiuni externe jocului. Prezența sistemului "save slot" ar introduce un motiv
-    bun de a integra statistici despre un save în joc, dar nu m-am hotorât asupra prezenței acestui
-    sistem și acest lucru v-a fi hotorât de constrângerile de timp.
+    jucătorului.
 
     \section{Conținut}
     \label{sec:content}
@@ -174,12 +168,6 @@
     crește valoarea unei caracteristici.
 
     \label{sec:exts}
-    Câteva idei care ar adaugă mai multă adâncime acestor sisteme ar fi posibilitatea îmbunătățirii
-    vrăjilor, armelor și echipamentului prin creșterea nivelelor acestora folosind un sistem de
-    nivele pe iteme și existența unui sistem de îmbunătățiri permanente, înafara nivelelor.
-    Prezența acestor sisteme în jocul final nu este decisă încă și va fi hotărâtă de timpul
-    disponibil în momentul implementării jocului.
-
     Jucătorul va trebuie să lupte cu inamici simpli (zombie, scheleți, fantome), cu inamici de tip
     mini-boss, care sunt doar versiuni mai mari și mai puternici a celor simpli, și cu inamici de
     tip boss, care sunt următorii și care sunt importanți poveștii jocului:
@@ -372,6 +360,21 @@
     în foarte multe detalii nu are nevoie de cărți magice pentru a folosi vraja, și decide să îl
     oprească pe Adrian, dar \emph{Matei}, senseiul său este doborât de mionionii lui Adrian.
     Jocul se termină prin moartea lui Adrian și salvarea Munților Carpați.
+
+    \addcontentsline{toc}{section}{Anexa 2}
+    \section*{Anexa 2}
+    Pe parcursul dezvoltării \emph{WizardGame 2} am avut diferite idei care nu s-au materializat,
+    dar doresc să le menționez:
+    \begin{itemize}
+        \item utilizarea unui navmesh\footnote{\href{https://en.wikipedia.org/wiki/Navigation_mesh}{Navigation Mesh - Wikipedia}}
+        pentru navigația inamicilor în lume către jucător, dar am ajuns la concluzia că ar fi adus
+        prea multă complexitate în joc
+        \item prezența unui sistem de îmbunătățire a echipamentului jucătorului temporar (pe durata
+        unei runde de joc) sau permanent (folosind un sistem de \emph{currency} și un magazin extern
+        nivelelor)
+        \item un sistem de \emph{save slots} care să îi permită jucătorului să înceapă jocul de la
+        început fără să își piardă permanent progresul
+    \end{itemize}
 
     \addcontentsline{toc}{section}{Bibliografie}
     \section*{Bibliografie}
