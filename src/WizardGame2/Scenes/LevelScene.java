@@ -158,6 +158,8 @@ public class LevelScene implements Scene, Player.LevelUpObserver {
         while (i < bullets.size()) {
             int j = 0;
             Bullet bullet = bullets.get(i);
+            boolean incrementIdx = true;
+
             if (bullet.getTarget() == Bullet.Target.ENEMY){
                 while (j < enemies.size()) {
                     Enemy enemy = enemies.get(j);
@@ -181,6 +183,7 @@ public class LevelScene implements Scene, Player.LevelUpObserver {
 
                         if (bullet.shouldBeRemovedAfterThisHit()) {
                             bullets.remove(i);
+                            incrementIdx = false;
                             break;
                         }
                     }
@@ -191,7 +194,15 @@ public class LevelScene implements Scene, Player.LevelUpObserver {
                 }
             }
 
-            i++;
+            if (bullet.collidesWith(player) && bullet.getTarget() == Bullet.Target.PLAYER) {
+                bullets.remove(i);
+                incrementIdx = false;
+                player.takeDamage(bullet.getAttackDamage());
+            }
+
+            if (incrementIdx) {
+                i++;
+            }
         }
 
         return SceneUpdate.STAY;
