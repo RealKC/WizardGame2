@@ -9,12 +9,9 @@ import WizardGame2.Scenes.LevelScene;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
-import java.util.Random;
-
-import static WizardGame2.Utils.isClose;
 
 @SuppressWarnings("unused")
-public class CezarBehaviour implements Boss.Behaviour {
+public class CezarBehaviour extends CommonMovement implements Boss.Behaviour {
     private static class IceBullet extends Bullet {
         private static final Color COLOR = new Color(100, 146, 232, 255);
 
@@ -65,19 +62,20 @@ public class CezarBehaviour implements Boss.Behaviour {
     private static final int cooldownDecrement = 5;
     private static final int maxCooldown = 300;
 
-    Boss boss;
-    private int targetX = -1, targetY = -1;
     private static final int[] OFFSETS = new int[]{-150, -75, -35, 0, 35, 75, 150,};
-    private final Random random = new Random();
+
+    public CezarBehaviour() {
+        super(OFFSETS);
+    }
 
     @Override
     public void attachTo(Boss boss) {
-        this.boss = boss;
+        super.setBoss(boss);
     }
 
     @Override
     public void render(Graphics gfx, BufferedImage sprite, int centerX, int centerY) {
-        gfx.drawImage(sprite, boss.getX() - centerX, boss.getY() - centerY, null);
+        gfx.drawImage(sprite, getBoss().getX() - centerX, getBoss().getY() - centerY, null);
     }
 
     @Override
@@ -86,15 +84,7 @@ public class CezarBehaviour implements Boss.Behaviour {
             return;
         }
 
-        if ((targetX == -1 || isClose(targetX, boss.getX())) && playerX != 0) {
-            targetX = playerX + OFFSETS[Math.abs(random.nextInt() % OFFSETS.length)];
-        }
-
-        if ((targetY == -1 || isClose(targetY, boss.getY())) && playerY != 0) {
-            targetY = playerY + OFFSETS[Math.abs(random.nextInt() % OFFSETS.length)];
-        }
-
-        boss.moveToTarget(level, targetX, targetY);
+        super.performMovement(level, playerX, playerY);
 
         counter++;
         if (counter == switchStates) {
@@ -112,6 +102,7 @@ public class CezarBehaviour implements Boss.Behaviour {
         cooldown = maxCooldown;
 
         var levelScene = LevelScene.getInstance().getBullets();
+        var boss = super.getBoss();
 
         switch (state) {
             case FIRES_IN_CIRCLE -> {

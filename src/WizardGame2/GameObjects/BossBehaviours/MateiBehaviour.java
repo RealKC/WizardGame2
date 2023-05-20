@@ -3,16 +3,11 @@ package WizardGame2.GameObjects.BossBehaviours;
 import WizardGame2.GameObjects.Boss;
 import WizardGame2.Level;
 
-import static WizardGame2.Utils.isClose;
-
 import java.awt.*;
 import java.awt.image.BufferedImage;
-import java.util.Random;
 
 @SuppressWarnings("unused")
-public class MateiBehaviour implements Boss.Behaviour {
-    Boss boss;
-
+public class MateiBehaviour extends CommonMovement implements Boss.Behaviour {
     private enum State {
         RUNNING,
         FLYING;
@@ -35,19 +30,17 @@ public class MateiBehaviour implements Boss.Behaviour {
 
     private int timeUntilSwitch = STATE_LENGTH;
 
-    private int targetX = -1, targetY = -1;
-
-    private int spriteX, spriteY;
-
     private static final int[] OFFSETS = new int[]{-150, -75, 0, 75, 150};
-
-    private final Random random = new Random();
 
     private static final Color SHADOW_COLOR = new Color(46, 15, 52, 200);
 
+    public MateiBehaviour() {
+        super(OFFSETS);
+    }
+
     @Override
     public void attachTo(Boss boss) {
-        this.boss = boss;
+        super.setBoss(boss);
     }
 
     @Override
@@ -57,6 +50,8 @@ public class MateiBehaviour implements Boss.Behaviour {
 
     @Override
     public void render(Graphics gfx, BufferedImage sprite, int centerX, int centerY) {
+        var boss = super.getBoss();
+
         var oldColor = gfx.getColor();
         gfx.setColor(SHADOW_COLOR);
         gfx.fillOval(boss.getX() - centerX, boss.getY() - centerY + 34, 64, 32);
@@ -76,14 +71,6 @@ public class MateiBehaviour implements Boss.Behaviour {
             timeUntilSwitch = STATE_LENGTH;
         }
 
-        if ((targetX == -1 || isClose(targetX, boss.getX())) && playerX != 0) {
-            targetX = playerX + OFFSETS[Math.abs(random.nextInt() % OFFSETS.length)];
-        }
-
-        if ((targetY == -1 || isClose(targetY, boss.getY())) && playerY != 0) {
-            targetY = playerY + OFFSETS[Math.abs(random.nextInt() % OFFSETS.length)];
-        }
-
-        boss.moveToTarget(level, targetX, targetY);
+        super.performMovement(level, playerX, playerY);
     }
 }
