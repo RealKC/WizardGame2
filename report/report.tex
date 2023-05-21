@@ -368,6 +368,7 @@
     Notabil este faptul că item-urile nu sunt definite în cod, ci printr-un fișier JSON al cărui
     format este următorul format:
 
+    \label{sec:item-json}
     \begin{minted}[linenos, breaklines]{json}
         {
             "name": "Numele item-ului",
@@ -416,7 +417,20 @@
 
     Datorită complexității creării instanțelor \texttt{Enemy}, am folosit șablonul \emph{Builder}
     pentru a encapsula acest proces și pentru a expune o interfață ușor de folosit.
-    \subsubsection{Factory}
+
+    \subsubsection{Factory method}
+    \begin{figure}[H]
+        \includegraphics[width=\textwidth]{factory-diagram}
+        \centering
+        \caption{Clasele de bază pentru ierharhia itemurilor}
+    \end{figure}
+
+    Datorită numărului crescut de iteme din joc, și pentru a face procesul adăugării itemelor în joc
+    ușor, am folosit acest șablon de proiectare.
+
+    \texttt{ItemData} este o clasă care conține datele aferente unui item, și este definită în
+    fișiere JSON descrise anterior \ref{sec:item-json}.
+
     \subsubsection{Observer}
     \subsubsection{State}
 
