@@ -475,6 +475,18 @@
 
     \subsubsection{Adapter}
 
+    \begin{figure}[H]
+        \includegraphics[width=0.5\textwidth]{adapter-diagram}
+        \centering
+        \caption{Diagrama claselor \emph{Adapter} din joc}
+    \end{figure}
+
+    În joc, toate clasele care definesc comportamentul unui boss (fie cel de la 7 minute, fie cel
+    de la 14 minute) implementează interfața \texttt{Boss.Behaviour}. Datorită faptului că cele două
+    faze ale bosului final al jocului împărtășesc foarte mult comportament, am plasat părțile comune
+    într-o clasă separată, și cele două clase pentru comportamentul fazelor folosesc șablon
+    \emph{Adapter} și unesc clasa de bază cu intefarța.
+
     \subsection{Baza de date}
     \begin{figure}[H]
         \includegraphics[width=\textwidth]{er-diagram}
