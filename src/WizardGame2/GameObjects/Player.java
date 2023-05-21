@@ -535,8 +535,8 @@ public class Player extends LivingGameObject {
     }
 
     private void notifyPositionObservers() {
-        for (var positionObserver : positionObservers) {
-            positionObserver.notifyAboutNewPosition(getX(), getY(), movementAngle);
+        for (int i = 0; i < positionObservers.size(); i++) {
+            positionObservers.get(i).notifyAboutNewPosition(getX(), getY(), movementAngle);
         }
     }
 
