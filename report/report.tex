@@ -401,6 +401,27 @@
     \subsubsection{Factory}
     \subsubsection{Observer}
     \subsubsection{State}
+
+    \begin{figure}[H]
+        \includegraphics[width=\textwidth]{state-diagram}
+        \centering
+        \caption{Diagrama de stări a jocului}
+    \end{figure}
+
+    În cod, stările acestea sunt implementate în pachetul \texttt{Scenes}, cu o clasă pentru fiecare
+    stare (pentru starea \emph{State}, clasa se numește \texttt{\emph{State}Scene}). Toate aceste
+    clase implementează următoare interfață:
+
+    \inputminted[linenos, breaklines]{java}{Scene.java}
+
+    Pentru realizarea tranzițiilor între stări, este folosită o clasă \texttt{SceneManager} al cărei
+    rol este simplu:
+    \begin{itemize}
+        \item când o scenă cere progres către scena următoare, \texttt{SceneManager} cere stării
+        instanța stării următoare
+        \item apelează funcția \texttt{render} a scenei pentru fiecare frame
+    \end{itemize}
+
     \subsubsection{Adapter}
 
     \subsection{Baza de date}
