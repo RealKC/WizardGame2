@@ -432,6 +432,25 @@
     fișiere JSON descrise anterior \ref{sec:item-json}.
 
     \subsubsection{Observer}
+    \begin{figure}[H]
+        \includegraphics[width=\textwidth]{observers-diagram}
+        \centering
+        \caption{Interfețele \emph{Observer} pe care le expune clasa \texttt{Player}}
+    \end{figure}
+
+    Clasa \texttt{Player} este o clasă destul de interesantă din punctul de vedere al scenelor și
+    inamicilor.
+
+    Clasa \texttt{LevelScene} implementează interfața \texttt{LevelUpObserver} și se adaugă ca
+    observer când instațiază clasa \texttt{Player}. În momentul în care aceasta primește o notificare
+    că jucătorul a avansat în nivel, ea notifică \texttt{SceneManager} că va trebui sa treacă într-o
+    scenă nouă, și anume \texttt{LevelScene}, unde jucătorul poate alege iteme sau creșterea unei
+    caracteristice proprii.
+
+    Intefața \texttt{PositionObserver} este folosită de inamicii din joc pentru a ști unde se află
+    jucătorul și naviga spre el. Totodata, armele jucătorului implementează această interfață pentru
+    a ști unde trebuie plasate gloanțele lor.
+
     \subsubsection{State}
 
     \begin{figure}[H]
