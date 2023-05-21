@@ -9078,6 +9078,9 @@ existing classes or even new classes with specific responsibilities.</val>
 </presentation>
 </Association>
 <Property id="cb64ad61-f7c9-11ed-a9bc-f80dacb6da8f">
+<aggregation>
+<val>composite</val>
+</aggregation>
 <association>
 <ref refid="cb64636e-f7c9-11ed-a896-f80dacb6da8f"/>
 </association>
@@ -9089,9 +9092,6 @@ existing classes or even new classes with specific responsibilities.</val>
 </type>
 </Property>
 <Property id="cb64e5e0-f7c9-11ed-8d29-f80dacb6da8f">
-<aggregation>
-<val>composite</val>
-</aggregation>
 <association>
 <ref refid="cb64636e-f7c9-11ed-a896-f80dacb6da8f"/>
 </association>
