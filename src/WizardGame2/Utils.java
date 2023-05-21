@@ -14,7 +14,7 @@ public class Utils {
      * @return x if x is in [min, max], min if x is less than min, or max otherwise
      */
     public static <T extends Comparable<T>> T clamp(T min, T max, T x) {
-        if (x.compareTo(min) > 0) {
+        if (x.compareTo(min) < 0) {
             return min;
         }
 
