@@ -8,6 +8,12 @@ I wrote a report about it (in Romanian), you can see the $\LaTeX$ source code in
 
 You can see the repository as it was on the day I submitted it for grading at commit [TO BE FILLED IN].
 
+## Gameplay
+
+The game is inspired by [Vampire Survivors](https://store.steampowered.com/app/1794680/Vampire_Survivors/)
+and [Holocure](https://kay-yu.itch.io/holocure), so playing it should feel similar to playing
+those games.
+
 ## Building
 
 I used IDEA as a "build system", so that is the easiest way to build the game, however you will
