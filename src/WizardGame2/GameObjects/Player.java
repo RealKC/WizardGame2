@@ -131,11 +131,11 @@ public class Player extends LivingGameObject {
                 return nextXPStep;
             }
 
-            return level;
+            return experienceSteps[level];
         }
 
         void addExperience(int value) {
-            var experienceNeededToLevelUp = experienceSteps[currentExperienceStep()];
+            var experienceNeededToLevelUp = currentExperienceStep();
 
             currentExperience += value;
 
