@@ -125,16 +125,18 @@ public class Assets {
         try {
             URI uri = Objects.requireNonNull(Assets.class.getResource(folder)).toURI();
             Path path;
+            FileSystem jarFS = null;
 
             try {
                 path = Paths.get(uri);
             } catch (FileSystemNotFoundException e) {
                 // We are running inside a jar, not from IDEA
                 var env = new HashMap<String, String>();
-                try (var jarFS = FileSystems.newFileSystem(uri, env)) {
+                try {
+                    jarFS = FileSystems.newFileSystem(uri, env);
                     path = jarFS.getPath(folder);
-                } catch (IOException ioException) {
-                    e.printStackTrace();
+                } catch (IOException ioe) {
+                    Utils.logException(Assets.class, ioe, "got an IO exception trying to get the path from inside the jar filesystem");
                     return;
                 }
             }
@@ -144,18 +146,22 @@ public class Assets {
                     try {
                         consumer.accept(filePath, Files.newBufferedReader(filePath));
                     } catch (IOException e) {
-                        System.out.printf("[ASSETS] Encountered an exception while processing '%s': %s\n", filePath, e.getMessage());
-                        e.printStackTrace();
+                        Utils.logException(Assets.class, e, "encountered an IO Exception while processing '%s'", filePath);
                     }
                 });
             } catch (IOException e) {
-                System.out.printf("[ASSETS] Failed to list files in '%s' (not a path?): %s\n", path, e.getMessage());
-                e.printStackTrace();
+                Utils.logException(Assets.class, e, "failed to list files in '%s' (not a path?)", path);
             }
 
+            if (jarFS != null) {
+                try {
+                    jarFS.close();
+                } catch (IOException e) {
+                    Utils.logException(Assets.class, e, "failed to close jar filesystem");
+                }
+            }
         } catch (URISyntaxException e) {
-            System.out.printf("[ASSETS] Got an invalid URI: %s\n", e.getMessage());
-            e.printStackTrace();
+            Utils.logException(Assets.class, e, "got an invalid URI from folder '%s'", folder);
         }
     }
 
