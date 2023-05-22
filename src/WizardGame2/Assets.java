@@ -96,7 +96,7 @@ public class Assets {
                 itemFactory.setItemData(itemData);
                 itemFactories.add(itemFactory);
             } catch (Exception e) {
-                System.out.printf("[ASSETS] Caught exception while processing '%s', %s: %s\n", path, e.getClass().getName(), e.getMessage());
+                Utils.logException(getClass(), e, "(active items): failed to process: '%s'", path);
             }
         });
 
@@ -110,7 +110,7 @@ public class Assets {
                 itemFactory.setItemData(itemData);
                 passiveItemFactories.add(itemFactory);
             } catch (Exception e) {
-                System.out.printf("[ASSETS] Caught exception while processing '%s', %s: %s\n", path, e.getClass().getName(), e.getMessage());
+                Utils.logException(getClass(), e, "(passive items): failed to process: '%s'", path);
             }
         });
     }
