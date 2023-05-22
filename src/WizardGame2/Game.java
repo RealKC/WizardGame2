@@ -134,7 +134,7 @@ public class Game implements Runnable {
                 wnd.getCanvas().createBufferStrategy(3);
                 return;
             } catch (Exception e) {
-                e.printStackTrace();
+                Utils.logException(getClass(), e, "got an exception trying to create the buffer strategy");
             }
         }
         assert bs != null;

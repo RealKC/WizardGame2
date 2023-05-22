@@ -1,5 +1,7 @@
 package WizardGame2.Graphics;
 
+import WizardGame2.Utils;
+
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
@@ -24,8 +26,7 @@ public class ImageLoader {
             /// proiectului sub forma de fisiere sursa.
             return ImageIO.read(Objects.requireNonNull(ImageLoader.class.getResource(path)));
         } catch (IOException e) {
-            /// Afiseaza informatiile necesare depanarii.
-            e.printStackTrace();
+            Utils.logException(ImageLoader.class, e, "got an IO Exception trying to load '%s'", path);
         }
 
         return null;
