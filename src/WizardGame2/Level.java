@@ -31,6 +31,8 @@ public class Level implements Player.PositionObserver {
 
     private final HashSet<Integer> spawnedMinibosses = new HashSet<>();
 
+    private int minimumEnemyCount = 2;
+
     public static Level fromData(LevelData levelData) {
         var obstacles = new ArrayList<Obstacle>();
 
@@ -99,7 +101,8 @@ public class Level implements Player.PositionObserver {
 
         ArrayList<Enemy> enemies = new ArrayList<>();
 
-        int count = 2 + random.nextInt(3);
+        int count = minimumEnemyCount + random.nextInt(3);
+        minimumEnemyCount += (seconds % 15 == 0) ? 1 : 0;
 
         for (int i = 0; i < count; ++i) {
             try {
