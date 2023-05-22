@@ -25,10 +25,14 @@ public class LightningMagic extends Item {
             return;
         }
 
-        for (int i = 0; i < 4; ++i) {
-            var bullet = new Bullet(COLOR, playerX, playerY, 4, 24, Bullet.MovementType.RADIAL, 7, angle + i * Math.toRadians(45.0), 10, Bullet.Target.ENEMY);
+        final int lightningCount = 16;
+        final double off = Math.toRadians(360.0 / lightningCount);
+        var angleOffset = angle;
+        for (int i = 0; i < lightningCount; ++i) {
+            var bullet = new Bullet(COLOR, playerX, playerY, 4, 24, Bullet.MovementType.RADIAL, 7, angleOffset, 10, Bullet.Target.ENEMY);
             bullet.setPierceLimit(10);
             LevelScene.getInstance().getBullets().add(bullet);
+            angleOffset += off;
         }
 
         angle += Math.toRadians(13.0);
