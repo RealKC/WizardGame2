@@ -2,6 +2,7 @@ package WizardGame2.GameObjects;
 
 import WizardGame2.Graphics.SpriteSheet;
 import WizardGame2.Level;
+import WizardGame2.OSTManager;
 import WizardGame2.Utils;
 
 import java.awt.image.BufferedImage;
@@ -67,6 +68,7 @@ public class Enemy extends LivingGameObject implements Player.PositionObserver {
             }
 
             if (isMiniBoss) {
+                OSTManager.getInstance().playAlertSound();
                 return new Enemy(sprite, x, y, Boss.SIZE, Boss.SIZE, data.health * 10, data.score * 10, data.damage * 5, data.isFlying);
             }
 

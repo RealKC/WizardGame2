@@ -7,6 +7,9 @@ import java.util.Objects;
 public class OSTManager {
     private AudioInputStream battleMusic;
     private AudioInputStream menuMusic;
+    private AudioInputStream alertSound;
+
+    boolean isPlayingBossMusic = false;
 
     private Clip clip = null;
 
@@ -24,6 +27,7 @@ public class OSTManager {
         try {
             battleMusic =  AudioSystem.getAudioInputStream(Objects.requireNonNull(OSTManager.class.getResource("/ost/battle-music.wav")));
             menuMusic = AudioSystem.getAudioInputStream(Objects.requireNonNull(OSTManager.class.getResource("/ost/menu-music.wav")));
+            alertSound = AudioSystem.getAudioInputStream(Objects.requireNonNull(OSTManager.class.getResource("/ost/alert.wav")));
             clip = AudioSystem.getClip();
         } catch (UnsupportedAudioFileException e) {
             Utils.logException(getClass(), e, "failed loading audio");
@@ -63,10 +67,33 @@ public class OSTManager {
         try {
             clip.open(battleMusic);
             clip.loop(Clip.LOOP_CONTINUOUSLY);
+            isPlayingBossMusic = true;
         } catch (LineUnavailableException e) {
             Utils.logException(getClass(), e, "failed to get clip for battle music");
         } catch (IOException e) {
             Utils.logException(getClass(), e, "got an IO error trying to play battle music");
+        }
+    }
+
+    public void playAlertSound() {
+        if (alertSound == null || clip == null) {
+            return;
+        }
+
+        if (isPlayingBossMusic) {
+            return;
+        }
+
+        clip.stop();
+        clip.close();
+
+        try {
+            clip.open(alertSound);
+            clip.loop(0);
+        } catch (LineUnavailableException e) {
+            Utils.logException(getClass(), e, "failed to get clip for alert sound");
+        } catch (IOException e) {
+            Utils.logException(getClass(), e, "got an IO error trying to play alert sound");
         }
     }
 
@@ -76,5 +103,6 @@ public class OSTManager {
         }
 
         clip.stop();
+        isPlayingBossMusic = false;
     }
 }
