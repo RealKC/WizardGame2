@@ -1,7 +1,11 @@
 package WizardGame2.GameWindow;
 
+import WizardGame2.Game;
+
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 
 /*! \class GameWindow
     \brief Implementeaza notiunea de fereastra a jocului.
@@ -92,6 +96,14 @@ public class GameWindow {
         /// Urmatorul apel de functie are ca scop eventuala redimensionare a ferestrei
         /// ca tot ce contine sa poate fi afisat complet
         windowFrame.pack();
+
+        windowFrame.addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowClosed(WindowEvent e) {
+                super.windowClosed(e);
+                Game.getInstance().exit();
+            }
+        });
     }
 
     /*! \fn public int getWindowWidth()
