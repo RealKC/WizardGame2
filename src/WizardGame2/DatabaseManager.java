@@ -224,7 +224,7 @@ WHERE name = ?
 
     public void commit() {
         try {
-            conn.commit();
+            // We don't call commit because the connection is in autocommit mode
             conn.close();
         } catch (SQLException e) {
             Utils.logException(getClass(), e, "failed to properly commit/close database");
