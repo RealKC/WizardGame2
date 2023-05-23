@@ -6,7 +6,7 @@ aplicațiilor orientate obiect") course.
 I wrote a report about it (in Romanian), you can see the $\LaTeX$ source code in the
 [report](./report/) folder.
 
-You can see the repository as it was on the day I submitted it for grading at commit [TO BE FILLED IN].
+You can see the repository as it was on the day I submitted it for grading at commit [6886c09c8fc76ca57143d729c9e71e43f4998e6a](https://github.com/RealKC/WizardGame2/commit/6886c09c8fc76ca57143d729c9e71e43f4998e6a).
 
 ## Gameplay
 
