@@ -5,13 +5,15 @@ import java.io.IOException;
 import java.util.Objects;
 
 public class OSTManager {
-    private AudioInputStream battleMusic;
-    private AudioInputStream menuMusic;
-    private AudioInputStream alertSound;
+    private AudioInputStream battleMusicStream;
+    private AudioInputStream menuMusicStream;
+    private AudioInputStream alertSoundStream;
 
     boolean isPlayingBossMusic = false;
 
-    private Clip clip = null;
+    private Clip battleMusic = null;
+    private Clip menuMusic = null;
+    private Clip alertSound = null;
 
     private static OSTManager instance;
 
@@ -25,10 +27,17 @@ public class OSTManager {
 
     private OSTManager() {
         try {
-            battleMusic =  AudioSystem.getAudioInputStream(Objects.requireNonNull(OSTManager.class.getResource("/ost/battle-music.wav"), "battle music is missing from resouces"));
-            menuMusic = AudioSystem.getAudioInputStream(Objects.requireNonNull(OSTManager.class.getResource("/ost/menu-music.wav"), "menu music is missing from resources"));
-            alertSound = AudioSystem.getAudioInputStream(Objects.requireNonNull(OSTManager.class.getResource("/ost/alert.wav"), "the alert sound is missing from resources"));
-            clip = AudioSystem.getClip();
+            battleMusicStream =  AudioSystem.getAudioInputStream(Objects.requireNonNull(OSTManager.class.getResource("/ost/battle-music.wav"), "battle music is missing from resouces"));
+            battleMusic = AudioSystem.getClip();
+            battleMusic.open(battleMusicStream);
+
+            menuMusicStream = AudioSystem.getAudioInputStream(Objects.requireNonNull(OSTManager.class.getResource("/ost/menu-music.wav"), "menu music is missing from resources"));
+            menuMusic = AudioSystem.getClip();
+            menuMusic.open(menuMusicStream);
+
+            alertSoundStream = AudioSystem.getAudioInputStream(Objects.requireNonNull(OSTManager.class.getResource("/ost/alert.wav"), "the alert sound is missing from resources"));
+            alertSound = AudioSystem.getClip();
+            alertSound.open(alertSoundStream);
         } catch (UnsupportedAudioFileException e) {
             Utils.logException(getClass(), e, "failed loading audio");
         } catch (IOException e) {
@@ -41,70 +50,55 @@ public class OSTManager {
     }
 
     public void playMenuMusic() {
-        if (menuMusic == null || clip == null) {
+        if (menuMusic == null) {
             return;
         }
 
-        clip.stop();
-        clip.close();
-
-        try {
-            clip.open(menuMusic);
-            clip.loop(Clip.LOOP_CONTINUOUSLY);
-        } catch (LineUnavailableException e) {
-            Utils.logException(getClass(), e, "failed to get clip for menu music");
-        } catch (IOException e) {
-            Utils.logException(getClass(), e, "got an IO error trying to play menu music");
+        if (battleMusic != null && battleMusic.isRunning()) {
+            battleMusic.stop();
         }
+
+        menuMusic.loop(Clip.LOOP_CONTINUOUSLY);
     }
 
     public void playBossMusic() {
-        if (battleMusic == null || clip == null) {
+        if (battleMusic == null) {
             return;
         }
 
-        clip.stop();
-        clip.close();
-
-        try {
-            clip.open(battleMusic);
-            clip.loop(Clip.LOOP_CONTINUOUSLY);
-            isPlayingBossMusic = true;
-        } catch (LineUnavailableException e) {
-            Utils.logException(getClass(), e, "failed to get clip for battle music");
-        } catch (IOException e) {
-            Utils.logException(getClass(), e, "got an IO error trying to play battle music");
+        if (menuMusic != null && menuMusic.isRunning()) {
+            menuMusic.stop();
         }
+
+        battleMusic.loop(Clip.LOOP_CONTINUOUSLY);
     }
 
     public void playAlertSound() {
-        if (alertSound == null || clip == null) {
+        if (alertSound == null) {
             return;
         }
 
-        if (isPlayingBossMusic) {
+        if (battleMusic != null && battleMusic.isRunning()) {
             return;
         }
 
-        clip.stop();
-        clip.close();
-
-        try {
-            clip.open(alertSound);
-            clip.loop(0);
-        } catch (LineUnavailableException e) {
-            Utils.logException(getClass(), e, "failed to get clip for alert sound");
-        } catch (IOException e) {
-            Utils.logException(getClass(), e, "got an IO error trying to play alert sound");
-        }
+        alertSound.start();
     }
 
     public void stopMusic() {
-        if (clip == null) {
-            return;
+        if (menuMusic != null) {
+            menuMusic.stop();
+            menuMusic.setFramePosition(0);
         }
 
-        clip.stop();
-        isPlayingBossMusic = false;
+        if (battleMusic != null) {
+            battleMusic.stop();
+            battleMusic.setFramePosition(0);
+        }
+
+        if (alertSound != null) {
+            alertSound.stop();
+            alertSound.setFramePosition(0);
+        }
     }
 }
