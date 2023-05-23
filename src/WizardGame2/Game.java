@@ -79,6 +79,7 @@ public class Game implements Runnable {
      * Exits the game, performing any clean-up needed
      */
     public void exit() {
+        DatabaseManager.getInstance().commit();
         System.exit(0);
     }
 

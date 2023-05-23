@@ -221,4 +221,13 @@ WHERE name = ?
 
         return 1;
     }
+
+    public void commit() {
+        try {
+            conn.commit();
+            conn.close();
+        } catch (SQLException e) {
+            Utils.logException(getClass(), e, "failed to properly commit/close database");
+        }
+    }
 }
