@@ -220,7 +220,7 @@ public class LevelData {
     public int minibossIndexForTime(int seconds) {
         int prev = 0;
 
-        for (var key : minibosses.keySet()) {
+        for (var key : minibosses.keySet().stream().sorted().toList()) {
             if (seconds < key) {
                 return prev;
             }
