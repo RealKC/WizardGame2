@@ -21,6 +21,8 @@ public class ImageLoader {
             return ImageIO.read(Objects.requireNonNull(ImageLoader.class.getResource(path)));
         } catch (IOException e) {
             Utils.logException(ImageLoader.class, e, "got an IO Exception trying to load '%s'", path);
+        } catch (NullPointerException e) {
+            Utils.logException(ImageLoader.class, e, "image '%s' was not in resources", path);
         }
 
         return null;

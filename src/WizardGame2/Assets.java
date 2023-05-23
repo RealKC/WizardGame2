@@ -123,7 +123,7 @@ public class Assets {
     private static void iterateOverResourceFolder(String folder, BiConsumer<Path, Reader> consumer) {
         // Based on this StackOverflow answer: https://stackoverflow.com/a/67839914
         try {
-            URI uri = Objects.requireNonNull(Assets.class.getResource(folder)).toURI();
+            URI uri = Objects.requireNonNull(Assets.class.getResource(folder), "folder was not in the resource folder").toURI();
             Path path;
             FileSystem jarFS = null;
 
@@ -162,6 +162,8 @@ public class Assets {
             }
         } catch (URISyntaxException e) {
             Utils.logException(Assets.class, e, "got an invalid URI from folder '%s'", folder);
+        } catch (NullPointerException e) {
+            Utils.logException(Assets.class, e, "'%s'", folder);
         }
     }
 

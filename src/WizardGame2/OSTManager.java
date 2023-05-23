@@ -25,9 +25,9 @@ public class OSTManager {
 
     private OSTManager() {
         try {
-            battleMusic =  AudioSystem.getAudioInputStream(Objects.requireNonNull(OSTManager.class.getResource("/ost/battle-music.wav")));
-            menuMusic = AudioSystem.getAudioInputStream(Objects.requireNonNull(OSTManager.class.getResource("/ost/menu-music.wav")));
-            alertSound = AudioSystem.getAudioInputStream(Objects.requireNonNull(OSTManager.class.getResource("/ost/alert.wav")));
+            battleMusic =  AudioSystem.getAudioInputStream(Objects.requireNonNull(OSTManager.class.getResource("/ost/battle-music.wav"), "battle music is missing from resouces"));
+            menuMusic = AudioSystem.getAudioInputStream(Objects.requireNonNull(OSTManager.class.getResource("/ost/menu-music.wav"), "menu music is missing from resources"));
+            alertSound = AudioSystem.getAudioInputStream(Objects.requireNonNull(OSTManager.class.getResource("/ost/alert.wav"), "the alert sound is missing from resources"));
             clip = AudioSystem.getClip();
         } catch (UnsupportedAudioFileException e) {
             Utils.logException(getClass(), e, "failed loading audio");
@@ -35,6 +35,8 @@ public class OSTManager {
             Utils.logException(getClass(), e, "got an IO error");
         } catch (LineUnavailableException e) {
             Utils.logException(getClass(), e, "line unavailable (???)");
+        } catch (NullPointerException e) {
+            Utils.logException(getClass(), e, "a resource was unavailable");
         }
     }
 
