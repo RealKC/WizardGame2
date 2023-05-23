@@ -225,7 +225,7 @@
   "bosses": [
     {
       "name": "Cristian, the Necromancer of Neamț",
-      "health": 5000,
+      "health": 7000,
       "x": 2,
       "y": 2,
       "score": 5000,
@@ -235,7 +235,7 @@
     },
     {
       "name": "Cristian, the Necromancer of Neamț",
-      "health": 7500,
+      "health": 8000,
       "x": 2,
       "y": 2,
       "score": 6200,

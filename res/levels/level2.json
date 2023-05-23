@@ -219,7 +219,7 @@
   "bosses": [
     {
       "name": "Cezar, the Tătărașiborn Guardian",
-      "health": 1500,
+      "health": 4500,
       "x": 0,
       "y": 2,
       "score": 5000,
@@ -229,7 +229,7 @@
     },
     {
       "name": "Denis, the Cosmicbane",
-      "health": 1500,
+      "health": 5500,
       "x": 1,
       "y": 2,
       "score": 6200,

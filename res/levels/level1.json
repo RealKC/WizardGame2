@@ -87,7 +87,7 @@
   "bosses": [
     {
       "name": "Matei, The Profaned",
-      "health": 750,
+      "health": 2500,
       "x": 1,
       "y": 1,
       "score": 5000,
@@ -97,7 +97,7 @@
     },
     {
       "name": "Adrian, The Crimson Undead",
-      "health": 1000,
+      "health": 3500,
       "x": 2,
       "y": 1,
       "score": 6200,
