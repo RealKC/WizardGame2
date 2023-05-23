@@ -225,8 +225,10 @@ public class LevelScene implements Scene, Player.LevelUpObserver {
 
         player.render(gfx, player.getCamera().getX(), player.getCamera().getY());
 
-        for (var enemy : enemies) {
-            enemy.render(gfx, player.getCamera().getX(), player.getCamera().getY());
+        // necessary because we concurrently add elements to the enemies list in a timer thread
+        //noinspection ForLoopReplaceableByForEach
+        for (int i = 0; i < enemies.size(); i++) {
+            enemies.get(i).render(gfx, player.getCamera().getX(), player.getCamera().getY());
         }
 
         gfx.setFont(new Font(Font.MONOSPACED, Font.BOLD, 25));
